@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="995" height="60">
+	<fx:Script>
+		<![CDATA[
+			import flashx.textLayout.factory.TruncationOptions;
+			protected function btnHideLeft_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				SearchLeft.visible = !SearchLeft.visible;
+				btnHideLeft.visible = false;
+				btnShowLeft.visible = true;
+				HR.x = HR.x - 190;
+			}
+			protected function btnShowLeft_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				SearchLeft.visible = !SearchLeft.visible;
+				btnHideLeft.visible = true;
+				btnShowLeft.visible = false;
+				HR.x = HR.x + 190;
+			}
+			protected function btnHideRight_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				SearchRight.visible = !SearchRight.visible;
+				btnHideRight.visible = false;
+				btnShowRight.visible = true;
+				HR_right.x = HR_right.x + 190;
+			}
+			protected function btnShowRight_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				SearchRight.visible = !SearchRight.visible;
+				btnHideRight.visible = true;
+				btnShowRight.visible = false;
+				HR_right.x = HR_right.x - 190;
+			}
+			
+			protected function btnCoAuthorPath_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				SearchRight.visible = true;
+				HR_right.visible = true;
+				btnHideRight.visible = true;
+				btnShowRight.visible = false;
+				SearchRight.x = width - 190;
+				HR_right.x = SearchRight.x - 20;
+				btnHideRight.x = HR_right.x - 10;
+				btnShowRight.x = HR_right.x + 180;
+			}
+			
+			protected function btnCoAuthorGraph_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				SearchRight.visible = false;
+				HR_right.visible = false;
+				btnHideRight.visible = false;
+				btnShowRight.visible = false;
+			}
+			
+			protected function btnCitationGraph_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				SearchRight.visible = false;
+				HR_right.visible = false;
+				btnHideRight.visible = false;
+				btnShowRight.visible = false;
+			}
+			
+			protected function btnRecommend_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				SearchRight.visible = false;
+				HR_right.visible = false;
+				btnHideRight.visible = false;
+				btnShowRight.visible = false;
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:BorderContainer id="SearchLeft" x="10" y="10" width="184" height="100%" borderVisible="false">
+		<s:BorderContainer x="11" y="10" width="158" height="32" borderColor="#727BFC"
+						   color="#183CF0" symbolColor="#3E5BF0">
+			<s:TextInput id="txtAuthorNameLeft" x="3" y="5" width="123" borderVisible="false"
+						 color="#000000"/>
+			<s:Button id="btnSearchLeft" x="128" y="2" width="25" height="25" buttonMode="true"
+					  enabled="true" icon="@Embed('assets/gui/button_Search.png')" useHandCursor="true"/>
+		</s:BorderContainer>
+		<s:Label x="10" y="50" text="Result"/>
+	</s:BorderContainer>
+	<mx:VRule id="HR" x="207" y="6" width="2" height="100%" chromeColor="#00064B"/>
+	<mx:Button id="btnHideLeft" x="196" y="300" width="25" height="25"
+			   click="btnHideLeft_clickHandler(event)" cornerRadius="12"
+			   icon="@Embed('assets/gui/button_hide.png')" paddingLeft="0" paddingRight="0"
+			   overIcon="@Embed('assets/gui/btn_hide_hover.png')"
+			   buttonMode="true" useHandCursor="true"
+			   visible="true"/>
+	<mx:Button id="btnShowLeft" x="6" y="300" width="25" height="25"
+			   click="btnShowLeft_clickHandler(event)" cornerRadius="12"
+			   icon="@Embed('assets/gui/btn_show.png')" paddingLeft="0" paddingRight="0"
+			   overIcon="@Embed('assets/gui/btn_show_hover.png')"
+			   buttonMode="true" useHandCursor="true"
+			   visible="false"/>
+	
+	<s:BorderContainer id="SearchRight" x="760" y="10" width="184" height="100%" borderVisible="false" visible="false">
+		<s:BorderContainer x="11" y="10" width="158" height="32" borderColor="#727BFC"
+						   color="#183CF0" symbolColor="#3E5BF0">
+			<s:TextInput id="txtAuthorNameRight" x="3" y="5" width="123" borderVisible="false"
+						 color="#000000"/>
+			<s:Button id="btnSearchRight" x="128" y="2" width="25" height="25" icon="@Embed('assets/gui/button_Search.png')"
+					  buttonMode="true" useHandCursor="true"/>
+		</s:BorderContainer>
+		<s:Label x="10" y="50" text="Result"/>
+	</s:BorderContainer>
+	<mx:VRule id="HR_right" x="740" y="6" width="2" height="100%" chromeColor="#00064B" visible="false"/>
+	<mx:Button id="btnHideRight" x="730" y="300" width="25" height="25"
+			   click="btnHideRight_clickHandler(event)" cornerRadius="12"
+			   icon="@Embed('assets/gui/btn_show.png')" paddingLeft="0" paddingRight="0"
+			   overIcon="@Embed('assets/gui/btn_show_hover.png')"
+			   buttonMode="true" useHandCursor="true"
+			   visible="false"/>
+	<mx:Button id="btnShowRight" x="920" y="300" width="25" height="25"
+			   click="btnShowRight_clickHandler(event)" cornerRadius="12"
+			   icon="@Embed('assets/gui/button_hide.png')" paddingLeft="0" paddingRight="0"
+			   overIcon="@Embed('assets/gui/btn_hide_hover.png')"
+			   buttonMode="true" useHandCursor="true"
+			   visible="false"/>
+	<mx:Button id="btnCoAuthorGraph" x="217" y="19" label="Co-author Graph"
+			   click="btnCoAuthorGraph_clickHandler(event)" />
+	<mx:Button id="btnCoAuthorPath" x="331" y="19" label="Co-author Path"
+			   click="btnCoAuthorPath_clickHandler(event)" enabled="true"/>
+	<mx:Button id="btnCitationGraph" x="436" y="19" label="Citation Graph"
+			   click="btnCitationGraph_clickHandler(event)"/>
+	<s:Button id="btnRecommend" x="537" y="19" label="Recommend"
+			  click="btnRecommend_clickHandler(event)"/>
+</s:Group>
