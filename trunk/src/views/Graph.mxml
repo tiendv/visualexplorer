@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="995" height="60">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
 	<fx:Script>
 		<![CDATA[
 			import flashx.textLayout.factory.TruncationOptions;
+			
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			
+			import spark.events.IndexChangeEvent;
+			
+			import valueobjects.AuthorOrgObject;
 			protected function btnHideLeft_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
@@ -27,7 +34,7 @@
 				SearchRight.visible = !SearchRight.visible;
 				btnHideRight.visible = false;
 				btnShowRight.visible = true;
-				HR_right.x = HR_right.x + 190;
+				HR_right.x = HR_right.x + 180;
 			}
 			protected function btnShowRight_clickHandler(event:MouseEvent):void
 			{
@@ -35,7 +42,7 @@
 				SearchRight.visible = !SearchRight.visible;
 				btnHideRight.visible = true;
 				btnShowRight.visible = false;
-				HR_right.x = HR_right.x - 190;
+				HR_right.x = HR_right.x - 180;
 			}
 			
 			protected function btnCoAuthorPath_clickHandler(event:MouseEvent):void
@@ -46,9 +53,9 @@
 				btnHideRight.visible = true;
 				btnShowRight.visible = false;
 				SearchRight.x = width - 190;
-				HR_right.x = SearchRight.x - 20;
-				btnHideRight.x = HR_right.x - 10;
-				btnShowRight.x = HR_right.x + 180;
+				HR_right.x = width - 200;
+				btnHideRight.x = width - 210;
+				btnShowRight.x = width - 30;
 			}
 			
 			protected function btnCoAuthorGraph_clickHandler(event:MouseEvent):void
@@ -78,6 +85,48 @@
 				btnShowRight.visible = false;
 			}
 			
+			protected function lst_changeHandler(e:IndexChangeEvent):void {
+				var data:Object = e.currentTarget.selectedItem;
+				Alert.show(data.authorID);
+			}
+			
+			var itemsLeft:ArrayList = new ArrayList();
+			var itemsRight:ArrayList = new ArrayList();
+			
+			protected function init():void {
+				if(itemsLeft.length > 0)
+					itemsLeft.removeAll();
+				if(itemsRight.length > 0)
+					itemsRight.removeAll();
+				
+				var item:AuthorOrgObject = new AuthorOrgObject();
+				for(var i:int; i<25; i++){
+					item.authorID =  33344;
+					item.authorName = "anna abc";
+					item.imgUrl = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQV32vCMO5SRoxY9DYNvKDEawbE7AvzghT3Gt6BnLSSeGvcTAy9ew";
+					item.orgName = "IBM";
+					itemsLeft.addItem(item);
+					itemsRight.addItem(item);
+					item = new AuthorOrgObject();
+					item.authorID = 444333;
+					item.authorName = "perter paker";
+					item.imgUrl = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQV32vCMO5SRoxY9DYNvKDEawbE7AvzghT3Gt6BnLSSeGvcTAy9ew";
+					item.orgName = "IEEE";
+					itemsLeft.addItem(item);
+					itemsRight.addItem(item);
+					item = new AuthorOrgObject();
+					item.authorID = 55555;
+					item.authorName = "uit";
+					item.imgUrl = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQV32vCMO5SRoxY9DYNvKDEawbE7AvzghT3Gt6BnLSSeGvcTAy9ew";
+					item.orgName = "microsoft";
+					itemsLeft.addItem(item);
+					itemsRight.addItem(item);
+				}
+				lstLeft.dataProvider = itemsLeft;
+				lstRight.dataProvider = itemsRight;
+			}
+			
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -92,15 +141,26 @@
 					  enabled="true" icon="@Embed('assets/gui/button_Search.png')" useHandCursor="true"/>
 		</s:BorderContainer>
 		<s:Label x="10" y="50" text="Result"/>
+		<s:List id="lstLeft" x="10" y="70" width="170" height="{height-100}" borderVisible="false"
+				changing="lst_changeHandler(event)" initialize="init();"
+				itemRenderer="customItemRender.CustomColumnItemRen" useHandCursor="true">
+			
+			<s:layout>
+				<s:VerticalLayout gap="0"
+								  horizontalAlign="justify"
+								  requestedRowCount="5" />
+			</s:layout>
+			
+		</s:List>
 	</s:BorderContainer>
 	<mx:VRule id="HR" x="207" y="6" width="2" height="100%" chromeColor="#00064B"/>
-	<mx:Button id="btnHideLeft" x="196" y="300" width="25" height="25"
+	<mx:Button id="btnHideLeft" x="196" y="{height/2}" width="25" height="25"
 			   click="btnHideLeft_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/button_hide.png')" paddingLeft="0" paddingRight="0"
 			   overIcon="@Embed('assets/gui/btn_hide_hover.png')"
 			   buttonMode="true" useHandCursor="true"
 			   visible="true"/>
-	<mx:Button id="btnShowLeft" x="6" y="300" width="25" height="25"
+	<mx:Button id="btnShowLeft" x="6" y="{height/2}" width="25" height="25"
 			   click="btnShowLeft_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/btn_show.png')" paddingLeft="0" paddingRight="0"
 			   overIcon="@Embed('assets/gui/btn_show_hover.png')"
@@ -116,15 +176,26 @@
 					  buttonMode="true" useHandCursor="true"/>
 		</s:BorderContainer>
 		<s:Label x="10" y="50" text="Result"/>
+		<s:List id="lstRight" x="10" y="70" width="170" height="{height-100}" borderVisible="false"
+				changing="lst_changeHandler(event)" initialize="init();"
+				itemRenderer="customItemRender.CustomColumnItemRen" useHandCursor="true">
+			
+			<s:layout>
+				<s:VerticalLayout gap="0"
+								  horizontalAlign="justify"
+								  requestedRowCount="5" />
+			</s:layout>
+			
+		</s:List>
 	</s:BorderContainer>
 	<mx:VRule id="HR_right" x="740" y="6" width="2" height="100%" chromeColor="#00064B" visible="false"/>
-	<mx:Button id="btnHideRight" x="730" y="300" width="25" height="25"
+	<mx:Button id="btnHideRight" x="730" y="{height/2}" width="25" height="25"
 			   click="btnHideRight_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/btn_show.png')" paddingLeft="0" paddingRight="0"
 			   overIcon="@Embed('assets/gui/btn_show_hover.png')"
 			   buttonMode="true" useHandCursor="true"
 			   visible="false"/>
-	<mx:Button id="btnShowRight" x="920" y="300" width="25" height="25"
+	<mx:Button id="btnShowRight" x="920" y="{height/2}" width="25" height="25"
 			   click="btnShowRight_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/button_hide.png')" paddingLeft="0" paddingRight="0"
 			   overIcon="@Embed('assets/gui/btn_hide_hover.png')"
