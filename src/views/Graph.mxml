@@ -48,6 +48,7 @@
 			protected function btnCoAuthorPath_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
+				
 				SearchRight.visible = true;
 				HR_right.visible = true;
 				btnHideRight.visible = true;
@@ -132,16 +133,16 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:BorderContainer id="SearchLeft" x="10" y="10" width="184" height="100%" borderVisible="false">
-		<s:BorderContainer x="11" y="10" width="158" height="32" borderColor="#727BFC"
+	<s:BorderContainer id="SearchLeft" x="10" y="0" width="184" height="100%" borderVisible="false">
+		<s:BorderContainer x="11" y="1" width="158" height="32" borderColor="#727BFC"
 						   color="#183CF0" symbolColor="#3E5BF0">
 			<s:TextInput id="txtAuthorNameLeft" x="3" y="5" width="123" borderVisible="false"
 						 color="#000000"/>
 			<s:Button id="btnSearchLeft" x="128" y="2" width="25" height="25" buttonMode="true"
 					  enabled="true" icon="@Embed('assets/gui/button_Search.png')" useHandCursor="true"/>
 		</s:BorderContainer>
-		<s:Label x="10" y="50" text="Result"/>
-		<s:List id="lstLeft" x="10" y="70" width="170" height="{height-100}" borderVisible="false"
+		<s:Label x="10" y="40" text="Result"/>
+		<s:List id="lstLeft" x="10" y="60" width="170" height="{height-70}" borderVisible="false"
 				changing="lst_changeHandler(event)" initialize="init();"
 				itemRenderer="customItemRender.CustomColumnItemRen" useHandCursor="true">
 			
@@ -153,30 +154,30 @@
 			
 		</s:List>
 	</s:BorderContainer>
-	<mx:VRule id="HR" x="207" y="6" width="2" height="100%" chromeColor="#00064B"/>
-	<mx:Button id="btnHideLeft" x="196" y="{height/2}" width="25" height="25"
+	<mx:VRule id="HR" x="207" y="1" width="2" height="100%" chromeColor="#000000"/>
+	<mx:Button id="btnHideLeft" x="196" y="{(height/2)-20}" width="25" height="25"
 			   click="btnHideLeft_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/button_hide.png')" paddingLeft="0" paddingRight="0"
 			   overIcon="@Embed('assets/gui/btn_hide_hover.png')"
 			   buttonMode="true" useHandCursor="true"
 			   visible="true"/>
-	<mx:Button id="btnShowLeft" x="6" y="{height/2}" width="25" height="25"
+	<mx:Button id="btnShowLeft" x="6" y="{(height/2)-20}" width="25" height="25"
 			   click="btnShowLeft_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/btn_show.png')" paddingLeft="0" paddingRight="0"
 			   overIcon="@Embed('assets/gui/btn_show_hover.png')"
 			   buttonMode="true" useHandCursor="true"
 			   visible="false"/>
 	
-	<s:BorderContainer id="SearchRight" x="760" y="10" width="184" height="100%" borderVisible="false" visible="false">
-		<s:BorderContainer x="11" y="10" width="158" height="32" borderColor="#727BFC"
+	<s:BorderContainer id="SearchRight" x="760" y="0" width="184" height="100%" borderVisible="false" visible="false">
+		<s:BorderContainer x="11" y="1" width="158" height="32" borderColor="#727BFC"
 						   color="#183CF0" symbolColor="#3E5BF0">
 			<s:TextInput id="txtAuthorNameRight" x="3" y="5" width="123" borderVisible="false"
 						 color="#000000"/>
 			<s:Button id="btnSearchRight" x="128" y="2" width="25" height="25" icon="@Embed('assets/gui/button_Search.png')"
 					  buttonMode="true" useHandCursor="true"/>
 		</s:BorderContainer>
-		<s:Label x="10" y="50" text="Result"/>
-		<s:List id="lstRight" x="10" y="70" width="170" height="{height-100}" borderVisible="false"
+		<s:Label x="10" y="40" text="Result"/>
+		<s:List id="lstRight" x="10" y="60" width="170" height="{height-70}" borderVisible="false"
 				changing="lst_changeHandler(event)" initialize="init();"
 				itemRenderer="customItemRender.CustomColumnItemRen" useHandCursor="true">
 			
@@ -188,25 +189,25 @@
 			
 		</s:List>
 	</s:BorderContainer>
-	<mx:VRule id="HR_right" x="740" y="6" width="2" height="100%" chromeColor="#00064B" visible="false"/>
-	<mx:Button id="btnHideRight" x="730" y="{height/2}" width="25" height="25"
+	<mx:VRule id="HR_right" x="740" y="1" width="2" height="100%" chromeColor="#000000" visible="false"/>
+	<mx:Button id="btnHideRight" x="730" y="{(height/2)-20}" width="25" height="25"
 			   click="btnHideRight_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/btn_show.png')" paddingLeft="0" paddingRight="0"
 			   overIcon="@Embed('assets/gui/btn_show_hover.png')"
 			   buttonMode="true" useHandCursor="true"
 			   visible="false"/>
-	<mx:Button id="btnShowRight" x="920" y="{height/2}" width="25" height="25"
+	<mx:Button id="btnShowRight" x="920" y="{(height/2)-20}" width="25" height="25"
 			   click="btnShowRight_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/button_hide.png')" paddingLeft="0" paddingRight="0"
 			   overIcon="@Embed('assets/gui/btn_hide_hover.png')"
 			   buttonMode="true" useHandCursor="true"
 			   visible="false"/>
-	<mx:Button id="btnCoAuthorGraph" x="217" y="19" label="Co-author Graph"
+	<mx:Button id="btnCoAuthorGraph" x="217" y="1" label="Co-author Graph"
 			   click="btnCoAuthorGraph_clickHandler(event)" />
-	<mx:Button id="btnCoAuthorPath" x="331" y="19" label="Co-author Path"
+	<mx:Button id="btnCoAuthorPath" x="331" y="1" label="Co-author Path"
 			   click="btnCoAuthorPath_clickHandler(event)" enabled="true"/>
-	<mx:Button id="btnCitationGraph" x="436" y="19" label="Citation Graph"
+	<mx:Button id="btnCitationGraph" x="436" y="1" label="Citation Graph"
 			   click="btnCitationGraph_clickHandler(event)"/>
-	<s:Button id="btnRecommend" x="537" y="19" label="Recommend"
+	<s:Button id="btnRecommend" x="537" y="1" label="Recommend"
 			  click="btnRecommend_clickHandler(event)"/>
 </s:Group>
