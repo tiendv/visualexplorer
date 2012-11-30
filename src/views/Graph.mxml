@@ -4,6 +4,10 @@
 		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
 	<fx:Script>
 		<![CDATA[
+			import customItemRender.CustomColumnItemRen;
+			
+			import flash.sampler.NewObjectSample;
+			
 			import flashx.textLayout.factory.TruncationOptions;
 			
 			import mx.collections.ArrayList;
@@ -12,6 +16,14 @@
 			import spark.events.IndexChangeEvent;
 			
 			import valueobjects.AuthorOrgObject;
+			
+			public var dataLeft:Object = new Object();
+			public var dataRight:Object = new Object();
+			public var isCoGraph:Boolean = true;
+			public var isCoPath:Boolean = false;
+			public var isCitation:Boolean = false;
+			public var isRecommend:Boolean = false;
+			
 			protected function btnHideLeft_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
@@ -48,7 +60,17 @@
 			protected function btnCoAuthorPath_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
-				
+				if(dataLeft.authorID>0 && dataRight.authorID>0 && isCoPath==false){
+					var dataUrlReplace:Object = new Object();
+					dataUrlReplace.urlReplace = dataLeft.authorID+"&"+dataRight.authorID;
+					setUrlReplace(dataUrlReplace);
+				}
+
+				isCoGraph = false;
+				isCoPath = true;
+				isCitation = false;
+				isRecommend = false;
+
 				SearchRight.visible = true;
 				HR_right.visible = true;
 				btnHideRight.visible = true;
@@ -62,6 +84,16 @@
 			protected function btnCoAuthorGraph_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
+				if(dataLeft.authorID > 0 && isCoGraph==false){
+					var dataUrlReplace:Object = new Object();
+					dataUrlReplace.urlReplace = dataLeft.authorID;
+					setUrlReplace(dataUrlReplace);
+				}
+				isCoGraph = true;
+				isCoPath = false;
+				isCitation = false;
+				isRecommend = false;
+
 				SearchRight.visible = false;
 				HR_right.visible = false;
 				btnHideRight.visible = false;
@@ -71,6 +103,16 @@
 			protected function btnCitationGraph_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
+				if(dataLeft.authorID > 0 && isCitation==false){
+					var dataUrlReplace:Object = new Object();
+					dataUrlReplace.urlReplace = dataLeft.authorID + "&citation";;
+					setUrlReplace(dataUrlReplace);
+				}
+				isCoGraph = false;
+				isCoPath = false;
+				isCitation = true;
+				isRecommend = false;
+
 				SearchRight.visible = false;
 				HR_right.visible = false;
 				btnHideRight.visible = false;
@@ -80,19 +122,53 @@
 			protected function btnRecommend_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
+				if(dataLeft.authorID > 0 && isRecommend==false){
+					var dataUrlReplace:Object = new Object();
+					dataUrlReplace.urlReplace = dataLeft.authorID + "&recommend";
+					setUrlReplace(dataUrlReplace);
+				}
+				isCoGraph = false;
+				isCoPath = false;
+				isCitation = false;
+				isRecommend = true;
+
 				SearchRight.visible = false;
 				HR_right.visible = false;
 				btnHideRight.visible = false;
 				btnShowRight.visible = false;
 			}
-			
-			protected function lst_changeHandler(e:IndexChangeEvent):void {
-				var data:Object = e.currentTarget.selectedItem;
-				Alert.show(data.authorID);
+			protected function lst_changeHandlerLeft(e:IndexChangeEvent):void {
+				dataLeft = e.currentTarget.selectedItem;
+				var dataUrlReplace:Object = new Object();
+				dataUrlReplace.urlReplace = "";
+				if(isCoGraph){
+					dataUrlReplace.urlReplace = +dataLeft.authorID;
+				}
+				if(isCoPath){
+					dataUrlReplace.urlReplace = dataLeft.authorID+"&"+dataRight.authorID;
+				}
+				if(isCitation){
+					dataUrlReplace.urlReplace = +dataLeft.authorID+"&citation";
+				}
+				if(isRecommend){
+					dataUrlReplace.urlReplace = +dataLeft.authorID+"&recommend";
+				}
+				
+				setTitle(dataLeft);
+				setUrlReplace(dataUrlReplace);
+			}
+			protected function lst_changeHandlerRight(e:IndexChangeEvent):void {
+				dataRight = e.currentTarget.selectedItem;
+				var dataUrlReplace:Object = new Object();
+				dataUrlReplace.urlReplace = "";
+				if(isCoPath){
+					dataUrlReplace.urlReplace = dataLeft.authorID+"&"+dataRight.authorID;
+				}
+				setUrlReplace(dataUrlReplace);
 			}
 			
-			var itemsLeft:ArrayList = new ArrayList();
-			var itemsRight:ArrayList = new ArrayList();
+			public var itemsLeft:ArrayList = new ArrayList();
+			public var itemsRight:ArrayList = new ArrayList();
 			
 			protected function init():void {
 				if(itemsLeft.length > 0)
@@ -100,6 +176,12 @@
 				if(itemsRight.length > 0)
 					itemsRight.removeAll();
 				
+				this.setFocus();
+				if(lstLeft.focusEnabled == true)
+					lstLeft.focusEnabled = false;	
+				if(lstRight.focusEnabled == true)
+					lstRight.focusEnabled = false;
+			
 				var item:AuthorOrgObject = new AuthorOrgObject();
 				for(var i:int; i<25; i++){
 					item.authorID =  33344;
@@ -127,7 +209,28 @@
 				lstRight.dataProvider = itemsRight;
 			}
 			
+			public function setTitle(data:Object):void{				
+				var s:String;
+				if(ExternalInterface.available){
+					var wrapperFunction:String = "receiveComplexDataTypes";
+					s = ExternalInterface.call(wrapperFunction,data);
+				}else{
+					s = "wrapper not available";
+				}
+				trace(s);
+			}
 			
+			public function setUrlReplace(data:Object):void{
+				Alert.show(data.urlReplace);
+				var s:String;
+				if(ExternalInterface.available){
+					var wrapperFunction:String = "receiveUrlReplace";
+					s = ExternalInterface.call(wrapperFunction,data);
+				}else{
+					s = "wrapper not available";
+				}
+				trace(s);
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -143,7 +246,7 @@
 		</s:BorderContainer>
 		<s:Label x="10" y="40" text="Result"/>
 		<s:List id="lstLeft" x="10" y="60" width="170" height="{height-70}" borderVisible="false"
-				changing="lst_changeHandler(event)" initialize="init();"
+				changing="lst_changeHandlerLeft(event)" initialize="init();"
 				itemRenderer="customItemRender.CustomColumnItemRen" useHandCursor="true">
 			
 			<s:layout>
@@ -178,7 +281,7 @@
 		</s:BorderContainer>
 		<s:Label x="10" y="40" text="Result"/>
 		<s:List id="lstRight" x="10" y="60" width="170" height="{height-70}" borderVisible="false"
-				changing="lst_changeHandler(event)" initialize="init();"
+				changing="lst_changeHandlerRight(event)" initialize="init();"
 				itemRenderer="customItemRender.CustomColumnItemRen" useHandCursor="true">
 			
 			<s:layout>
