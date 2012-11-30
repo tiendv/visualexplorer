@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				autoDrawBackground="true"
+				name="CustomColumnItemRen">
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="hovered" />
+		<s:State name="selected" />
+	</s:states>
+	<s:layout>
+		<s:HorizontalLayout gap="0"
+							paddingLeft="3" paddingRight="3"
+							paddingTop="5" paddingBottom="5"
+							verticalAlign="middle" />
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			
+			
+		]]>
+	</fx:Script>
+	<s:Image id="img" width="30" height="30" backgroundColor="#000000" source="{data.imgUrl}"/>
+	<s:VGroup paddingLeft="5">
+		<s:Label id="labelDisplay" maxDisplayedLines="1" showTruncationTip="true" width="110" text="{data.authorName}" fontSize="10" color="#0B2D60"/>
+		<s:Label id="priceTxt" maxDisplayedLines="1" text="{data.orgName}" fontSize="12"/>
+	</s:VGroup>
+	
+</s:ItemRenderer>
