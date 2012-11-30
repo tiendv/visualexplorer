@@ -4,7 +4,6 @@
 		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
 	<fx:Script>
 		<![CDATA[
-			import customItemRender.CustomColumnItemRen;
 			
 			import flash.sampler.NewObjectSample;
 			
@@ -30,7 +29,7 @@
 				SearchLeft.visible = !SearchLeft.visible;
 				btnHideLeft.visible = false;
 				btnShowLeft.visible = true;
-				HR.x = HR.x - 190;
+				vrLeft.x = vrLeft.x - 190;
 			}
 			protected function btnShowLeft_clickHandler(event:MouseEvent):void
 			{
@@ -38,7 +37,7 @@
 				SearchLeft.visible = !SearchLeft.visible;
 				btnHideLeft.visible = true;
 				btnShowLeft.visible = false;
-				HR.x = HR.x + 190;
+				vrLeft.x = vrLeft.x + 190;
 			}
 			protected function btnHideRight_clickHandler(event:MouseEvent):void
 			{
@@ -46,7 +45,7 @@
 				SearchRight.visible = !SearchRight.visible;
 				btnHideRight.visible = false;
 				btnShowRight.visible = true;
-				HR_right.x = HR_right.x + 180;
+				vrRight.x = vrRight.x + 180;
 			}
 			protected function btnShowRight_clickHandler(event:MouseEvent):void
 			{
@@ -54,7 +53,7 @@
 				SearchRight.visible = !SearchRight.visible;
 				btnHideRight.visible = true;
 				btnShowRight.visible = false;
-				HR_right.x = HR_right.x - 180;
+				vrRight.x = vrRight.x - 180;
 			}
 			
 			protected function btnCoAuthorPath_clickHandler(event:MouseEvent):void
@@ -72,11 +71,11 @@
 				isRecommend = false;
 
 				SearchRight.visible = true;
-				HR_right.visible = true;
+				vrRight.visible = true;
 				btnHideRight.visible = true;
 				btnShowRight.visible = false;
 				SearchRight.x = width - 190;
-				HR_right.x = width - 200;
+				vrRight.x = width - 200;
 				btnHideRight.x = width - 210;
 				btnShowRight.x = width - 30;
 			}
@@ -95,7 +94,7 @@
 				isRecommend = false;
 
 				SearchRight.visible = false;
-				HR_right.visible = false;
+				vrRight.visible = false;
 				btnHideRight.visible = false;
 				btnShowRight.visible = false;
 			}
@@ -114,7 +113,7 @@
 				isRecommend = false;
 
 				SearchRight.visible = false;
-				HR_right.visible = false;
+				vrRight.visible = false;
 				btnHideRight.visible = false;
 				btnShowRight.visible = false;
 			}
@@ -133,7 +132,7 @@
 				isRecommend = true;
 
 				SearchRight.visible = false;
-				HR_right.visible = false;
+				vrRight.visible = false;
 				btnHideRight.visible = false;
 				btnShowRight.visible = false;
 			}
@@ -247,7 +246,7 @@
 		<s:Label x="10" y="40" text="Result"/>
 		<s:List id="lstLeft" x="10" y="60" width="170" height="{height-70}" borderVisible="false"
 				changing="lst_changeHandlerLeft(event)" initialize="init();"
-				itemRenderer="customItemRender.CustomColumnItemRen" useHandCursor="true">
+				itemRenderer="views.CustomItemRen" useHandCursor="true">
 			
 			<s:layout>
 				<s:VerticalLayout gap="0"
@@ -257,7 +256,7 @@
 			
 		</s:List>
 	</s:BorderContainer>
-	<mx:VRule id="HR" x="207" y="1" width="2" height="100%" chromeColor="#000000"/>
+	<mx:VRule id="vrLeft" x="207" y="1" width="2" height="100%" chromeColor="#000000"/>
 	<mx:Button id="btnHideLeft" x="196" y="{(height/2)-20}" width="25" height="25"
 			   click="btnHideLeft_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/button_hide.png')" paddingLeft="0" paddingRight="0"
@@ -282,7 +281,7 @@
 		<s:Label x="10" y="40" text="Result"/>
 		<s:List id="lstRight" x="10" y="60" width="170" height="{height-70}" borderVisible="false"
 				changing="lst_changeHandlerRight(event)" initialize="init();"
-				itemRenderer="customItemRender.CustomColumnItemRen" useHandCursor="true">
+				itemRenderer="views.CustomItemRen" useHandCursor="true">
 			
 			<s:layout>
 				<s:VerticalLayout gap="0"
@@ -292,7 +291,7 @@
 			
 		</s:List>
 	</s:BorderContainer>
-	<mx:VRule id="HR_right" x="740" y="1" width="2" height="100%" chromeColor="#000000" visible="false"/>
+	<mx:VRule id="vrRight" x="740" y="1" width="2" height="100%" chromeColor="#000000" visible="false"/>
 	<mx:Button id="btnHideRight" x="730" y="{(height/2)-20}" width="25" height="25"
 			   click="btnHideRight_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/btn_show.png')" paddingLeft="0" paddingRight="0"
