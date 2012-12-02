@@ -4,17 +4,24 @@
 		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
 	<fx:Script>
 		<![CDATA[
+			import business.events.SearchAuthorEvent;
 			
 			import flash.sampler.NewObjectSample;
 			
 			import flashx.textLayout.factory.TruncationOptions;
 			
+			import models.ModelLocator;
+			
+			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
 			import mx.controls.Alert;
 			
 			import spark.events.IndexChangeEvent;
 			
 			import valueobjects.AuthorOrgObject;
+			
+			[Bindable]
+			public var searchAuthors:ArrayCollection = ModelLocator.getInstance().searchedAuthors;
 			
 			public var dataLeft:Object = new Object();
 			public var dataRight:Object = new Object();
@@ -54,6 +61,12 @@
 				btnHideRight.visible = true;
 				btnShowRight.visible = false;
 				vrRight.x = vrRight.x - 180;
+			}
+			
+			protected function btnSearchLeft_clickHandler(event:MouseEvent):void
+			{
+				var searchAuthorEvent:SearchAuthorEvent = new SearchAuthorEvent(txtAuthorNameLeft.text);
+				searchAuthorEvent.dispatch();
 			}
 			
 			protected function btnCoAuthorPath_clickHandler(event:MouseEvent):void
@@ -166,48 +179,6 @@
 				setUrlReplace(dataUrlReplace);
 			}
 			
-			public var itemsLeft:ArrayList = new ArrayList();
-			public var itemsRight:ArrayList = new ArrayList();
-			
-			protected function init():void {
-				if(itemsLeft.length > 0)
-					itemsLeft.removeAll();
-				if(itemsRight.length > 0)
-					itemsRight.removeAll();
-				
-				this.setFocus();
-				if(lstLeft.focusEnabled == true)
-					lstLeft.focusEnabled = false;	
-				if(lstRight.focusEnabled == true)
-					lstRight.focusEnabled = false;
-			
-				var item:AuthorOrgObject = new AuthorOrgObject();
-				for(var i:int; i<25; i++){
-					item.authorID =  33344;
-					item.authorName = "anna abc";
-					item.imgUrl = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQV32vCMO5SRoxY9DYNvKDEawbE7AvzghT3Gt6BnLSSeGvcTAy9ew";
-					item.orgName = "IBM";
-					itemsLeft.addItem(item);
-					itemsRight.addItem(item);
-					item = new AuthorOrgObject();
-					item.authorID = 444333;
-					item.authorName = "perter paker";
-					item.imgUrl = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQV32vCMO5SRoxY9DYNvKDEawbE7AvzghT3Gt6BnLSSeGvcTAy9ew";
-					item.orgName = "IEEE";
-					itemsLeft.addItem(item);
-					itemsRight.addItem(item);
-					item = new AuthorOrgObject();
-					item.authorID = 55555;
-					item.authorName = "uit";
-					item.imgUrl = "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQV32vCMO5SRoxY9DYNvKDEawbE7AvzghT3Gt6BnLSSeGvcTAy9ew";
-					item.orgName = "microsoft";
-					itemsLeft.addItem(item);
-					itemsRight.addItem(item);
-				}
-				lstLeft.dataProvider = itemsLeft;
-				lstRight.dataProvider = itemsRight;
-			}
-			
 			public function setTitle(data:Object):void{				
 				var s:String;
 				if(ExternalInterface.available){
@@ -241,11 +212,13 @@
 			<s:TextInput id="txtAuthorNameLeft" x="3" y="5" width="123" borderVisible="false"
 						 color="#000000"/>
 			<s:Button id="btnSearchLeft" x="128" y="2" width="25" height="25" buttonMode="true"
-					  enabled="true" icon="@Embed('assets/gui/button_Search.png')" useHandCursor="true"/>
+					  enabled="true" icon="@Embed('assets/gui/button_Search.png')" useHandCursor="true"
+					  click="btnSearchLeft_clickHandler(event)" />
 		</s:BorderContainer>
 		<s:Label x="10" y="40" text="Result"/>
 		<s:List id="lstLeft" x="10" y="60" width="170" height="{height-70}" borderVisible="false"
-				changing="lst_changeHandlerLeft(event)" initialize="init();"
+				changing="lst_changeHandlerLeft(event)" 
+				dataProvider="{searchAuthors}"
 				itemRenderer="views.CustomItemRen" useHandCursor="true">
 			
 			<s:layout>
@@ -280,7 +253,7 @@
 		</s:BorderContainer>
 		<s:Label x="10" y="40" text="Result"/>
 		<s:List id="lstRight" x="10" y="60" width="170" height="{height-70}" borderVisible="false"
-				changing="lst_changeHandlerRight(event)" initialize="init();"
+				changing="lst_changeHandlerRight(event)"
 				itemRenderer="views.CustomItemRen" useHandCursor="true">
 			
 			<s:layout>

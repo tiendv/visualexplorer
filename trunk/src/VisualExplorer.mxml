@@ -3,8 +3,11 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:v = "views.*"
 			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="500">
+	
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<rds:Services xmlns:rds="business.*"/>
+		<router:VisualExplorerController xmlns:router="business.*"/>
 	</fx:Declarations>
+	
 	<v:Graph/>
 </s:Application>

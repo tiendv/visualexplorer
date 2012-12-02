@@ -2,6 +2,7 @@ package models
 {
 	import mx.collections.ArrayCollection;
 
+	[Bindable]
 	public class ModelLocator
 	{
 		private static var _instance : ModelLocator;
@@ -12,13 +13,7 @@ package models
 			return _instance;
 		}
 		
-		private function ModelLocator()
-		{
-			searchedAuthors = new ArrayCollection();
-			recommendedAuthors = new ArrayCollection();	
-		}
-		
-		public var searchedAuthors:ArrayCollection;
-		public var recommendedAuthors:ArrayCollection; 
+		public var searchedAuthors:ArrayCollection = new ArrayCollection();
+		public var recommendedAuthors:ArrayCollection = new ArrayCollection(); 
 	}
 }
