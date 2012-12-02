@@ -1,9 +1,16 @@
 package business.events
 {
-	public class SearchAuthorEvent
+	import com.adobe.cairngorm.control.CairngormEvent;
+
+	public class SearchAuthorEvent extends CairngormEvent 
 	{
-		public function SearchAuthorEvent()
+		static public var EVENT_ID:String = "searchAuthor";
+		public var authorName:String;
+		
+		public function SearchAuthorEvent(authorName:String)
 		{
+			super(EVENT_ID);
+			this.authorName = authorName;
 		}
 	}
 }
