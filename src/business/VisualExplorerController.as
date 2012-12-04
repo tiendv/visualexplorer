@@ -2,9 +2,10 @@ package business
 {
 	import business.commands.GetCollaborationCommand;
 	import business.commands.SearchAuthorCommand;
-	import business.delegates.GetCollaboration;
+	import business.commands.ViewCoAuthorGraphCommand;
 	import business.events.GetCollaborationEvent;
 	import business.events.SearchAuthorEvent;
+	import business.events.ViewCoAuthorGraphEvent;
 	
 	import com.adobe.cairngorm.control.FrontController;
 
@@ -15,6 +16,7 @@ package business
 			super();
 			addCommand(SearchAuthorEvent.EVENT_ID,SearchAuthorCommand);
 			addCommand(GetCollaborationEvent.EVENT_ID,GetCollaborationCommand);
+			addCommand(ViewCoAuthorGraphEvent.EVENT_ID,ViewCoAuthorGraphCommand);
 		}
 	}
 }

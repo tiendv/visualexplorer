@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" 
+		 xmlns:visual="org.un.cava.birdeye.ravis.graphLayout.visual.*">
 	<fx:Script>
 		<![CDATA[
+			import business.events.GetCollaborationEvent;
 			import business.events.SearchAuthorEvent;
+			import business.events.ViewCoAuthorGraphEvent;
 			
 			import flash.sampler.NewObjectSample;
 			
@@ -62,7 +65,7 @@
 				btnShowRight.visible = false;
 				vrRight.x = vrRight.x - 180;
 			}
-			
+	
 			protected function btnSearchLeft_clickHandler(event:MouseEvent):void
 			{
 				var searchAuthorEvent:SearchAuthorEvent = new SearchAuthorEvent(txtAuthorNameLeft.text);
@@ -182,6 +185,26 @@
 				setUrlReplace(dataUrlReplace);
 			}
 			
+			protected function onViewCoAuthorGraph(event:MouseEvent):void
+			{
+				if (dataLeft != null)
+				{
+					var authorID : int = dataLeft.authorID;
+					var evt:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(authorID);
+					evt.dispatch();
+				}
+			}
+			
+			protected function onGetCollaboration(event:MouseEvent):void
+			{
+				if (dataLeft != null)
+				{
+					var authorID:int =dataLeft.authorID;
+					var evt:GetCollaborationEvent = new GetCollaborationEvent(authorID);
+					evt.dispatch();
+				}
+			}
+			
 			public function setTitle(data:Object):void{				
 				var s:String;
 				if(ExternalInterface.available){
@@ -248,7 +271,11 @@
 	<mx:Canvas id="graphBody"
 			   x ="{vrLeft.x + 15}" y="31"
 			   height="100%" width="{vrRight.x - vrLeft.x - 25}" borderStyle="solid">
-		
+		<visual:VisualGraph id="visualGraph" width="100%" height="100%" 
+							left="0" right="0" top="0" bottom="5" backgroundColor="#FFFFFF" alpha="1"
+							resize="visualGraph.draw(VisualGraph.DF_RESET_LL)"
+							visibilityLimitActive="true">
+		</visual:VisualGraph>
 	</mx:Canvas>
 	
 	<s:BorderContainer id="SearchRight" x="760" y="0" width="184" height="100%" borderVisible="false" visible="false">

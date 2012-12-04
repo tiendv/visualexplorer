@@ -5,10 +5,11 @@ package business.events
 	public class GetCollaborationEvent extends CairngormEvent
 	{
 		static public var EVENT_ID:String = "getCollaboration";
-		
-		public function GetCollaborationEvent()
+		public var authorID:int;
+		public function GetCollaborationEvent(authorID:int)
 		{
 			super(EVENT_ID);
+			this.authorID = authorID;
 		}
 	}
 }
