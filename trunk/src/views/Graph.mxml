@@ -74,7 +74,7 @@
 				// TODO Auto-generated method stub
 				if(dataLeft.authorID>0 && dataRight.authorID>0 && isCoPath==false){
 					var dataUrlReplace:Object = new Object();
-					dataUrlReplace.urlReplace = dataLeft.authorID+"&"+dataRight.authorID;
+					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&aid2="+dataRight.authorID+"&action=path";
 					setUrlReplace(dataUrlReplace);
 				}
 
@@ -99,7 +99,7 @@
 				// TODO Auto-generated method stub
 				if(dataLeft.authorID > 0 && isCoGraph==false){
 					var dataUrlReplace:Object = new Object();
-					dataUrlReplace.urlReplace = dataLeft.authorID;
+					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=graph";
 					setUrlReplace(dataUrlReplace);
 				}
 				isCoGraph = true;
@@ -119,7 +119,7 @@
 				// TODO Auto-generated method stub
 				if(dataLeft.authorID > 0 && isCitation==false){
 					var dataUrlReplace:Object = new Object();
-					dataUrlReplace.urlReplace = dataLeft.authorID + "&citation";;
+					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=citation";
 					setUrlReplace(dataUrlReplace);
 				}
 				isCoGraph = false;
@@ -139,7 +139,7 @@
 				// TODO Auto-generated method stub
 				if(dataLeft.authorID > 0 && isRecommend==false){
 					var dataUrlReplace:Object = new Object();
-					dataUrlReplace.urlReplace = dataLeft.authorID + "&recommend";
+					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=recommend";
 					setUrlReplace(dataUrlReplace);
 				}
 				isCoGraph = false;
@@ -157,16 +157,16 @@
 				var dataUrlReplace:Object = new Object();
 				dataUrlReplace.urlReplace = "";
 				if(isCoGraph){
-					dataUrlReplace.urlReplace = +dataLeft.authorID;
+					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=graph";
 				}
 				if(isCoPath){
-					dataUrlReplace.urlReplace = dataLeft.authorID+"&"+dataRight.authorID;
+					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&aid2="+dataRight.authorID+"&action=path";
 				}
 				if(isCitation){
-					dataUrlReplace.urlReplace = +dataLeft.authorID+"&citation";
+					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=citation";
 				}
 				if(isRecommend){
-					dataUrlReplace.urlReplace = +dataLeft.authorID+"&recommend";
+					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=recommend";
 				}
 				
 				setTitle(dataLeft);
@@ -177,7 +177,7 @@
 				var dataUrlReplace:Object = new Object();
 				dataUrlReplace.urlReplace = "";
 				if(isCoPath){
-					dataUrlReplace.urlReplace = dataLeft.authorID+"&"+dataRight.authorID;
+					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&aid2="+dataRight.authorID+"&action=path";
 				}
 				setUrlReplace(dataUrlReplace);
 			}
@@ -194,7 +194,6 @@
 			}
 			
 			public function setUrlReplace(data:Object):void{
-				Alert.show(data.urlReplace);
 				var s:String;
 				if(ExternalInterface.available){
 					var wrapperFunction:String = "receiveUrlReplace";
