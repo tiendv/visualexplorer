@@ -95,6 +95,7 @@
 			
 			protected function btnCoAuthorGraph_clickHandler(event:MouseEvent):void
 			{
+				vrRight.x = width-30;
 				// TODO Auto-generated method stub
 				if(dataLeft.authorID > 0 && isCoGraph==false){
 					var dataUrlReplace:Object = new Object();
@@ -114,6 +115,7 @@
 			
 			protected function btnCitationGraph_clickHandler(event:MouseEvent):void
 			{
+				vrRight.x = width-30
 				// TODO Auto-generated method stub
 				if(dataLeft.authorID > 0 && isCitation==false){
 					var dataUrlReplace:Object = new Object();
@@ -133,6 +135,7 @@
 			
 			protected function btnRecommend_clickHandler(event:MouseEvent):void
 			{
+				vrRight.x = width-30
 				// TODO Auto-generated method stub
 				if(dataLeft.authorID > 0 && isRecommend==false){
 					var dataUrlReplace:Object = new Object();
@@ -243,6 +246,12 @@
 			   buttonMode="true" useHandCursor="true"
 			   visible="false"/>
 	
+	<mx:Canvas id="graphBody"
+			   x ="{vrLeft.x + 15}" y="31"
+			   height="100%" width="{vrRight.x - vrLeft.x - 25}" borderStyle="solid">
+		
+	</mx:Canvas>
+	
 	<s:BorderContainer id="SearchRight" x="760" y="0" width="184" height="100%" borderVisible="false" visible="false">
 		<s:BorderContainer x="11" y="1" width="158" height="32" borderColor="#727BFC"
 						   color="#183CF0" symbolColor="#3E5BF0">
@@ -264,7 +273,7 @@
 			
 		</s:List>
 	</s:BorderContainer>
-	<mx:VRule id="vrRight" x="740" y="1" width="2" height="100%" chromeColor="#000000" visible="false"/>
+	<mx:VRule id="vrRight" x="{width-30}" y="1" width="2" height="100%" chromeColor="#000000" visible="false"/>
 	<mx:Button id="btnHideRight" x="730" y="{(height/2)-20}" width="25" height="25"
 			   click="btnHideRight_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/btn_show.png')" paddingLeft="0" paddingRight="0"
