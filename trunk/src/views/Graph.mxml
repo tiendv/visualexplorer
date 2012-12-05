@@ -19,12 +19,6 @@
 			import mx.collections.ArrayList;
 			import mx.controls.Alert;
 			
-			import org.gif.events.FileTypeEvent;
-			import org.gif.events.FrameEvent;
-			import org.gif.events.GIFPlayerEvent;
-			import org.gif.events.TimeoutEvent;
-			import org.gif.player.GIFPlayer;
-			
 			import spark.events.IndexChangeEvent;
 			
 			import valueobjects.AuthorOrgObject;
@@ -115,7 +109,6 @@
 			
 			protected function btnCoAuthorPath_clickHandler(event:MouseEvent):void
 			{
-				txtms.text="to find another Co-author path instead";
 				if(dataLeft.authorID == null){
 					gm.visible = true;
 				}
@@ -147,7 +140,6 @@
 			{
 				vrRight.x = width-30;
 				
-				txtms.text="to find another Co-author graph instead";
 				if(dataLeft.authorID == null){
 					gm.visible = true;
 				}
@@ -172,7 +164,6 @@
 			{
 				vrRight.x = width-30
 					
-				txtms.text="to find another citation graph instead";
 				if(dataLeft.authorID == null){
 					gm.visible = true;
 				}
@@ -197,7 +188,6 @@
 			{
 				vrRight.x = width-30
 					
-				txtms.text="to find another recommend instead";
 				if(dataLeft.authorID == null){
 					gm.visible = true;
 				}
@@ -290,74 +280,17 @@
 				trace(s);
 			}
 			
-			protected function btnClickHere_clickHandler(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-				// tim theo ID
-			}
-
-			//private var gifPlayerSearchLeft:GIFPlayer = new GIFPlayer();
 			private function initGifImage():void{
-				// listen for the IOErrorEvent.IO_ERROR event, dispatched when the GIF fails to load
-				GifImageLoading.gifPlayerSearchLeft.addEventListener ( IOErrorEvent.IO_ERROR, onIOError );
-				// listen for the GIFPlayerEvent.COMPLETE event, dispatched when GIF is loaded
-				GifImageLoading.gifPlayerSearchLeft.addEventListener ( GIFPlayerEvent.COMPLETE, onCompleteGIFLoad );
-				// listen for the FrameEvent.FRAME_RENDERED event, dispatched when a GIF frame is rendered on screen
-				GifImageLoading.gifPlayerSearchLeft.addEventListener ( FrameEvent.FRAME_RENDERED, onFrameRendered );
-				// listen for the FileTypeEvent.INVALID event, dispatched when an invalid file is loaded
-				GifImageLoading.gifPlayerSearchLeft.addEventListener ( FileTypeEvent.INVALID, onInvalidFileLoaded );
-				// listen timeout
-				GifImageLoading.gifPlayerSearchLeft.addEventListener ( TimeoutEvent.TIME_OUT, onTimeoutError );
-				// we load a GIF
-				GifImageLoading.gifPlayerSearchLeft.load ( new URLRequest ("http://localhost:8080/PubGuru/images/loading.gif") );
-				
-				// listen for the IOErrorEvent.IO_ERROR event, dispatched when the GIF fails to load
-				GifImageLoading.gifPlayerSearchRight.addEventListener ( IOErrorEvent.IO_ERROR, onIOError );
-				// listen for the GIFPlayerEvent.COMPLETE event, dispatched when GIF is loaded
-				GifImageLoading.gifPlayerSearchRight.addEventListener ( GIFPlayerEvent.COMPLETE, onCompleteGIFLoad );
-				// listen for the FrameEvent.FRAME_RENDERED event, dispatched when a GIF frame is rendered on screen
-				GifImageLoading.gifPlayerSearchRight.addEventListener ( FrameEvent.FRAME_RENDERED, onFrameRendered );
-				// listen for the FileTypeEvent.INVALID event, dispatched when an invalid file is loaded
-				GifImageLoading.gifPlayerSearchRight.addEventListener ( FileTypeEvent.INVALID, onInvalidFileLoaded );
-				// listen timeout
-				GifImageLoading.gifPlayerSearchRight.addEventListener ( TimeoutEvent.TIME_OUT, onTimeoutError );
-				// we load a GIF
-				GifImageLoading.gifPlayerSearchRight.load ( new URLRequest ("http://localhost:8080/PubGuru/images/loading.gif") );
+ 				
+			}
 
+			private function initGif():void{
+				//loadingSearchLeft.source = GifImageLoading.gifPlayerSearchLeft;
+				//GifImageLoading.gifPlayerSearchLeft.visible = true;
 				
-				// listen for the IOErrorEvent.IO_ERROR event, dispatched when the GIF fails to load
-				GifImageLoading.gifPlayerDrawGraph .addEventListener ( IOErrorEvent.IO_ERROR, onIOError );
-				// listen for the GIFPlayerEvent.COMPLETE event, dispatched when GIF is loaded
-				GifImageLoading.gifPlayerDrawGraph.addEventListener ( GIFPlayerEvent.COMPLETE, onCompleteGIFLoad );
-				// listen for the FrameEvent.FRAME_RENDERED event, dispatched when a GIF frame is rendered on screen
-				GifImageLoading.gifPlayerDrawGraph.addEventListener ( FrameEvent.FRAME_RENDERED, onFrameRendered );
-				// listen for the FileTypeEvent.INVALID event, dispatched when an invalid file is loaded
-				GifImageLoading.gifPlayerDrawGraph.addEventListener ( FileTypeEvent.INVALID, onInvalidFileLoaded );
-				// listen timeout
-				GifImageLoading.gifPlayerDrawGraph.addEventListener ( TimeoutEvent.TIME_OUT, onTimeoutError );
-				// we load a GIF
-				GifImageLoading.gifPlayerDrawGraph.load ( new URLRequest ("http://localhost:8080/PubGuru/images/loading.gif") );
-
-			}
-			private function onIOError ( pEvt:IOErrorEvent ):void{
-			}
-			private function onCompleteGIFLoad ( pEvt:GIFPlayerEvent ):void{
-			}
-			private function onFrameRendered ( pEvt:FrameEvent ):void{
-			}
-			private function onInvalidFileLoaded ( pEvt:FileTypeEvent ):void{
-			}
-			private function onTimeoutError ( pEvt:TimeoutEvent ):void{
-			}
-			private var imageFilter:FileFilter = new FileFilter("Image Files (*.gif)", "*.gif");
-			private function initGifLeft():void{
-				//addChild ( loadingSearchLeft );
-				loadingSearchLeft.source = GifImageLoading.gifPlayerSearchLeft;
-				GifImageLoading.gifPlayerSearchLeft.visible = false;
+				//loadingSearchRight.source = GifImageLoading.gifPlayerSearchRight;
 				
-				loadingSearchRight.source = GifImageLoading.gifPlayerSearchRight;
-				
-				loadingDrawGraph.source = GifImageLoading.gifPlayerDrawGraph;
+				//loadingDrawGraph.source = GifImageLoading.gifPlayerDrawGraph;
 			}
 		]]>
 	</fx:Script>
@@ -386,9 +319,10 @@
 			</s:layout>
 			
 		</s:List>
-		<mx:Image id="loadingSearchLeft" initialize="initGifLeft()" 
-				  width="32" height="32" 
-				  x="{SearchLeft.width/2-20}" y="{SearchLeft.height/2-100}"/>
+		<s:Image id="loadingSearchLeft" x="{SearchLeft.width/2-20}" y="{SearchLeft.height/2-100}"
+				  width="32" height="32" initialize="initGif()" 
+				  source="@Embed('assets/gui/loading.gif')"/>
+		
 	</s:BorderContainer>
 	
 
@@ -418,17 +352,11 @@
 		</visual:VisualGraph>
 		
 		<s:HGroup id="gm" x="100" y="250" visible="false">
-			<s:Label text="Sory, there is no path exsit." paddingTop="6"/>
-			<mx:LinkButton id="btnClickHere" label="Click here"
-						   click="btnClickHere_clickHandler(event)" color="#00147A"
-						   focusColor="#FFFFFF" paddingLeft="-6" rollOverColor="#FFFFFF"
-						   selectionColor="#FFFFFF" fontWeight="bold"/>
-			<s:Label id="txtms" text="" paddingTop="6" paddingLeft="-8"/>
+			<s:Label text="Sory, the author does not exist." fontWeight="bold" fontSize="12"/>
 		</s:HGroup>
 		
-		<mx:Image id="loadingDrawGraph" initialize="initGifLeft()" 
-				  width="32" height="32" 
-				  x="10" y="10"/>
+		<mx:Image id="loadingDrawGraph" x="10" y="10" width="32" height="32" initialize="initGif()"
+				  source="assets/gui/loading.gif"/>
 
 	</mx:Canvas>
 	
@@ -453,9 +381,10 @@
 			</s:layout>
 			
 		</s:List>
-		<mx:Image id="loadingSearchRight" initialize="initGifLeft()" 
+		<mx:Image id="loadingSearchRight" initialize="initGif()" 
 				  width="32" height="32" 
-				  x="{SearchRight.width/2-20}" y="{SearchRight.height/2-100}"/>
+				  x="{SearchRight.width/2-20}" y="{SearchRight.height/2-100}"
+				  source="assets/gui/loading.gif"/>
 	</s:BorderContainer>
 
 	

@@ -52,7 +52,6 @@ package business.commands
 				}
 				
 			}
-			GifImageLoading.gifPlayerSearchLeft.visible = false;
 		}
 		
 		private function onFailed(event:FaultEvent):void

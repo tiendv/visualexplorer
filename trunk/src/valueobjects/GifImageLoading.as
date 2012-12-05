@@ -1,14 +1,16 @@
 package valueobjects
 {
-	import mx.controls.Image;
 	
-	import org.gif.player.GIFPlayer;
-
+	import mx.controls.Image;
+		
 	public class GifImageLoading
 	{
-		static public var gifPlayerSearchLeft:GIFPlayer = new GIFPlayer();
-		static public var gifPlayerSearchRight:GIFPlayer = new GIFPlayer();
-		static public var gifPlayerDrawGraph:GIFPlayer = new GIFPlayer();
+		[Bindable]
+		static public var gifPlayerSearchLeft:Image = new Image();
+		[Bindable]
+		static public var gifPlayerSearchRight:Image = new Image();
+		[Bindable]
+		static public var gifPlayerDrawGraph:Image = new Image();
 		
 		public function GifImageLoading()
 		{
