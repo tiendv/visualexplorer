@@ -16,6 +16,9 @@ package business.commands
 	import mx.rpc.events.ResultEvent;
 	
 	import valueobjects.AuthorOrgObject;
+	import valueobjects.GifImageLoading;
+	
+	import views.Graph;
 
 	public class SearchAuthorCommand implements ICommand
 	{
@@ -32,7 +35,8 @@ package business.commands
 		private function onSearchAuthor(event:ResultEvent):void
 		{
 			Alert.show("ResultEvent Callback","Alert");
-			_model.searchedAuthors.removeAll();
+ 			_model.searchedAuthors.removeAll();
+			
 			if (event.result.authorOrgObjects != null)
 			{
 				var authorCollection : ArrayCollection = event.result.authorOrgObjects.authorOrgObject;
@@ -46,7 +50,9 @@ package business.commands
 					authorOrgObject.orgName = object.orgName;
 					_model.searchedAuthors.addItem(authorOrgObject);
 				}
+				
 			}
+			GifImageLoading.gifPlayerSearchLeft.visible = false;
 		}
 		
 		private function onFailed(event:FaultEvent):void
