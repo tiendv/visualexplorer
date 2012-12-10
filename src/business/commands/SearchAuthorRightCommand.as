@@ -1,7 +1,7 @@
 package business.commands
 {
 	import business.delegates.SearchAuthorDelegate;
-	import business.events.SearchAuthorEvent;
+	import business.events.SearchAuthorRightEvent;
 	
 	import com.adobe.cairngorm.business.Responder;
 	import com.adobe.cairngorm.commands.ICommand;
@@ -18,14 +18,14 @@ package business.commands
 	import valueobjects.AuthorOrgObject;
 	
 	import views.Graph;
-
-	public class SearchAuthorCommand implements ICommand
+	
+	public class SearchAuthorRightCommand implements ICommand
 	{
 		private var _model :ModelLocator = ModelLocator.getInstance();
 		
 		public function execute(event:CairngormEvent):void
 		{			
-			var authorName:String = (event as SearchAuthorEvent).authorName;
+			var authorName:String = (event as SearchAuthorRightEvent).authorName;
 			var responder:mx.rpc.Responder = new mx.rpc.Responder(onSearchAuthor,onFailed);
 			var delegate:SearchAuthorDelegate = new SearchAuthorDelegate(responder);
 			delegate.searchAuthor(authorName);
@@ -34,7 +34,7 @@ package business.commands
 		private function onSearchAuthor(event:ResultEvent):void
 		{
 			Alert.show("ResultEvent Callback","Alert");
- 			_model.searchedAuthors.removeAll();
+			_model.searchedAuthorsRight.removeAll();
 			
 			if (event.result.authorOrgObjects != null)
 			{
@@ -47,7 +47,7 @@ package business.commands
 					authorOrgObject.authorName = object.authorName;
 					authorOrgObject.imgUrl = object.imgUrl;
 					authorOrgObject.orgName = object.orgName;
-					_model.searchedAuthors.addItem(authorOrgObject);
+ 					_model.searchedAuthorsRight.addItem(authorOrgObject);
 				}
 				
 			}
