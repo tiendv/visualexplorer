@@ -14,6 +14,7 @@ package models
 		}
 		
 		public var searchedAuthors:ArrayCollection = new ArrayCollection();
+		public var searchedAuthorsRight:ArrayCollection = new ArrayCollection();
 		public var recommendedAuthors:ArrayCollection = new ArrayCollection(); 
 	}
 }

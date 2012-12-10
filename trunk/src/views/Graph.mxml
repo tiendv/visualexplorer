@@ -7,6 +7,7 @@
 		<![CDATA[
 			import business.events.GetCollaborationEvent;
 			import business.events.SearchAuthorEvent;
+			import business.events.SearchAuthorRightEvent;
 			import business.events.ViewCoAuthorGraphEvent;
 			
 			import flash.sampler.NewObjectSample;
@@ -22,10 +23,11 @@
 			import spark.events.IndexChangeEvent;
 			
 			import valueobjects.AuthorOrgObject;
-			import valueobjects.GifImageLoading;
 			
 			[Bindable]
 			public var searchAuthors:ArrayCollection = ModelLocator.getInstance().searchedAuthors;
+			[Bindable]
+			public var searchAuthorsRight:ArrayCollection = ModelLocator.getInstance().searchedAuthorsRight;
 			
 			public var dataLeft:Object = new Object();
 			public var dataRight:Object = new Object();
@@ -75,7 +77,6 @@
 				str = str.replace(/\s+/g, '');
 				if(str != "")
 				{
-					GifImageLoading.gifPlayerSearchLeft.visible = true;
 
 					dataLeft = new Object();
 					var searchAuthorEvent:SearchAuthorEvent = new SearchAuthorEvent(txtAuthorNameLeft.text);
@@ -91,14 +92,16 @@
 			
 			protected function btnSearchRight_clickHandler(event:MouseEvent):void
 			{
+				searchAuthorsRight.removeAll();
+				
 				var str:String = txtAuthorNameRight.text;
 				str = str.replace(/\s+/g, '');
 				if(str != "")
 				{
-					GifImageLoading.gifPlayerSearchRight.visible = true;
 					dataRight = new Object();
 					//search
-					
+					var searchAuthorRightEvent:SearchAuthorRightEvent = new SearchAuthorRightEvent(txtAuthorNameRight.text);
+					searchAuthorRightEvent.dispatch();
 					//end search
 				}
 				else
@@ -319,9 +322,9 @@
 			</s:layout>
 			
 		</s:List>
-		<s:Image id="loadingSearchLeft" x="{SearchLeft.width/2-20}" y="{SearchLeft.height/2-100}"
-				  width="32" height="32" initialize="initGif()" 
-				  source="@Embed('assets/gui/loading.gif')"/>
+		<s:SWFLoader id="loadingSearchLeft" x="{SearchLeft.width/2-20}" y="{SearchLeft.height/2-100}"
+				  width="24" height="24" initialize="initGif()" 
+				  source="@Embed('assets/gui/ajax-loader.swf')"/>
 		
 	</s:BorderContainer>
 	
@@ -355,8 +358,9 @@
 			<s:Label text="Sory, the author does not exist." fontWeight="bold" fontSize="12"/>
 		</s:HGroup>
 		
-		<mx:Image id="loadingDrawGraph" x="10" y="10" width="32" height="32" initialize="initGif()"
-				  source="assets/gui/loading.gif"/>
+		<s:SWFLoader id="loadingDrawGraph" x="10" y="10" width="24" height="24" autoLoad="true"
+					 initialize="initGif()" source="@Embed('assets/gui/ajax-loader.swf')"/>
+		
 
 	</mx:Canvas>
 	
@@ -372,7 +376,8 @@
 		<s:Label x="10" y="40" text="Result"/>
 		<s:List id="lstRight" x="10" y="60" width="170" height="{height-70}" borderVisible="false"
 				changing="lst_changeHandlerRight(event)"
-				itemRenderer="views.CustomItemRen" useHandCursor="true">
+				itemRenderer="views.CustomItemRen" useHandCursor="true"
+				dataProvider="{searchAuthorsRight}">
 			
 			<s:layout>
 				<s:VerticalLayout gap="0"
@@ -381,10 +386,12 @@
 			</s:layout>
 			
 		</s:List>
-		<mx:Image id="loadingSearchRight" initialize="initGif()" 
-				  width="32" height="32" 
-				  x="{SearchRight.width/2-20}" y="{SearchRight.height/2-100}"
-				  source="assets/gui/loading.gif"/>
+
+		<s:SWFLoader id="loadingSearchRight" initialize="initGif()" 
+					 width="24" height="24" 
+					 x="{SearchRight.width/2-20}" y="{SearchRight.height/2-100}"
+					 source="@Embed('assets/gui/ajax-loader.swf')"/>
+		
 	</s:BorderContainer>
 
 	
