@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%" 
-		 xmlns:visual="org.un.cava.birdeye.ravis.graphLayout.visual.*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="100%" height="100%" 
+		 xmlns:visual="org.un.cava.birdeye.ravis.graphLayout.visual.*" initialize="initData();">
 	<fx:Script>
 		<![CDATA[
 			import business.events.GetCollaborationEvent;
@@ -19,6 +20,13 @@
 			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
 			import mx.controls.Alert;
+			
+			import org.un.cava.birdeye.ravis.graphLayout.data.IGraph;
+			import org.un.cava.birdeye.ravis.graphLayout.layout.ConcentricRadialLayouter;
+			import org.un.cava.birdeye.ravis.graphLayout.layout.ILayoutAlgorithm;
+			import org.un.cava.birdeye.ravis.graphLayout.visual.IEdgeRenderer;
+			import org.un.cava.birdeye.ravis.graphLayout.visual.IVisualNode;
+			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.DirectedBalloonEdgeRenderer;
 			
 			import spark.events.IndexChangeEvent;
 			
@@ -72,7 +80,7 @@
 			protected function btnSearchLeft_clickHandler(event:MouseEvent):void
 			{				
 				searchAuthors.removeAll();
-
+				
 				var str:String = txtAuthorNameLeft.text;
 				str = str.replace(/\s+/g, '');
 				if(str != "")
@@ -288,17 +296,65 @@
 			}
 
 			private function initGif():void{
-				//loadingSearchLeft.source = GifImageLoading.gifPlayerSearchLeft;
-				//GifImageLoading.gifPlayerSearchLeft.visible = true;
 				
-				//loadingSearchRight.source = GifImageLoading.gifPlayerSearchRight;
+			}
+			
+			/*----------*/
+			// graph datastructure object
+			private var graph:IGraph;
+			// active layouter
+			private var layouter:ILayoutAlgorithm;
+			// edge renderer
+			private var selectedEdgeRenderer:IEdgeRenderer;
+			// root node to start with
+			private var startRoot:IVisualNode;
+			// this is used to display the number of visible items
+			private var itemCount:int = 0;
+			// important to ensure we are done with the main initialisation
+			private var initDone:Boolean = false;
+			
+			private function initData():void{
+				/* init a graph object with the XML data */
+				graph = new org.un.cava.birdeye.ravis.graphLayout.data.Graph("XMLAsDocsGraph",false,xmldata);
+			
+				/* set the graph in the VGraph object, this automatically
+				* initializes the VGraph items; 
+				* note: vgraph is the id of the mxml specified VisualGraph component */
+				visualGraph.graph = graph;
 				
-				//loadingDrawGraph.source = GifImageLoading.gifPlayerDrawGraph;
+				/* set the default layouter type */
+				layouter = new ConcentricRadialLayouter(visualGraph);
+				visualGraph.layouter = layouter;
+				
+				/* set autofit */
+				layouter.autoFitEnabled = true;
+				
+				/* set the layouter */
+				visualGraph.edgeRendererFactory = new ClassFactory(DirectedBalloonEdgeRenderer);
+				
+				/* set the visibility limit options, default 2 
+				* a.k.a degrees of separation */
+				visualGraph.maxVisibleDistance = 2;
+				
+				/* select a root node, most layouters requires a root node
+				*  Note: Id 1 is referring to node id in the XML file */
+				startRoot = graph.nodeByStringId("1").vnode;
+				
+				/* set if edge labels should be displayed */
+				visualGraph.displayEdgeLabels = true;
+				
+				/* the following kicks it off .... */
+				visualGraph.currentRootVNode = startRoot;
+				initDone = true;
+				visualGraph.draw();
 			}
 		]]>
 	</fx:Script>
+	<fx:Style source="assets/style/main.css"/>
+ 
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<fx:XML id="xmldata" source="data/levelgraph.xml"/>
 	</fx:Declarations>
 	<s:BorderContainer id="SearchLeft" x="10" y="0" width="184" height="100%" borderVisible="false" initialize="initGifImage()">
 		<s:BorderContainer x="11" y="1" width="158" height="32" borderColor="#727BFC"
@@ -324,7 +380,7 @@
 		</s:List>
 		<s:SWFLoader id="loadingSearchLeft" x="{SearchLeft.width/2-20}" y="{SearchLeft.height/2-100}"
 				  width="24" height="24" initialize="initGif()" 
-				  source="@Embed('assets/gui/ajax-loader.swf')"/>
+				  source="@Embed('assets/gui/ajax-loader.swf')" visible="{!lstLeft.visible}"/>
 		
 	</s:BorderContainer>
 	
@@ -350,16 +406,18 @@
 		<visual:VisualGraph id="visualGraph" width="100%" height="100%" 
 							left="0" right="0" top="0" bottom="5" backgroundColor="#FFFFFF" alpha="1"
 							resize="visualGraph.draw(VisualGraph.DF_RESET_LL)"
-							visibilityLimitActive="true" visible="false">
+							itemRenderer="views.renderers.nodes.mxml.eventNodeRenderer"
+							edgeLabelRenderer="views.renderers.edgelabels.mxml.shapeEdgeLabelRenderer" 
+							visibilityLimitActive="true">
 			
 		</visual:VisualGraph>
 		
 		<s:HGroup id="gm" x="100" y="250" visible="false">
-			<s:Label text="Sory, the author does not exist." fontWeight="bold" fontSize="12"/>
+			<s:Label text="Sory, the author does not exist." fontWeight="bold" fontSize="12" visible="{!visualGraph.visible}"/>
 		</s:HGroup>
 		
 		<s:SWFLoader id="loadingDrawGraph" x="10" y="10" width="24" height="24" autoLoad="true"
-					 initialize="initGif()" source="@Embed('assets/gui/ajax-loader.swf')"/>
+					 initialize="initGif()" source="@Embed('assets/gui/ajax-loader.swf')" visible="{!visualGraph.visible}"/>
 		
 
 	</mx:Canvas>
