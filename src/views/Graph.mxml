@@ -26,6 +26,7 @@
 			import org.un.cava.birdeye.ravis.graphLayout.layout.ILayoutAlgorithm;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.IEdgeRenderer;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.IVisualNode;
+			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.DirectedArrowEdgeRenderer;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.DirectedBalloonEdgeRenderer;
 			
 			import spark.events.IndexChangeEvent;
