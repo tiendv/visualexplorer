@@ -14,13 +14,6 @@
     font-weight: bold;
 }
 
-Application {
-	font-family: main;
-	font-size: 10;
-	backgroundColor: #ffffff;
-   	
-}
-
 
 .linkButtonWindowShade {
 	      	headerClass:ClassReference('mx.controls.LinkButton');
@@ -43,11 +36,4 @@ Application {
 	    	textRollOverColor: #ffffff;
 	    }
 
-ToolTip {
-   			backgroundAlpha: 0.85;
-   			backgroundColor: #111111;
-   			color: #ffffff;
-   			font-family: main;
-			font-size: 10;
-}
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+		   xmlns:local="org.un.cava.birdeye.ravis.assets.icons.primitives.*"
+		   xmlns:nodes="org.un.cava.birdeye.ravis.components.renderers.nodes.*"
+		   creationComplete="setNode()"
+		   depth="0">
+	
+	<mx:VBox id="box" horizontalAlign="center" horizontalScrollPolicy="off" verticalAlign="top"
+			 verticalScrollPolicy="off">
+		
+		<mx:Box id="vbox" borderAlpha="0.23" borderColor="#A19D9D" borderVisible="false"
+				dropShadowVisible="true" horizontalAlign="center" rollOutEffect="{zoomOut}"
+				rollOver="bringToTop(event)" rollOverEffect="{zoomIn}"
+				toolTip="{this.data.data.@desc}" verticalAlign="middle">
+			<mx:Image width="60" height="60" scaleContent="true" horizontalAlign="center" verticalAlign="middle"
+					  source="{this.data.data.@imgUrl}"/>
+		</mx:Box>
+		
+		<mx:LinkButton id="nodeText" fontSize="14" label="{this.data.data.@name}" textAlign="center"
+					   click="navigateToURL(new URLRequest('http://truyentranhtuan.com/beelzebub/'+this.data.data.@id+'/doc-truyen/'), 'quote')"/>	</mx:VBox>
+
+	<mx:Zoom id="zoomIn" zoomHeightTo="1.5" zoomWidthTo="1.5" duration="600"/>
+	<mx:Zoom id="zoomOut" zoomHeightTo="1.0" zoomWidthTo="1.0" duration="600"/>
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			private function setNode():void {
+				var nodeSize:int = this.data.data.@nodeSize;
+				
+			}
+			
+			public function bringToTop(event:MouseEvent):void
+			{
+				var father:DisplayObjectContainer=DisplayObjectContainer(this.parent);
+				var brothers:int=father.numChildren;
+				father.setChildIndex(this,brothers-1);
+			}
+			
+		]]>
+	</mx:Script>	
+</mx:Canvas>

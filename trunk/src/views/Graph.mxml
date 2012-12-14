@@ -26,6 +26,7 @@
 			import org.un.cava.birdeye.ravis.graphLayout.layout.ILayoutAlgorithm;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.IEdgeRenderer;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.IVisualNode;
+			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.BaseEdgeRenderer;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.DirectedArrowEdgeRenderer;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.DirectedBalloonEdgeRenderer;
 			
@@ -331,7 +332,7 @@
 				layouter.autoFitEnabled = true;
 				
 				/* set the layouter */
-				visualGraph.edgeRendererFactory = new ClassFactory(DirectedBalloonEdgeRenderer);
+				visualGraph.edgeRendererFactory = new ClassFactory(BaseEdgeRenderer);
 				
 				/* set the visibility limit options, default 2 
 				* a.k.a degrees of separation */
@@ -407,8 +408,8 @@
 		<visual:VisualGraph id="visualGraph" width="100%" height="100%" 
 							left="0" right="0" top="0" bottom="5" backgroundColor="#FFFFFF" alpha="1"
 							resize="visualGraph.draw(VisualGraph.DF_RESET_LL)"
-							itemRenderer="views.renderers.nodes.mxml.eventNodeRenderer"
-							edgeLabelRenderer="views.renderers.edgelabels.mxml.shapeEdgeLabelRenderer" 
+							itemRenderer="views.renderers.nodes.mxml.customNodeRenderer"
+							edgeLabelRenderer="views.renderers.edgelabels.mxml.customEdgeLabelRenderer" 
 							visibilityLimitActive="true">
 			
 		</visual:VisualGraph>

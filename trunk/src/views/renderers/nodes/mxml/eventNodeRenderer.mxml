@@ -11,7 +11,7 @@
 	<mx:Spacer height="11" />
 	<primitive:Circle id="circle" toolTip="{XML(this.data.data).@name}"
             />
-    <mx:LinkButton id="nodeText" label="{XML(this.data.data).@name}" width="75" height="12" click="showDetails(event)" />
+    <mx:LinkButton id="nodeText" label="{XML(this.data.data).@name}" click="showDetails(event)" />
 	</mx:VBox>
 	
 	<mx:Script>
