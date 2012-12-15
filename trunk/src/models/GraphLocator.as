@@ -1,5 +1,7 @@
 package models
 {
+	import graphLayout.data.GraphDP;
+	
 	import mx.collections.ArrayCollection;
 	
 	import org.un.cava.birdeye.ravis.graphLayout.data.IGraph;
@@ -21,7 +23,8 @@ package models
 		public var edges:ArrayCollection;
 		public var xml:XML;
 		public var layouter:ILayoutAlgorithm;
-		public var graph:IGraph;
+		[Bindable]
+		public var graph:GraphDP;
 		public var startRoot : IVisualNode;
 	}
 }
