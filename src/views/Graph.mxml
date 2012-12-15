@@ -27,6 +27,7 @@
 			import org.un.cava.birdeye.ravis.graphLayout.visual.IEdgeRenderer;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.IVisualNode;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.BaseEdgeRenderer;
+			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.CircularEdgeRenderer;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.DirectedArrowEdgeRenderer;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.DirectedBalloonEdgeRenderer;
 			
@@ -332,11 +333,11 @@
 				layouter.autoFitEnabled = true;
 				
 				/* set the layouter */
-				visualGraph.edgeRendererFactory = new ClassFactory(BaseEdgeRenderer);
+				visualGraph.edgeRendererFactory = new ClassFactory(CircularEdgeRenderer);
 				
-				/* set the visibility limit options, default 2 
+				/* set the visibility limit options, default 1 
 				* a.k.a degrees of separation */
-				visualGraph.maxVisibleDistance = 2;
+				visualGraph.maxVisibleDistance = 1;
 				
 				/* select a root node, most layouters requires a root node
 				*  Note: Id 1 is referring to node id in the XML file */
