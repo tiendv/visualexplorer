@@ -3,7 +3,9 @@
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 width="100%" height="100%" 
-		 xmlns:visual="org.un.cava.birdeye.ravis.graphLayout.visual.*" initialize="initData();">
+		 xmlns:visual="org.un.cava.birdeye.ravis.graphLayout.visual.*" 
+		 xmlns:visualDP="graphLayout.visual.*"
+		 initialize="initData();" >
 	<fx:Script>
 		<![CDATA[
 			import business.events.GetCollaborationEvent;
@@ -15,6 +17,9 @@
 			
 			import flashx.textLayout.factory.TruncationOptions;
 			
+			import graphLayout.data.GraphDP;
+			
+			import models.GraphLocator;
 			import models.ModelLocator;
 			
 			import mx.collections.ArrayCollection;
@@ -26,6 +31,7 @@
 			import org.un.cava.birdeye.ravis.graphLayout.layout.ILayoutAlgorithm;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.IEdgeRenderer;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.IVisualNode;
+			import org.un.cava.birdeye.ravis.graphLayout.visual.VisualGraph;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.BaseEdgeRenderer;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.CircularEdgeRenderer;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.edgeRenderers.DirectedArrowEdgeRenderer;
@@ -83,16 +89,14 @@
 			protected function btnSearchLeft_clickHandler(event:MouseEvent):void
 			{				
 				searchAuthors.removeAll();
-				
+				GraphLocator.getInstance().graph.dataProvider.removeAll();
 				var str:String = txtAuthorNameLeft.text;
 				str = str.replace(/\s+/g, '');
 				if(str != "")
 				{
-
 					dataLeft = new Object();
 					var searchAuthorEvent:SearchAuthorEvent = new SearchAuthorEvent(txtAuthorNameLeft.text);
-					searchAuthorEvent.dispatch();
-					
+					searchAuthorEvent.dispatch();				
 				}
 				else
 				{
@@ -146,7 +150,6 @@
 				vrRight.x = width - 200;
 				btnHideRight.x = width - 210;
 				btnShowRight.x = width - 30;
-				
 				
 			}
 			
@@ -228,6 +231,8 @@
 				dataUrlReplace.urlReplace = "";
 				if(isCoGraph){
 					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=graph";
+					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(dataLeft.authorID);
+					coauthorEvent.dispatch();
 				}
 				if(isCoPath){
 					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&aid2="+dataRight.authorID+"&action=path";
@@ -237,10 +242,13 @@
 				}
 				if(isRecommend){
 					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=recommend";
+					var recommandEvent:GetCollaborationEvent = new GetCollaborationEvent(dataLeft.authorID);
+					recommandEvent.dispatch();
 				}
 				
 				setTitle(dataLeft);
 				setUrlReplace(dataUrlReplace);
+				
 			}
 			protected function lst_changeHandlerRight(e:IndexChangeEvent):void {
 				dataRight = e.currentTarget.selectedItem;
@@ -303,8 +311,6 @@
 			}
 			
 			/*----------*/
-			// graph datastructure object
-			private var graph:IGraph;
 			// active layouter
 			private var layouter:ILayoutAlgorithm;
 			// edge renderer
@@ -318,12 +324,9 @@
 			
 			private function initData():void{
 				/* init a graph object with the XML data */
-				graph = new org.un.cava.birdeye.ravis.graphLayout.data.Graph("XMLAsDocsGraph",false,xmldata);
-			
-				/* set the graph in the VGraph object, this automatically
-				* initializes the VGraph items; 
-				* note: vgraph is the id of the mxml specified VisualGraph component */
-				visualGraph.graph = graph;
+ 				GraphLocator.getInstance().graph = new GraphDP("XMLAsDocsGraph", false, xmldata); 			
+				//GraphLocator.getInstance().graph.dataProvider.removeAll();
+				visualGraph.graph = GraphLocator.getInstance().graph;
 				
 				/* set the default layouter type */
 				layouter = new ConcentricRadialLayouter(visualGraph);
@@ -335,13 +338,9 @@
 				/* set the layouter */
 				visualGraph.edgeRendererFactory = new ClassFactory(CircularEdgeRenderer);
 				
-				/* set the visibility limit options, default 1 
-				* a.k.a degrees of separation */
 				visualGraph.maxVisibleDistance = 1;
 				
-				/* select a root node, most layouters requires a root node
-				*  Note: Id 1 is referring to node id in the XML file */
-				startRoot = graph.nodeByStringId("1").vnode;
+				startRoot = visualGraph.graph.nodeByStringId("1").vnode;
 				
 				/* set if edge labels should be displayed */
 				visualGraph.displayEdgeLabels = true;
@@ -406,18 +405,16 @@
 	<mx:Canvas id="graphBody"
 			   x ="{vrLeft.x + 15}" y="31"
 			   height="100%" width="{vrRight.x - vrLeft.x - 25}" borderStyle="solid">
-		<visual:VisualGraph id="visualGraph" width="100%" height="100%" 
+		<visualDP:VisualGraphDP id="visualGraph" width="100%" height="100%" 
 							left="0" right="0" top="0" bottom="5" backgroundColor="#FFFFFF" alpha="1"
 							resize="visualGraph.draw(VisualGraph.DF_RESET_LL)"
 							itemRenderer="views.renderers.nodes.mxml.customNodeRenderer"
 							edgeLabelRenderer="views.renderers.edgelabels.mxml.customEdgeLabelRenderer" 
-							visibilityLimitActive="true">
+							visibilityLimitActive="true" visible="true">
 			
-		</visual:VisualGraph>
+		</visualDP:VisualGraphDP>
 		
-		<s:HGroup id="gm" x="100" y="250" visible="false">
-			<s:Label text="Sory, the author does not exist." fontWeight="bold" fontSize="12" visible="{!visualGraph.visible}"/>
-		</s:HGroup>
+		<s:Label id="gm" x="100" y="250" text="Sory, the author does not exist." fontWeight="bold" fontSize="12" visible="false"/>
 		
 		<s:SWFLoader id="loadingDrawGraph" x="10" y="10" width="24" height="24" autoLoad="true"
 					 initialize="initGif()" source="@Embed('assets/gui/ajax-loader.swf')" visible="{!visualGraph.visible}"/>
