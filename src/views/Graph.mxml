@@ -350,7 +350,7 @@
 				initDone = true;
 				//visualGraph.draw();
 			}
-			private var counter = 1;
+			private var counter:int = 1;
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
