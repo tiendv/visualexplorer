@@ -20,8 +20,8 @@
 		</mx:VBox>
 	</mx:VBox>
 
-	<mx:Zoom id="zoomIn" zoomHeightTo="1.5" zoomWidthTo="1.5" duration="600"/>
-	<mx:Zoom id="zoomOut" zoomHeightTo="1.0" zoomWidthTo="1.0" duration="600"/>
+	<mx:Zoom id="zoomIn" zoomHeightTo="1.5" zoomWidthTo="1.5" duration="100"/>
+	<mx:Zoom id="zoomOut" zoomHeightTo="1.0" zoomWidthTo="1.0" duration="100"/>
 	
 	<mx:Script>
 		<![CDATA[

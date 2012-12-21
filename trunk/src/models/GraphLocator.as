@@ -26,5 +26,6 @@ package models
 		[Bindable]
 		public var graph:GraphDP;
 		public var startRoot : IVisualNode;
+		public var idRoot:int;
 	}
 }

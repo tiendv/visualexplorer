@@ -1,62 +1,68 @@
 package utils
 {
-	import valueobjects.AuthorOrgObject;
-
+	
 	public class GraphUtil
 	{
 		public function GraphUtil()
 		{
-			public static function createNodeAuthor(node:AuthorOrgObject,x:int,y:int,index:int):XMLList
+						
+		}
+		public static function createNode(id:int, name:String, desc:String, size:int, imgUrl:String):XMLList
+		{
+			var nodeG:String="Node";
+			var nodeID:String="id=";
+			var nodeName:String="name=";
+			var nodeDesc:String="desc=";
+			var nodeSize:String="nodeSize=";
+			var nodeImgUrl:String="imgUrl=";
+			
+			if(imgUrl=="images/UnknowAuthor.png")
 			{
-				var nodeG:String="Node";
-				var nodeID:String="id=";
-				var nodeName:String="name=";
-				var nodeDesc:String="desc=";
-				var nodeColor:String="nodeColor=";
-				var nodeSize:String="nodeSize=";
-				var nodeClass:String="nodeClass=";
-				var nodeIcon:String="nodeIcon=";
-				var nodeclass="tree";
-				var nodeSizeValue:int=60;
-				var xAxis:String = "x";
-				var yAxis:String = "y";
-				var nodeColorValue:String="0x333333";
-				if(index==0)
-				{
-					nodeclass="earth";
-					nodeSizeValue=80;
-					nodeColorValue="0x8F8FFF";
-				}
-				var xmlList:XMLList=XMLList("<"+nodeG+" "
-												+nodeID		+"\""+	node.authorID	+"\""+" "
-												+nodeName	+"\""+	node.authorName	+"\""+" "
-												+nodeDesc	+"\""+	node.orgName	+"\""+" "
-												+nodeColor	+"\""+	nodeColorValue	+"\""+" "
-												+nodeSize	+"\""+	nodeSizeValue	+"\""+" "
-												+nodeClass	+"\""+	nodeclass		+"\""+" "
-												+nodeIcon	+"\""+	node.imgUrl		+"\""+" "
-												+xAxis		+"\""+	x.toString()	+"\""+" "
-												+yAxis		+"\""+	y.toString()	+"\""+" "
-												+"/>");
-				return xmlList;
+				imgUrl="http://localhost:8080/PubGuru/images/UnknowAuthor.png";
 			}
+			
+			var xmlList:XMLList=XMLList("<"+nodeG+" "
+				+nodeID		+"\""+	id			+"\""+" "
+				+nodeName	+"\""+	name		+"\""+" "
+				+nodeDesc	+"\""+	desc		+"\""+" "
+				+nodeSize   +"\""+  size		+"\""+" "
+				+nodeImgUrl	+"\""+	imgUrl		+"\""+" "
+				+"/>");
+			
+			return xmlList;
+		}
 		
-			/*
-			public static function createEdgeAuthor(edge:PaperView,root:PaperView,flows:int):XMLList
+		
+		public static function createEdge(fromID:int, toID:int, color:String, sim:Number):XMLList
+		{
+			var edgeG:String="Edge";
+			var edgeFromID:String="fromID=";
+			var edgeToID:String="toID=";
+			var edgeColor:String="color=";
+			var edgeSim:String="Sim=";
+			
+			color = color.replace(/\s+/g, '');
+			var xmlList:XMLList;
+			
+			if(color != "")
 			{
-				var edgeG:String="Edge";
-				var fromID:String="fromID=";
-				var toID:String="toID=";
-				var edgeColor:String="color=";
-				var edgeLabel:String="edgeLabel=";
-				var flow:String="flow=";
-				var edgeClass:String="edgeClass=";
-				var edgeIcon:String="edgeIcon=";
-				
-				var xmlList:XMLList = XMLList("<"+edgeG+" "+fromID+"\""+root.idPaper+"\""+" "+toID+"\""+edge.idPaper+"\""+" "+edgeColor+"\""+"0x333333"+"\""+" "+edgeLabel+"\""+edge.title+"\""+" "+flow+"\""+flows.toString()+"\""+" "+edgeClass+"\""+"earth"+"\""+" "+edgeIcon+"\""+edge.titleview+"\""+" "+" />");
-				return xmlList;	
+				xmlList = XMLList("<"+edgeG+" "
+					+edgeFromID		+"\""+	fromID		+"\""+" "
+					+edgeToID		+"\""+	toID		+"\""+" "
+					+edgeColor		+"\""+	color		+"\""+" "
+					+edgeSim		+"\""+	sim			+"\""+" "
+					+"/>");
 			}
-			*/
+			else
+			{
+				xmlList = XMLList("<"+edgeG+" "
+					+edgeFromID		+"\""+	fromID		+"\""+" "
+					+edgeToID		+"\""+	toID		+"\""+" "
+					+edgeSim		+"\""+	sim			+"\""+" "
+					+"/>");
+			}
+			
+			return xmlList;	
 		}
 	}
 }
