@@ -4,7 +4,7 @@ package business.events
 	
 	public class ViewCoAuthorGraphEvent extends CairngormEvent 
 	{
-		static public var EVENT_ID:String = "viewCoAuhorGraph";
+		static public var EVENT_ID:String = "viewCoAuhor";
 		public var authorID:int;
 		
 		public function ViewCoAuthorGraphEvent(authorID:int)

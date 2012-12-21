@@ -2,6 +2,6 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
 	verticalAlign="middle" horizontalAlign="center"
 	>
-	<mx:Label text="{XML(this.data.data).@coPaper}" fontSize="9" fontWeight="bold"/>
+	<mx:Label text="{XML(this.data.data).@Sim}" fontSize="9" fontWeight="bold"/>
 	
 </mx:VBox>

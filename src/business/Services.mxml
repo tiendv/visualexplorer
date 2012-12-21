@@ -3,4 +3,5 @@
 					xmlns:mx="http://www.adobe.com/2006/mxml">
 	
 	<mx:HTTPService id="searchAuthor" url="http://localhost:8080/PubGuru/webresources/recommend/searchAuthor"/>
+	<mx:HTTPService id="viewCoAuthor" url="http://localhost:8080/PubGuru/webresources/recommend/getRTBVSAuthors" />
 </rds:ServiceLocator>

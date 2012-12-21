@@ -25,6 +25,7 @@
 			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
 			import mx.controls.Alert;
+			import mx.rpc.xml.SimpleXMLDecoder;
 			
 			import org.un.cava.birdeye.ravis.graphLayout.data.IGraph;
 			import org.un.cava.birdeye.ravis.graphLayout.layout.ConcentricRadialLayouter;
@@ -39,7 +40,10 @@
 			
 			import spark.events.IndexChangeEvent;
 			
+			import utils.GraphUtil;
+			
 			import valueobjects.AuthorOrgObject;
+			import valueobjects.CoAuthorObject;
 			
 			[Bindable]
 			public var searchAuthors:ArrayCollection = ModelLocator.getInstance().searchedAuthors;
@@ -229,6 +233,7 @@
 				dataLeft = e.currentTarget.selectedItem;
 				var dataUrlReplace:Object = new Object();
 				dataUrlReplace.urlReplace = "";
+				GraphLocator.getInstance().idRoot = dataLeft.authorID;
 				if(isCoGraph){
 					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=graph";
 					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(dataLeft.authorID);
@@ -302,13 +307,6 @@
 				trace(s);
 			}
 			
-			private function initGifImage():void{
- 				
-			}
-
-			private function initGif():void{
-				
-			}
 			
 			/*----------*/
 			// active layouter
@@ -338,7 +336,7 @@
 				/* set the layouter */
 				visualGraph.edgeRendererFactory = new ClassFactory(CircularEdgeRenderer);
 				
-				visualGraph.maxVisibleDistance = 1;
+				visualGraph.maxVisibleDistance = 3;
 				
 				//startRoot = visualGraph.graph.nodeByStringId("1").vnode;
 				
@@ -350,41 +348,6 @@
 				initDone = true;
 				//visualGraph.draw();
 			}
-			private var counter:int = 1;
-			protected function button1_clickHandler(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-					var xml:XML= 
-						<Graph>
-							<Node id="" name="" desc="" nodeSize="" imgUrl="" />
-							<Node id="" name="" desc="" nodeSize="" imgUrl="" /> 
-							<Edge fromID="" toID="" color="0xFFA500"  coPaper="" />
-						</Graph>;
-					xml.Node[0].@id = counter;
-					xml.Node[0].@name = "node " + counter.toString();
-					xml.Node[0].@desc = "This is a description";
-					xml.Node[0].@nodeSize = 60;
-					xml.Node[0].@imgUrl = "http://academic.research.microsoft.com/Photo/23422751.jpg";
-					xml.Node[1].@id = ++counter;
-					xml.Node[1].@name = "node " + counter.toString();
-					xml.Node[1].@desc = "This is a description";
-					xml.Node[1].@nodeSize = 60;
-					xml.Node[1].@imgUrl = "http://academic.research.microsoft.com/Photo/23422751.jpg";
-					
-					xml.Edge[0].@fromID=1;
-					xml.Edge[0].@toID=counter++;
-					xml.Edge[0].@coPaper = 13;
-
-				GraphLocator.getInstance().graph.dataProvider.addItem(xml);
-				//GraphLocator.getInstance().graph.dataProvider.addItem(xmldata);
-			}
-			
-			protected function button2_clickHandler(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-				GraphLocator.getInstance().graph.dataProvider.removeAll();
-				counter = 1;
-			}
 			
 		]]>
 	</fx:Script>
@@ -393,8 +356,10 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 		<fx:XML id="xmldata" source="data/levelgraph.xml"/>
+		<fx:XML id="testdata" source="data/test.xml"/>
+		
 	</fx:Declarations>
-	<s:BorderContainer id="SearchLeft" x="10" y="0" width="184" height="100%" borderVisible="false" initialize="initGifImage()">
+	<s:BorderContainer id="SearchLeft" x="10" y="0" width="184" height="100%" borderVisible="false">
 		<s:BorderContainer x="11" y="1" width="158" height="32" borderColor="#727BFC"
 						   color="#183CF0" symbolColor="#3E5BF0">
 			<s:TextInput id="txtAuthorNameLeft" x="3" y="5" width="123" borderVisible="false"
@@ -417,7 +382,7 @@
 			
 		</s:List>
 		<s:SWFLoader id="loadingSearchLeft" x="{SearchLeft.width/2-20}" y="{SearchLeft.height/2-100}"
-				  width="24" height="24" initialize="initGif()" 
+				  width="24" height="24"
 				  source="@Embed('assets/gui/ajax-loader.swf')" visible="{!lstLeft.visible}"/>
 		
 	</s:BorderContainer>
@@ -440,7 +405,7 @@
 	
 	<mx:Canvas id="graphBody"
 			   x ="{vrLeft.x + 15}" y="31"
-			   height="100%" width="{vrRight.x - vrLeft.x - 25}" borderStyle="solid">
+			   height="100%" width="{vrRight.x - vrLeft.x - 25}">
 		<visualDP:VisualGraphDP id="visualGraph" width="100%" height="100%" 
 							left="0" right="0" top="0" bottom="5" backgroundColor="#FFFFFF" alpha="1"
 							resize="visualGraph.draw(VisualGraph.DF_RESET_LL)"
@@ -453,7 +418,7 @@
 		<s:Label id="gm" x="100" y="250" text="Sory, the author does not exist." fontWeight="bold" fontSize="12" visible="false"/>
 		
 		<s:SWFLoader id="loadingDrawGraph" x="10" y="10" width="24" height="24" autoLoad="true"
-					 initialize="initGif()" source="@Embed('assets/gui/ajax-loader.swf')" visible="{!visualGraph.visible}"/>
+					 source="@Embed('assets/gui/ajax-loader.swf')" visible="{!visualGraph.visible}"/>
 		
 
 	</mx:Canvas>
@@ -481,7 +446,7 @@
 			
 		</s:List>
 
-		<s:SWFLoader id="loadingSearchRight" initialize="initGif()" 
+		<s:SWFLoader id="loadingSearchRight" 
 					 width="24" height="24" 
 					 x="{SearchRight.width/2-20}" y="{SearchRight.height/2-100}"
 					 source="@Embed('assets/gui/ajax-loader.swf')"/>
@@ -510,7 +475,5 @@
 			   click="btnCitationGraph_clickHandler(event)"/>
 	<s:Button id="btnRecommend" x="537" y="1" label="Recommend"
 			  click="btnRecommend_clickHandler(event)"/>
-	<s:Button x="292" y="201" label="click to change graph" click="button1_clickHandler(event)"/>
-	<s:Button x="292" y="240" label="click to remove graph" click="button2_clickHandler(event)"/>
 	
 </s:Group>
