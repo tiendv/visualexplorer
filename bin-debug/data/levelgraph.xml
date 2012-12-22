@@ -1,78 +1,78 @@
 <Graph>
- <Node id="1" name="0" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
- <Node id="2" name="A" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="3" name="B" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
- <Node id="4" name="Coner" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="5" name="D" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="6" name="E" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="7" name="F" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
- <Node id="8" name="A.1" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
- <Node id="9" name="A.2" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
- <Node id="10" name="A.3" desc="This is a description" nodeSize="32" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="11" name="A.4" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="12" name="A.5" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="13" name="A.6" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
- <Node id="14" name="B.1" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
- <Node id="15" name="B.2" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
- <Node id="16" name="B.3" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="17" name="B.4" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="18" name="B.5" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="19" name="B.6" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
- <Node id="20" name="C.1" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
- <Node id="21" name="C.2" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="22" name="C.3" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="23" name="C.4" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="24" name="C.5" desc="This is a description" nodeSize="20" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="25" name="C.6" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
- <Node id="26" name="D.1" desc="This is a description" nodeSize="30" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
- <Node id="27" name="D.2" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="28" name="D.3" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
- <Node id="29" name="D.4" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
- <Node id="30" name="D.5" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
+ <Node id="1" name="0" desc="This is a description" nodeSize="80" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
+ <Node id="2" name="A" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="3" name="B" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
+ <Node id="4" name="Coner" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="5" name="D" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="6" name="E" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="7" name="F" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
+ <Node id="8" name="A.1" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
+ <Node id="9" name="A.2" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
+ <Node id="10" name="A.3" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="11" name="A.4" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="12" name="A.5" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="13" name="A.6" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
+ <Node id="14" name="B.1" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
+ <Node id="15" name="B.2" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
+ <Node id="16" name="B.3" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="17" name="B.4" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="18" name="B.5" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="19" name="B.6" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
+ <Node id="20" name="C.1" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
+ <Node id="21" name="C.2" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="22" name="C.3" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="23" name="C.4" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="24" name="C.5" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="25" name="C.6" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
+ <Node id="26" name="D.1" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
+ <Node id="27" name="D.2" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="28" name="D.3" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg"/>
+ <Node id="29" name="D.4" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
+ <Node id="30" name="D.5" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
  
- <Edge fromID="1" toID="2" color="0xFFA500"  coPaper="120" />
- <Edge fromID="1" toID="3" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="4" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="5" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="6" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="7" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="8" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="9" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="10" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="11" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="12" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="13" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="14" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="15" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="16" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="17" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="18" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="19" color="0xFFA500" coPaper="120" />
- <Edge fromID="1" toID="20" color="0xFFA500" coPaper="30"/>
- <Edge fromID="1" toID="21" color="0xFFA500" coPaper="30" />
- <Edge fromID="1" toID="22" color="0xFFA500" coPaper="30" />
- <Edge fromID="1" toID="23" color="0xFFA500" coPaper="30" />
- <Edge fromID="1" toID="24" color="0xFFA500" coPaper="30" />
- <Edge fromID="1" toID="25" color="0xFFA500" coPaper="30" />
- <Edge fromID="1" toID="26" color="0xFFA500" coPaper="3" />
- <Edge fromID="1" toID="27" color="0xFFA500" coPaper="3" />
- <Edge fromID="1" toID="28" color="0xFFA500" coPaper="3" />
- <Edge fromID="1" toID="29" color="0xFFA500" coPaper="3" />
- <Edge fromID="1" toID="30" color="0xFFA500" coPaper="3" />
+ <Edge fromID="1" toID="2" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="3" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="4" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="5" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="6" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="7" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="8" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="9" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="10" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="11" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="12" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="13" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="14" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="15" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="16" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="17" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="18" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="19" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="20" color="0xFFA500" Sim="30"/>
+ <Edge fromID="1" toID="21" color="0xFFA500" Sim="30" />
+ <Edge fromID="1" toID="22" color="0xFFA500" Sim="30" />
+ <Edge fromID="1" toID="23" color="0xFFA500" Sim="30" />
+ <Edge fromID="1" toID="24" color="0xFFA500" Sim="30" />
+ <Edge fromID="1" toID="25" color="0xFFA500" Sim="30" />
+ <Edge fromID="1" toID="26" color="0xFFA500" Sim="3" />
+ <Edge fromID="1" toID="27" color="0xFFA500" Sim="3" />
+ <Edge fromID="1" toID="28" color="0xFFA500" Sim="3" />
+ <Edge fromID="1" toID="29" color="0xFFA500" Sim="3" />
+ <Edge fromID="1" toID="30" color="0xFFA500" Sim="3" />
  
- <Edge fromID="2" toID="3" coPaper="3" />
- <Edge fromID="2" toID="5" coPaper="3" />
- <Edge fromID="2" toID="30" coPaper="3" />
- <Edge fromID="2" toID="23" coPaper="3" />
- <Edge fromID="2" toID="16" coPaper="3" />
- <Edge fromID="2" toID="10" coPaper="3" />
+ <Edge fromID="2" toID="3" Sim="32" />
+ <Edge fromID="2" toID="5" Sim="3" />
+ <Edge fromID="2" toID="30" Sim="3" />
+ <Edge fromID="2" toID="23" Sim="3" />
+ <Edge fromID="2" toID="16" Sim="3" />
+ <Edge fromID="2" toID="10" Sim="3" />
  
- <Edge fromID="3" toID="30" coPaper="3" />
- <Edge fromID="3" toID="7" coPaper="3" />
- <Edge fromID="3" toID="8" coPaper="3" />
- <Edge fromID="3" toID="25" coPaper="3" />
- <Edge fromID="3" toID="22" coPaper="3" />
- <Edge fromID="3" toID="17" coPaper="3" />
+ <Edge fromID="3" toID="2" Sim="3" />
+ <Edge fromID="3" toID="7" Sim="3" />
+ <Edge fromID="3" toID="8" Sim="3" />
+ <Edge fromID="3" toID="25" Sim="3" />
+ <Edge fromID="3" toID="22" Sim="3" />
+ <Edge fromID="3" toID="17" Sim="3" />
  
  
 </Graph>

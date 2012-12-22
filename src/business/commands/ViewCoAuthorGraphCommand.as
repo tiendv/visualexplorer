@@ -81,21 +81,26 @@ package business.commands
 							}
 						}
 						else
-						{
+						{//co the co hoac khong co simData
 							var xmlNode:XMLList;
 							var authorID:int = o.authorID;
 							xmlNode = GraphUtil.createNode(o.authorID,o.authorName,o.orgName,sizeDict[authorID],o.imgUrl);
 							xmldata.prependChild(xmlNode);
-							var simDataCollection:ArrayCollection = o.simData.entry as ArrayCollection;
-							if(simDataCollection == null){
-								simDataCollection = new ArrayCollection();
-								simDataCollection.addItem(o.simData.entry);
-							}
-							for(var l:int;l<simDataCollection.length;l++)
+							//kiem tra simData co hay ko
+							var checkData:Object = o.simData as Object;
+							if(checkData != null)
 							{
-								var osd:Object = simDataCollection.getItemAt(l);
-								var xmlEdge:XMLList = GraphUtil.createEdge(o.authorID,osd.key,"",osd.value);
-								xmldata.prependChild(xmlEdge);
+								var simDataCollection:ArrayCollection = o.simData as ArrayCollection;
+								if(simDataCollection == null){
+									simDataCollection = new ArrayCollection();
+									simDataCollection.addItem(o.simData.entry);
+								}
+								for(var l:int;l<simDataCollection.length;l++)
+								{
+									var osd:Object = simDataCollection.getItemAt(l);
+									var xmlEdge:XMLList = GraphUtil.createEdge(o.authorID,osd.key,"",osd.value);
+									xmldata.prependChild(xmlEdge);
+								}
 							}
 						}
 						

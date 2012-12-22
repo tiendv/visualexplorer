@@ -12,7 +12,7 @@
 					dropShadowVisible="true" toolTip="{this.data.data.@desc}" 
 					horizontalAlign="center" verticalAlign="middle">
 				<mx:Image id="img" scaleContent="true" horizontalAlign="center" verticalAlign="middle"
-						  source="{this.data.data.@imgUrl}"/>
+						  source="{this.data.data.@imgUrl}" doubleClick="img_doubleClickHandler(event)"/>
 			</mx:Box>
 			
 			<mx:LinkButton id="nodeText" fontSize="12" label="{this.data.data.@name}" textAlign="center"
@@ -25,6 +25,8 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import models.GraphLocator;
+			
 			import mx.controls.Alert;
 			private function setNode():void {
 				var nodeSize:int = this.data.data.@nodeSize;
@@ -39,6 +41,15 @@
 				father.setChildIndex(this,brothers-1);
 			}
 			
+			protected function img_doubleClickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+			
+				GraphLocator.getInstance().graph.dataProvider.removeAll();
+				GraphLocator.getInstance().graph.dataProvider.addItem(test1);
+			}
+			
 		]]>
 	</mx:Script>	
+	<mx:XML id="test1" source="data/test.xml"/>
 </mx:Canvas>

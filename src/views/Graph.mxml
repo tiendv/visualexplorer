@@ -349,6 +349,13 @@
 				//visualGraph.draw();
 			}
 			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				GraphLocator.getInstance().graph.dataProvider.removeAll();
+				GraphLocator.getInstance().graph.dataProvider.addItem(xmldata);
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Style source="assets/style/main.css"/>
@@ -475,5 +482,6 @@
 			   click="btnCitationGraph_clickHandler(event)"/>
 	<s:Button id="btnRecommend" x="537" y="1" label="Recommend"
 			  click="btnRecommend_clickHandler(event)"/>
+	<s:Button x="307" y="227" label="Button" click="button1_clickHandler(event)"/>
 	
 </s:Group>
