@@ -2,21 +2,27 @@
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
 		   xmlns:local="org.un.cava.birdeye.ravis.assets.icons.primitives.*"
 		   xmlns:nodes="org.un.cava.birdeye.ravis.components.renderers.nodes.*"
-		   creationComplete="setNode()">
+		   creationComplete="setNode()" initialize="init();">
 	
-	<mx:VBox horizontalAlign="center" horizontalScrollPolicy="off" verticalAlign="top"
-			 verticalScrollPolicy="off">
-		<mx:VBox horizontalAlign="center" verticalAlign="middle"
-				 rollOutEffect="{zoomOut}" rollOver="bringToTop(event)" rollOverEffect="{zoomIn}">
-			<mx:Box borderAlpha="0.23" borderColor="#A19D9D" borderVisible="false"
-					dropShadowVisible="true" toolTip="{this.data.data.@desc}" 
-					horizontalAlign="center" verticalAlign="middle">
-				<mx:Image id="img" scaleContent="true" horizontalAlign="center" verticalAlign="middle"
-						  source="{this.data.data.@imgUrl}" doubleClick="img_doubleClickHandler(event)"/>
+	<mx:VBox horizontalAlign="center" horizontalScrollPolicy="off" verticalAlign="middle"
+			 verticalScrollPolicy="off" verticalGap="0">
+		<mx:VBox horizontalAlign="center" rollOutEffect="{zoomOut}" rollOver="bringToTop(event)"
+				rollOverEffect="{zoomIn}" verticalGap="-10" verticalAlign="middle">
+			
+			<mx:Box id="box" horizontalAlign="center" verticalAlign="middle">
+				<mx:Box id="box_img" backgroundColor="#727BFC"
+						horizontalAlign="center" toolTip="{this.data.data.@desc}" verticalAlign="middle" resize="box_img_resize(event);">
+					<mx:Image id="img" scaleContent="true" horizontalAlign="center" verticalAlign="middle"
+							  source="{this.data.data.@imgUrl}" doubleClick="img_doubleClickHandler(event)" resize="image_resize(event);"/>
+				</mx:Box>
+			</mx:Box>
+			<mx:Box backgroundAlpha="0.001" backgroundColor="#ffffff" cornerRadius="5" paddingTop="10">
+				<mx:LinkButton id="nodeText" label="{this.data.data.@name}" 
+							   click="navigateToURL(new URLRequest('http://truyentranhtuan.com/beelzebub/'+this.data.data.@id+'/doc-truyen/'), 'quote')"
+							   cornerRadius="5" fontSize="12" paddingBottom="0" paddingTop="0"
+							   textAlign="center"/>
 			</mx:Box>
 			
-			<mx:LinkButton id="nodeText" fontSize="12" label="{this.data.data.@name}" textAlign="center"
-						   click="navigateToURL(new URLRequest('http://truyentranhtuan.com/beelzebub/'+this.data.data.@id+'/doc-truyen/'), 'quote')"/>
 		</mx:VBox>
 	</mx:VBox>
 
@@ -30,10 +36,13 @@
 			import models.GraphLocator;
 			
 			import mx.controls.Alert;
+			import mx.events.ResizeEvent;
 			private function setNode():void {
 				var nodeSize:int = this.data.data.@nodeSize;
 				img.width = nodeSize;
 				img.height = nodeSize;
+				box_img.width = nodeSize+6;
+				box_img.height = nodeSize+6;
 			}
 			
 			public function bringToTop(event:MouseEvent):void
@@ -52,6 +61,45 @@
 					coauthorEvent.dispatch();
 				}
 			}
+			
+			private var roundedMask:Sprite;
+			private var roundedMask2:Sprite;
+			
+			private function init():void {
+				roundedMask = new Sprite();
+				roundedMask2 = new Sprite();
+				box.rawChildren.addChild(roundedMask2);
+				box_img.rawChildren.addChild(roundedMask);
+			}
+			private function box_img_resize(evt:ResizeEvent):void{
+				var w:Number = evt.currentTarget.width;
+				var h:Number = evt.currentTarget.height;
+				var cornerRadius:uint = 50;
+				
+				roundedMask2.graphics.clear();
+				roundedMask2.graphics.beginFill(0xFF0000);
+				roundedMask2.graphics.drawRoundRectComplex(0, 0,
+					w, h,
+					cornerRadius, cornerRadius,
+					cornerRadius, cornerRadius);
+				roundedMask2.graphics.endFill();
+				box_img.mask = roundedMask2;
+			}
+			private function image_resize(evt:ResizeEvent):void {
+				var w:Number = evt.currentTarget.width;
+				var h:Number = evt.currentTarget.height;
+				var cornerRadius:uint = 50;
+				
+				roundedMask.graphics.clear();
+				roundedMask.graphics.beginFill(0xFF0000);
+				roundedMask.graphics.drawRoundRectComplex(3, 3,
+					w, h,
+					cornerRadius, cornerRadius,
+					cornerRadius, cornerRadius);
+				roundedMask.graphics.endFill();
+				img.mask = roundedMask;
+			}
+
 			
 		]]>
 	</mx:Script>	
