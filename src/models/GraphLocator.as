@@ -22,6 +22,7 @@ package models
 		public var nodes:ArrayCollection;
 		public var edges:ArrayCollection;
 		public var xml:XML;
+		[Bindable]
 		public var layouter:ILayoutAlgorithm;
 		[Bindable]
 		public var graph:GraphDP;
