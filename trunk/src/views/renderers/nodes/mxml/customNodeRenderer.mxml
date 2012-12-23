@@ -25,6 +25,8 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import business.events.ViewCoAuthorGraphEvent;
+			
 			import models.GraphLocator;
 			
 			import mx.controls.Alert;
@@ -44,9 +46,11 @@
 			protected function img_doubleClickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
-			
-				GraphLocator.getInstance().graph.dataProvider.removeAll();
-				GraphLocator.getInstance().graph.dataProvider.addItem(test1);
+				if(this.data.data.@id != GraphLocator.getInstance().idRoot)
+				{
+					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(this.data.data.@id);
+					coauthorEvent.dispatch();
+				}
 			}
 			
 		]]>

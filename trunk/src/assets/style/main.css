@@ -26,7 +26,7 @@
 	    	
 	    	background-color:#CCCCCC;
 	    	background-alpha:.7;
-	    }         
+}
 
 .linkButtonStyle {
 	    	corner-radius:5;	
@@ -34,6 +34,4 @@
 	    	padding-left:10;
 	    	rollOverColor: #666666;
 	    	textRollOverColor: #ffffff;
-	    }
-
-
+}

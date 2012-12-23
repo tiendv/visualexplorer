@@ -169,6 +169,10 @@
 					var dataUrlReplace:Object = new Object();
 					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=graph";
 					setUrlReplace(dataUrlReplace);
+					//-- 
+					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(GraphLocator.getInstance().idRoot);
+					coauthorEvent.dispatch();
+
 				}
 				isCoGraph = true;
 				isCoPath = false;
@@ -233,7 +237,7 @@
 				dataLeft = e.currentTarget.selectedItem;
 				var dataUrlReplace:Object = new Object();
 				dataUrlReplace.urlReplace = "";
-				GraphLocator.getInstance().idRoot = dataLeft.authorID;
+				
 				if(isCoGraph){
 					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=graph";
 					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(dataLeft.authorID);

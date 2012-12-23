@@ -42,13 +42,14 @@ package business.commands
 				
 				if(rtbvsAuthorCollection != null)
 				{//neu la mang (>1 node)
-					
+					GraphLocator.getInstance().idRoot = rtbvsAuthorCollection.getItemAt(0).authorID;
 					var nodeRoot:XMLList;
 					var percent:Number;
 					var maxSimValue:Number = 0.0;
 					for(var i:int=0;i<rtbvsAuthorCollection.length;i++)
 					{
 						var o:Object = rtbvsAuthorCollection.getItemAt(i); 
+						
 						if(o.authorID == rtbvsAuthorCollection.getItemAt(0).authorID)
 						{//neu la node chinh
 							nodeRoot = GraphUtil.createNode(o.authorID,o.authorName,o.orgName,80,o.imgUrl);
@@ -103,14 +104,15 @@ package business.commands
 								}
 							}
 						}
-						
 					}
 				}
 				else
 				{//chi co 1 node
 					var obj:Object = event.result.rTBVSAuthors.rtbvsAuthor;
 					nodeRoot = GraphUtil.createNode(obj.authorID,obj.authorName,obj.orgName,80,obj.imgUrl);
+					GraphLocator.getInstance().idRoot = obj.authorID;
 				}
+				
 				xmldata.prependChild(nodeRoot);
 				GraphLocator.getInstance().graph.dataProvider.removeAll();
 				GraphLocator.getInstance().graph.dataProvider.addItem(xmldata);
