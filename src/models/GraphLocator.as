@@ -28,5 +28,7 @@ package models
 		public var graph:GraphDP;
 		public var startRoot : IVisualNode;
 		public var idRoot:int;
+		[Bindable]
+		public var waiting:Boolean = false;
 	}
 }

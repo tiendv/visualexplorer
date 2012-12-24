@@ -33,7 +33,6 @@ package business.commands
 		
 		private function onSearchAuthor(event:ResultEvent):void
 		{
-			Alert.show("ResultEvent Callback","Alert");
  			_model.searchedAuthors.removeAll();
 			
 			if (event.result.authorOrgObjects != null)
@@ -51,11 +50,12 @@ package business.commands
 				}
 				
 			}
+			ModelLocator.getInstance().waitingSearchLeft = false;
 		}
 		
 		private function onFailed(event:FaultEvent):void
 		{
-			Alert.show("FaultEvent Callback","Alert");
+			ModelLocator.getInstance().waitingSearchLeft = false;
 		}
 	}
 }

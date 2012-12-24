@@ -32,7 +32,6 @@ package business.commands
 		
 		private function onViewCoAuthor(event:ResultEvent):void
 		{
-			Alert.show("ResultEvent Callback","Alert");
 			var xmldata:XML = <Graph></Graph>;
 			var sizeDict:Dictionary = new Dictionary();
 			
@@ -116,12 +115,13 @@ package business.commands
 				xmldata.prependChild(nodeRoot);
 				GraphLocator.getInstance().graph.dataProvider.removeAll();
 				GraphLocator.getInstance().graph.dataProvider.addItem(xmldata);
-			}			
+			}	
+			GraphLocator.getInstance().waiting = false;
 		}
 		
 		private function onFailed(event:FaultEvent):void
 		{
-			Alert.show("FaultEvent Callback","Alert");
+			GraphLocator.getInstance().waiting = false;
 		}
 	}
 }
