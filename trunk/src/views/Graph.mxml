@@ -92,12 +92,12 @@
 	
 			protected function btnSearchLeft_clickHandler(event:MouseEvent):void
 			{				
-				searchAuthors.removeAll();
-				
 				var str:String = txtAuthorNameLeft.text;
 				str = str.replace(/\s+/g, '');
 				if(str != "")
 				{
+					ModelLocator.getInstance().waitingSearchLeft = true;
+					searchAuthors.removeAll();
 					dataLeft = new Object();
 					var searchAuthorEvent:SearchAuthorEvent = new SearchAuthorEvent(txtAuthorNameLeft.text);
 					searchAuthorEvent.dispatch();				
@@ -111,12 +111,11 @@
 			
 			protected function btnSearchRight_clickHandler(event:MouseEvent):void
 			{
-				searchAuthorsRight.removeAll();
-				
 				var str:String = txtAuthorNameRight.text;
 				str = str.replace(/\s+/g, '');
 				if(str != "")
 				{
+					searchAuthorsRight.removeAll();
 					dataRight = new Object();
 					//search
 					var searchAuthorRightEvent:SearchAuthorRightEvent = new SearchAuthorRightEvent(txtAuthorNameRight.text);
@@ -170,6 +169,7 @@
 					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=graph";
 					setUrlReplace(dataUrlReplace);
 					//-- 
+					GraphLocator.getInstance().waiting = true;
 					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(GraphLocator.getInstance().idRoot);
 					coauthorEvent.dispatch();
 
@@ -240,6 +240,7 @@
 				
 				if(isCoGraph){
 					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=graph";
+					GraphLocator.getInstance().waiting = true;
 					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(dataLeft.authorID);
 					coauthorEvent.dispatch();
 				}
@@ -338,7 +339,7 @@
 				layouter.autoFitEnabled = true;
 				
 				/* set the layouter */
-				visualGraph.edgeRendererFactory = new ClassFactory(CircularEdgeRenderer);
+				visualGraph.edgeRendererFactory = new ClassFactory(BaseEdgeRenderer);
 				
 				visualGraph.maxVisibleDistance = 3;
 				
@@ -383,7 +384,7 @@
 		<s:List id="lstLeft" x="10" y="60" width="170" height="{height-70}" borderVisible="false"
 				changing="lst_changeHandlerLeft(event)" 
 				dataProvider="{searchAuthors}"
-				itemRenderer="views.CustomItemRen" useHandCursor="true">
+				itemRenderer="views.CustomItemRen" useHandCursor="true" enabled="{!ModelLocator.getInstance().waitingSearchLeft}">
 			
 			<s:layout>
 				<s:VerticalLayout gap="0"
@@ -394,7 +395,7 @@
 		</s:List>
 		<s:SWFLoader id="loadingSearchLeft" x="{SearchLeft.width/2-20}" y="{SearchLeft.height/2-100}"
 				  width="24" height="24"
-				  source="@Embed('assets/gui/ajax-loader.swf')" visible="{!lstLeft.visible}"/>
+				  source="@Embed('assets/gui/ajax-loader.swf')" visible="{ModelLocator.getInstance().waitingSearchLeft}"/>
 		
 	</s:BorderContainer>
 	
@@ -429,7 +430,7 @@
 		<s:Label id="gm" x="100" y="250" text="Sory, the author does not exist." fontWeight="bold" fontSize="12" visible="false"/>
 		
 		<s:SWFLoader id="loadingDrawGraph" x="10" y="10" width="24" height="24" autoLoad="true"
-					 source="@Embed('assets/gui/ajax-loader.swf')" visible="{!visualGraph.visible}"/>
+					 source="@Embed('assets/gui/ajax-loader.swf')" visible="{GraphLocator.getInstance().waiting}"/>
 		
 
 	</mx:Canvas>
@@ -447,7 +448,7 @@
 		<s:List id="lstRight" x="10" y="60" width="170" height="{height-70}" borderVisible="false"
 				changing="lst_changeHandlerRight(event)"
 				itemRenderer="views.CustomItemRen" useHandCursor="true"
-				dataProvider="{searchAuthorsRight}">
+				dataProvider="{searchAuthorsRight}" enabled="{!ModelLocator.getInstance().waitingSearchRight}">
 			
 			<s:layout>
 				<s:VerticalLayout gap="0"
@@ -460,7 +461,7 @@
 		<s:SWFLoader id="loadingSearchRight" 
 					 width="24" height="24" 
 					 x="{SearchRight.width/2-20}" y="{SearchRight.height/2-100}"
-					 source="@Embed('assets/gui/ajax-loader.swf')"/>
+					 source="@Embed('assets/gui/ajax-loader.swf')" visible="{ModelLocator.getInstance().waitingSearchRight}"/>
 		
 	</s:BorderContainer>
 
@@ -486,6 +487,5 @@
 			   click="btnCitationGraph_clickHandler(event)"/>
 	<s:Button id="btnRecommend" x="537" y="1" label="Recommend"
 			  click="btnRecommend_clickHandler(event)"/>
-	<s:Button x="307" y="227" label="Button" click="button1_clickHandler(event)"/>
 	
 </s:Group>

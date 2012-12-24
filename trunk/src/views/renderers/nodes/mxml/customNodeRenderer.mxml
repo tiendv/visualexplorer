@@ -57,6 +57,7 @@
 				// TODO Auto-generated method stub
 				if(this.data.data.@id != GraphLocator.getInstance().idRoot)
 				{
+					GraphLocator.getInstance().waiting = true;
 					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(this.data.data.@id);
 					coauthorEvent.dispatch();
 				}
@@ -103,5 +104,4 @@
 			
 		]]>
 	</mx:Script>	
-	<mx:XML id="test1" source="data/test.xml"/>
 </mx:Canvas>
