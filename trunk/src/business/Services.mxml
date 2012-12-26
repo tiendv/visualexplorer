@@ -4,4 +4,7 @@
 	
 	<mx:HTTPService id="searchAuthor" url="http://localhost:8080/PubGuru/webresources/recommend/searchAuthor"/>
 	<mx:HTTPService id="viewCoAuthor" url="http://localhost:8080/PubGuru/webresources/recommend/getRTBVSAuthors" />
+	<mx:HTTPService id="getCollaboration" url="" />
+	<mx:HTTPService id="getAuthor" url="http://localhost:8080/PubGuru/webresources/recommend/getAuthor" />
+	
 </rds:ServiceLocator>

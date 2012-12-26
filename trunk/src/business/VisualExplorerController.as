@@ -1,14 +1,17 @@
 package business
 {
+	import business.commands.GetAuthorCommand;
+	import business.commands.GetAuthorRightCommand;
 	import business.commands.GetCollaborationCommand;
 	import business.commands.SearchAuthorCommand;
 	import business.commands.SearchAuthorRightCommand;
 	import business.commands.ViewCoAuthorGraphCommand;
-	
+	import business.events.GetAuthorEvent;
+	import business.events.GetAuthorRightEvent;
 	import business.events.GetCollaborationEvent;
 	import business.events.SearchAuthorEvent;
 	import business.events.SearchAuthorRightEvent;
- 	import business.events.ViewCoAuthorGraphEvent;
+	import business.events.ViewCoAuthorGraphEvent;
 	
 	import com.adobe.cairngorm.control.FrontController;
 
@@ -21,6 +24,8 @@ package business
 			addCommand(GetCollaborationEvent.EVENT_ID,GetCollaborationCommand);
 			addCommand(ViewCoAuthorGraphEvent.EVENT_ID,ViewCoAuthorGraphCommand);
  			addCommand(SearchAuthorRightEvent.EVENT_ID,SearchAuthorRightCommand);
+			addCommand(GetAuthorEvent.EVENT_ID,GetAuthorCommand);
+			addCommand(GetAuthorRightEvent.EVENT_ID,GetAuthorRightCommand);
 		}
 	}
 }

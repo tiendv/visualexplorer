@@ -4,21 +4,21 @@
 		   xmlns:nodes="org.un.cava.birdeye.ravis.components.renderers.nodes.*"
 		   creationComplete="setNode()" initialize="init();">
 	
-	<mx:VBox horizontalAlign="center" horizontalScrollPolicy="off" verticalAlign="middle"
+	<mx:VBox horizontalAlign="center" horizontalScrollPolicy="off" verticalAlign="top"
 			 verticalScrollPolicy="off" verticalGap="0">
 		<mx:VBox horizontalAlign="center" rollOutEffect="{zoomOut}" rollOver="bringToTop(event)"
-				rollOverEffect="{zoomIn}" verticalGap="-10" verticalAlign="middle">
+				rollOverEffect="{zoomIn}" verticalGap="-10" verticalAlign="top">
 			
 			<mx:Box id="box" horizontalAlign="center" verticalAlign="middle">
 				<mx:Box id="box_img" backgroundColor="#727BFC"
 						horizontalAlign="center" toolTip="{this.data.data.@desc}" verticalAlign="middle" resize="box_img_resize(event);">
-					<mx:Image id="img" scaleContent="true" horizontalAlign="center" verticalAlign="middle"
+					<mx:Image id="img" horizontalAlign="center" verticalAlign="middle" smoothBitmapContent="true"
 							  source="{this.data.data.@imgUrl}" doubleClick="img_doubleClickHandler(event)" resize="image_resize(event);"/>
 				</mx:Box>
 			</mx:Box>
 			<mx:Box backgroundAlpha="0.001" backgroundColor="#ffffff" cornerRadius="5" paddingTop="10">
 				<mx:LinkButton id="nodeText" label="{this.data.data.@name}" 
-							   click="navigateToURL(new URLRequest('http://truyentranhtuan.com/beelzebub/'+this.data.data.@id+'/doc-truyen/'), 'quote')"
+							   click="navigateToURL(new URLRequest('http://localhost:8080/PubGuru/Author?aid='+this.data.data.@id), 'quote')"
 							   cornerRadius="5" fontSize="12" paddingBottom="0" paddingTop="0"
 							   textAlign="center"/>
 			</mx:Box>
@@ -85,6 +85,7 @@
 					cornerRadius, cornerRadius);
 				roundedMask2.graphics.endFill();
 				box_img.mask = roundedMask2;
+				img.smoothBitmapContent = true;
 			}
 			private function image_resize(evt:ResizeEvent):void {
 				var w:Number = evt.currentTarget.width;
@@ -99,6 +100,7 @@
 					cornerRadius, cornerRadius);
 				roundedMask.graphics.endFill();
 				img.mask = roundedMask;
+				img.smoothBitmapContent = true;
 			}
 
 			
