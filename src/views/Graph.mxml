@@ -5,9 +5,11 @@
 		 width="100%" height="100%" 
 		 xmlns:visual="org.un.cava.birdeye.ravis.graphLayout.visual.*" 
 		 xmlns:visualDP="graphLayout.visual.*"
-		 initialize="initData();" >
+		 initialize="initData();" 
+		 creationComplete="group1_creationCompleteHandler(event)">
 	<fx:Script>
 		<![CDATA[
+			import business.events.GetAuthorEvent;
 			import business.events.GetCollaborationEvent;
 			import business.events.SearchAuthorEvent;
 			import business.events.SearchAuthorRightEvent;
@@ -18,6 +20,7 @@
 			import flashx.textLayout.factory.TruncationOptions;
 			
 			import graphLayout.data.GraphDP;
+			import graphLayout.layout.CustomLayouter;
 			
 			import models.GraphLocator;
 			import models.ModelLocator;
@@ -25,10 +28,13 @@
 			import mx.collections.ArrayCollection;
 			import mx.collections.ArrayList;
 			import mx.controls.Alert;
+			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
 			import mx.rpc.xml.SimpleXMLDecoder;
 			
 			import org.un.cava.birdeye.ravis.graphLayout.data.IGraph;
 			import org.un.cava.birdeye.ravis.graphLayout.layout.ConcentricRadialLayouter;
+			import org.un.cava.birdeye.ravis.graphLayout.layout.DirectPlacementLayouter;
 			import org.un.cava.birdeye.ravis.graphLayout.layout.ILayoutAlgorithm;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.IEdgeRenderer;
 			import org.un.cava.birdeye.ravis.graphLayout.visual.IVisualNode;
@@ -44,6 +50,13 @@
 			
 			import valueobjects.AuthorOrgObject;
 			import valueobjects.CoAuthorObject;
+			
+			[Bindable]
+			public var aid:int;
+			[Bindable]
+			public var aid1:int;
+			[Bindable]
+			public var action:String;
 			
 			[Bindable]
 			public var searchAuthors:ArrayCollection = ModelLocator.getInstance().searchedAuthors;
@@ -136,7 +149,7 @@
 				// TODO Auto-generated method stub
 				if(dataLeft.authorID>0 && dataRight.authorID>0 && isCoPath==false){
 					var dataUrlReplace:Object = new Object();
-					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&aid2="+dataRight.authorID+"&action=path";
+					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&aid1="+dataRight.authorID+"&action=path";
 					setUrlReplace(dataUrlReplace);
 				}
 
@@ -166,7 +179,7 @@
 				// TODO Auto-generated method stub
 				if(dataLeft.authorID > 0 && isCoGraph==false){
 					var dataUrlReplace:Object = new Object();
-					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=graph";
+					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=graph";
 					setUrlReplace(dataUrlReplace);
 					//-- 
 					GraphLocator.getInstance().waiting = true;
@@ -195,7 +208,7 @@
 				// TODO Auto-generated method stub
 				if(dataLeft.authorID > 0 && isCitation==false){
 					var dataUrlReplace:Object = new Object();
-					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=citation";
+					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=citation";
 					setUrlReplace(dataUrlReplace);
 				}
 				isCoGraph = false;
@@ -219,7 +232,7 @@
 				// TODO Auto-generated method stub
 				if(dataLeft.authorID > 0 && isRecommend==false){
 					var dataUrlReplace:Object = new Object();
-					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=recommend";
+					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=recommend";
 					setUrlReplace(dataUrlReplace);
 				}
 				isCoGraph = false;
@@ -239,19 +252,19 @@
 				dataUrlReplace.urlReplace = "";
 				
 				if(isCoGraph){
-					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=graph";
+					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=graph";
 					GraphLocator.getInstance().waiting = true;
 					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(dataLeft.authorID);
 					coauthorEvent.dispatch();
 				}
 				if(isCoPath){
-					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&aid2="+dataRight.authorID+"&action=path";
+					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&aid1="+dataRight.authorID+"&action=path";
 				}
 				if(isCitation){
-					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=citation";
+					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=citation";
 				}
 				if(isRecommend){
-					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&action=recommend";
+					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=recommend";
 					var recommandEvent:GetCollaborationEvent = new GetCollaborationEvent(dataLeft.authorID);
 					recommandEvent.dispatch();
 				}
@@ -265,7 +278,7 @@
 				var dataUrlReplace:Object = new Object();
 				dataUrlReplace.urlReplace = "";
 				if(isCoPath){
-					dataUrlReplace.urlReplace = "aid1="+dataLeft.authorID+"&aid2="+dataRight.authorID+"&action=path";
+					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&aid1="+dataRight.authorID+"&action=path";
 				}
 				setUrlReplace(dataUrlReplace);
 			}
@@ -332,7 +345,7 @@
 				visualGraph.graph = GraphLocator.getInstance().graph;
 
 				/* set the default layouter type */
-				layouter = new ConcentricRadialLayouter(visualGraph);
+				layouter = new graphLayout.layout.CustomLayouter(visualGraph);
 				visualGraph.layouter = layouter;
 				
 				/* set autofit */
@@ -341,7 +354,7 @@
 				/* set the layouter */
 				visualGraph.edgeRendererFactory = new ClassFactory(BaseEdgeRenderer);
 				
-				visualGraph.maxVisibleDistance = 3;
+				visualGraph.maxVisibleDistance = 1;
 				
 				//startRoot = visualGraph.graph.nodeByStringId("1").vnode;
 				
@@ -354,11 +367,68 @@
 				//visualGraph.draw();
 			}
 			
-			protected function button1_clickHandler(event:MouseEvent):void
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
 			{
 				// TODO Auto-generated method stub
-				GraphLocator.getInstance().graph.dataProvider.removeAll();
-				GraphLocator.getInstance().graph.dataProvider.addItem(xmldata);
+				aid = FlexGlobals.topLevelApplication.parameters.aid;
+				aid1 = FlexGlobals.topLevelApplication.parameters.aid1;
+				action = FlexGlobals.topLevelApplication.parameters.action;
+				if(aid>0)
+				{
+					//search author by id
+					ModelLocator.getInstance().waitingSearchLeft = true;
+					dataLeft = new Object();
+					dataLeft.authorID = aid;
+					var getAuthorEvent:GetAuthorEvent = new GetAuthorEvent(aid);
+					getAuthorEvent.dispatch();
+					
+					//view graph
+					if(action.toLowerCase()=="graph")
+					{//co-graph
+						GraphLocator.getInstance().waiting = true;
+						isCoGraph = true;
+						isCoPath = false;
+						isCitation = false;
+						isRecommend = false;
+						var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(aid);
+						coauthorEvent.dispatch();
+					}
+					else if(action.toLowerCase()=="path")
+					{//path
+						isCoGraph = false;
+						isCoPath = true;
+						isCitation = false;
+						isRecommend = false;
+						
+						if(aid1>0)
+						{//search author by id
+							ModelLocator.getInstance().waitingSearchRight = true;
+							dataRight = new Object();
+							dataRight.authorID = aid1;
+							//get author
+						}
+						else
+						{//search author by default id
+							ModelLocator.getInstance().waitingSearchRight = true;
+							dataRight = new Object();
+							dataRight.authorID = 1;
+						}
+					}
+					else if(action.toLowerCase()=="citation")
+					{//citation
+						isCoGraph = false;
+						isCoPath = false;
+						isCitation = true;
+						isRecommend = false;
+					}
+					else if(action.toLowerCase()=="recommend")
+					{//recommend
+						isCoGraph = false;
+						isCoPath = false;
+						isCitation = false;
+						isRecommend = true;
+					}
+				}
 			}
 			
 		]]>
@@ -482,10 +552,10 @@
 	<mx:Button id="btnCoAuthorGraph" x="217" y="1" label="Co-author Graph"
 			   click="btnCoAuthorGraph_clickHandler(event)" />
 	<mx:Button id="btnCoAuthorPath" x="331" y="1" label="Co-author Path"
-			   click="btnCoAuthorPath_clickHandler(event)" enabled="true"/>
+			   click="btnCoAuthorPath_clickHandler(event)" enabled="false"/>
 	<mx:Button id="btnCitationGraph" x="436" y="1" label="Citation Graph"
-			   click="btnCitationGraph_clickHandler(event)"/>
+			   click="btnCitationGraph_clickHandler(event)" enabled="false"/>
 	<s:Button id="btnRecommend" x="537" y="1" label="Recommend"
-			  click="btnRecommend_clickHandler(event)"/>
+			  click="btnRecommend_clickHandler(event)" enabled="false"/>
 	
 </s:Group>

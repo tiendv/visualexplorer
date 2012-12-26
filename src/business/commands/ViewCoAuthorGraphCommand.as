@@ -33,7 +33,8 @@ package business.commands
 		private function onViewCoAuthor(event:ResultEvent):void
 		{
 			var xmldata:XML = <Graph></Graph>;
-			var sizeDict:Dictionary = new Dictionary();
+			var sizeDict:Dictionary = new Dictionary();//id, nodeSize
+			var radiusDict:Dictionary = new Dictionary();//id, nodeRadius
 			
 			if (event.result.rTBVSAuthors != null)
 			{
@@ -51,7 +52,7 @@ package business.commands
 						
 						if(o.authorID == rtbvsAuthorCollection.getItemAt(0).authorID)
 						{//neu la node chinh
-							nodeRoot = GraphUtil.createNode(o.authorID,o.authorName,o.orgName,80,o.imgUrl);
+							nodeRoot = GraphUtil.createNode(o.authorID,o.authorName,o.orgName,80,o.imgUrl,0);
 							var simDataRootCollection:ArrayCollection = o.simData.entry as ArrayCollection;
 							if(simDataRootCollection == null){
 								simDataRootCollection = new ArrayCollection();
@@ -78,13 +79,15 @@ package business.commands
 								}else{
 									sizeDict[id] = 65;
 								}
+								percent = 100 - percent;//% cua ban' kinh lon nhat , so bai cong tac cang nhieu % cang it(cang ngan)
+								radiusDict[id] = percent;
 							}
 						}
 						else
 						{//co the co hoac khong co simData
 							var xmlNode:XMLList;
 							var authorID:int = o.authorID;
-							xmlNode = GraphUtil.createNode(o.authorID,o.authorName,o.orgName,sizeDict[authorID],o.imgUrl);
+							xmlNode = GraphUtil.createNode(o.authorID,o.authorName,o.orgName,sizeDict[authorID],o.imgUrl,radiusDict[authorID]);
 							xmldata.prependChild(xmlNode);
 							//kiem tra simData co hay ko
 							var checkData:Object = o.simData as Object;
@@ -108,7 +111,7 @@ package business.commands
 				else
 				{//chi co 1 node
 					var obj:Object = event.result.rTBVSAuthors.rtbvsAuthor;
-					nodeRoot = GraphUtil.createNode(obj.authorID,obj.authorName,obj.orgName,80,obj.imgUrl);
+					nodeRoot = GraphUtil.createNode(obj.authorID,obj.authorName,obj.orgName,80,obj.imgUrl,0);
 					GraphLocator.getInstance().idRoot = obj.authorID;
 				}
 				

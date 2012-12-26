@@ -7,7 +7,7 @@ package utils
 		{
 						
 		}
-		public static function createNode(id:int, name:String, desc:String, size:int, imgUrl:String):XMLList
+		public static function createNode(id:int, name:String, desc:String, size:int, imgUrl:String, radius:Number):XMLList
 		{
 			var nodeG:String="Node";
 			var nodeID:String="id=";
@@ -15,6 +15,7 @@ package utils
 			var nodeDesc:String="desc=";
 			var nodeSize:String="nodeSize=";
 			var nodeImgUrl:String="imgUrl=";
+			var nodeRadius:String="r=";
 			
 			if(imgUrl=="images/UnknowAuthor.png")
 			{
@@ -27,6 +28,7 @@ package utils
 				+nodeDesc	+"\""+	desc		+"\""+" "
 				+nodeSize   +"\""+  size		+"\""+" "
 				+nodeImgUrl	+"\""+	imgUrl		+"\""+" "
+				+nodeRadius	+"\""+	radius		+"\""+" "
 				+"/>");
 			
 			return xmlList;
