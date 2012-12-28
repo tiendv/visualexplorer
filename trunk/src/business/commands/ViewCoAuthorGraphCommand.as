@@ -124,6 +124,7 @@ package business.commands
 		
 		private function onFailed(event:FaultEvent):void
 		{
+			Alert.show("df");
 			GraphLocator.getInstance().waiting = false;
 		}
 	}

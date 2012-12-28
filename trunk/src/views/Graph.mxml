@@ -65,9 +65,13 @@
 			
 			public var dataLeft:Object = new Object();
 			public var dataRight:Object = new Object();
+			[Bindable]
 			public var isCoGraph:Boolean = true;
+			[Bindable]
 			public var isCoPath:Boolean = false;
+			[Bindable]
 			public var isCitation:Boolean = false;
+			[Bindable]
 			public var isRecommend:Boolean = false;
 						
 			protected function btnHideLeft_clickHandler(event:MouseEvent):void
@@ -113,7 +117,8 @@
 					searchAuthors.removeAll();
 					dataLeft = new Object();
 					var searchAuthorEvent:SearchAuthorEvent = new SearchAuthorEvent(txtAuthorNameLeft.text);
-					searchAuthorEvent.dispatch();				
+					searchAuthorEvent.dispatch();	
+					GraphLocator.getInstance().graph.dataProvider.removeAll();
 				}
 				else
 				{
@@ -183,9 +188,10 @@
 					setUrlReplace(dataUrlReplace);
 					//-- 
 					GraphLocator.getInstance().waiting = true;
+					GraphLocator.getInstance().idRoot = dataLeft.authorID;
 					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(GraphLocator.getInstance().idRoot);
 					coauthorEvent.dispatch();
-
+					GraphLocator.getInstance().graph.dataProvider.removeAll();
 				}
 				isCoGraph = true;
 				isCoPath = false;
@@ -256,6 +262,7 @@
 					GraphLocator.getInstance().waiting = true;
 					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(dataLeft.authorID);
 					coauthorEvent.dispatch();
+					GraphLocator.getInstance().graph.dataProvider.removeAll();
 				}
 				if(isCoPath){
 					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&aid1="+dataRight.authorID+"&action=path";
@@ -392,6 +399,7 @@
 						isRecommend = false;
 						var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(aid);
 						coauthorEvent.dispatch();
+						gm.visible = false;
 					}
 					else if(action.toLowerCase()=="path")
 					{//path
@@ -493,11 +501,11 @@
 							resize="visualGraph.draw(VisualGraph.DF_RESET_LL)"
 							itemRenderer="views.renderers.nodes.mxml.customNodeRenderer"
 							edgeLabelRenderer="views.renderers.edgelabels.mxml.customEdgeLabelRenderer" 
-							visibilityLimitActive="true" visible="true">
+							visibilityLimitActive="true">
 			
 		</visualDP:VisualGraphDP>
 		
-		<s:Label id="gm" x="100" y="250" text="Sory, the author does not exist." fontWeight="bold" fontSize="12" visible="false"/>
+		<s:Label id="gm" x="100" y="250" text="Sory, the author does not exist." fontWeight="bold" fontSize="12" visible="true"/>
 		
 		<s:SWFLoader id="loadingDrawGraph" x="10" y="10" width="24" height="24" autoLoad="true"
 					 source="@Embed('assets/gui/ajax-loader.swf')" visible="{GraphLocator.getInstance().waiting}"/>
@@ -550,12 +558,12 @@
 			   buttonMode="true" useHandCursor="true"
 			   visible="false"/>
 	<mx:Button id="btnCoAuthorGraph" x="217" y="1" label="Co-author Graph"
-			   click="btnCoAuthorGraph_clickHandler(event)" />
+			   click="btnCoAuthorGraph_clickHandler(event)" enabled="{!isCoGraph}"/>
 	<mx:Button id="btnCoAuthorPath" x="331" y="1" label="Co-author Path"
-			   click="btnCoAuthorPath_clickHandler(event)" enabled="false"/>
+			   click="btnCoAuthorPath_clickHandler(event)" enabled="{!isCoPath}"/>
 	<mx:Button id="btnCitationGraph" x="436" y="1" label="Citation Graph"
-			   click="btnCitationGraph_clickHandler(event)" enabled="false"/>
+			   click="btnCitationGraph_clickHandler(event)" enabled="{!isCitation}"/>
 	<s:Button id="btnRecommend" x="537" y="1" label="Recommend"
-			  click="btnRecommend_clickHandler(event)" enabled="false"/>
+			  click="btnRecommend_clickHandler(event)" enabled="{!isRecommend}"/>
 	
 </s:Group>
