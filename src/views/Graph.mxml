@@ -109,22 +109,24 @@
 	
 			protected function btnSearchLeft_clickHandler(event:MouseEvent):void
 			{				
-				var str:String = txtAuthorNameLeft.text;
-				str = str.replace(/\s+/g, '');
-				if(str != "")
+				if(!GraphLocator.getInstance().waiting && !ModelLocator.getInstance().waitingSearchLeft)
 				{
-					ModelLocator.getInstance().waitingSearchLeft = true;
-					searchAuthors.removeAll();
-					dataLeft = new Object();
-					var searchAuthorEvent:SearchAuthorEvent = new SearchAuthorEvent(txtAuthorNameLeft.text);
-					searchAuthorEvent.dispatch();	
-					GraphLocator.getInstance().graph.dataProvider.removeAll();
+					var str:String = txtAuthorNameLeft.text;
+					str = str.replace(/\s+/g, '');
+					if(str != "")
+					{
+						ModelLocator.getInstance().waitingSearchLeft = true;
+						searchAuthors.removeAll();
+						dataLeft = new Object();
+						var searchAuthorEvent:SearchAuthorEvent = new SearchAuthorEvent(txtAuthorNameLeft.text);
+						searchAuthorEvent.dispatch();	
+						GraphLocator.getInstance().graph.dataProvider.removeAll();
+					}
+					else
+					{
+						txtAuthorNameLeft.text = "";
+					}
 				}
-				else
-				{
-					txtAuthorNameLeft.text = "";
-				}
-
 			}
 			
 			protected function btnSearchRight_clickHandler(event:MouseEvent):void
@@ -148,108 +150,125 @@
 			
 			protected function btnCoAuthorPath_clickHandler(event:MouseEvent):void
 			{
-				if(dataLeft.authorID == null){
-					gm.visible = true;
+				if(!GraphLocator.getInstance().waiting)
+				{
+					if(dataLeft.authorID == null){
+						gm.visible = true;
+					}
+					// TODO Auto-generated method stub
+					if(dataLeft.authorID>0 && dataRight.authorID>0 && isCoPath==false){
+						var dataUrlReplace:Object = new Object();
+						dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&aid1="+dataRight.authorID+"&action=path";
+						setUrlReplace(dataUrlReplace);
+					}
+	
+					isCoGraph = false;
+					isCoPath = true;
+					isCitation = false;
+					isRecommend = false;
+	    
+					SearchRight.visible = true;
+					vrRight.visible = true;
+					btnHideRight.visible = true;
+					btnShowRight.visible = false;
+					SearchRight.x = width - 190;
+					vrRight.x = width - 200;
+					btnHideRight.x = width - 210;
+					btnShowRight.x = width - 30;
 				}
-				// TODO Auto-generated method stub
-				if(dataLeft.authorID>0 && dataRight.authorID>0 && isCoPath==false){
-					var dataUrlReplace:Object = new Object();
-					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&aid1="+dataRight.authorID+"&action=path";
-					setUrlReplace(dataUrlReplace);
-				}
-
-				isCoGraph = false;
-				isCoPath = true;
-				isCitation = false;
-				isRecommend = false;
-    
-				SearchRight.visible = true;
-				vrRight.visible = true;
-				btnHideRight.visible = true;
-				btnShowRight.visible = false;
-				SearchRight.x = width - 190;
-				vrRight.x = width - 200;
-				btnHideRight.x = width - 210;
-				btnShowRight.x = width - 30;
-				
 			}
 			
 			protected function btnCoAuthorGraph_clickHandler(event:MouseEvent):void
 			{
-				vrRight.x = width-30;
-				
-				if(dataLeft.authorID == null){
-					gm.visible = true;
+				if(!GraphLocator.getInstance().waiting)
+				{
+					vrRight.x = width-30;
+					
+					if(dataLeft.authorID == null){
+						gm.visible = true;
+					}
+					// TODO Auto-generated method stub
+					if(dataLeft.authorID > 0 && isCoGraph==false){
+						var dataUrlReplace:Object = new Object();
+						dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=graph";
+						setUrlReplace(dataUrlReplace);
+						//-- 
+						GraphLocator.getInstance().waiting = true;
+						GraphLocator.getInstance().idRoot = dataLeft.authorID;
+						var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(GraphLocator.getInstance().idRoot);
+						coauthorEvent.dispatch();
+						GraphLocator.getInstance().graph.dataProvider.removeAll();
+					}
+					isCoGraph = true;
+					isCoPath = false;
+					isCitation = false;
+					isRecommend = false;
+	
+					SearchRight.visible = false;
+					vrRight.visible = false;
+					btnHideRight.visible = false;
+					btnShowRight.visible = false;
 				}
-				// TODO Auto-generated method stub
-				if(dataLeft.authorID > 0 && isCoGraph==false){
-					var dataUrlReplace:Object = new Object();
-					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=graph";
-					setUrlReplace(dataUrlReplace);
-					//-- 
-					GraphLocator.getInstance().waiting = true;
-					GraphLocator.getInstance().idRoot = dataLeft.authorID;
-					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(GraphLocator.getInstance().idRoot);
-					coauthorEvent.dispatch();
-					GraphLocator.getInstance().graph.dataProvider.removeAll();
-				}
-				isCoGraph = true;
-				isCoPath = false;
-				isCitation = false;
-				isRecommend = false;
-
-				SearchRight.visible = false;
-				vrRight.visible = false;
-				btnHideRight.visible = false;
-				btnShowRight.visible = false;
 			}
 			
 			protected function btnCitationGraph_clickHandler(event:MouseEvent):void
 			{
-				vrRight.x = width-30
-					
-				if(dataLeft.authorID == null){
-					gm.visible = true;
+				if(!GraphLocator.getInstance().waiting)
+				{
+					vrRight.x = width-30
+						
+					if(dataLeft.authorID == null){
+						gm.visible = true;
+					}
+					// TODO Auto-generated method stub
+					if(dataLeft.authorID > 0 && isCitation==false){
+						var dataUrlReplace:Object = new Object();
+						dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=citation";
+						setUrlReplace(dataUrlReplace);
+					}
+					isCoGraph = false;
+					isCoPath = false;
+					isCitation = true;
+					isRecommend = false;
+	
+					SearchRight.visible = false;
+					vrRight.visible = false;
+					btnHideRight.visible = false;
+					btnShowRight.visible = false;
 				}
-				// TODO Auto-generated method stub
-				if(dataLeft.authorID > 0 && isCitation==false){
-					var dataUrlReplace:Object = new Object();
-					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=citation";
-					setUrlReplace(dataUrlReplace);
-				}
-				isCoGraph = false;
-				isCoPath = false;
-				isCitation = true;
-				isRecommend = false;
-
-				SearchRight.visible = false;
-				vrRight.visible = false;
-				btnHideRight.visible = false;
-				btnShowRight.visible = false;
 			}
 			
 			protected function btnRecommend_clickHandler(event:MouseEvent):void
 			{
-				vrRight.x = width-30
-					
-				if(dataLeft.authorID == null){
-					gm.visible = true;
+				if(!GraphLocator.getInstance().waiting)
+				{
+					vrRight.x = width-30
+						
+					if(dataLeft.authorID == null){
+						gm.visible = true;
+					}
+					// TODO Auto-generated method stub
+					if(dataLeft.authorID > 0 && isRecommend==false){
+						var dataUrlReplace:Object = new Object();
+						dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=recommend";
+						setUrlReplace(dataUrlReplace);
+						//-- 
+						GraphLocator.getInstance().waiting = true;
+						GraphLocator.getInstance().idRoot = dataLeft.authorID;
+						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot);
+						getCollaborationEvent.dispatch();
+						GraphLocator.getInstance().graph.dataProvider.removeAll();
+					}
+					isCoGraph = false;
+					isCoPath = false;
+					isCitation = false;
+					isRecommend = true;
+	
+					SearchRight.visible = false;
+					vrRight.visible = false;
+					btnHideRight.visible = false;
+					btnShowRight.visible = false;
 				}
-				// TODO Auto-generated method stub
-				if(dataLeft.authorID > 0 && isRecommend==false){
-					var dataUrlReplace:Object = new Object();
-					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=recommend";
-					setUrlReplace(dataUrlReplace);
-				}
-				isCoGraph = false;
-				isCoPath = false;
-				isCitation = false;
-				isRecommend = true;
-
-				SearchRight.visible = false;
-				vrRight.visible = false;
-				btnHideRight.visible = false;
-				btnShowRight.visible = false;
 			}
 			protected function lst_changeHandlerLeft(e:IndexChangeEvent):void {
 				gm.visible = false;
@@ -272,8 +291,10 @@
 				}
 				if(isRecommend){
 					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=recommend";
-					var recommandEvent:GetCollaborationEvent = new GetCollaborationEvent(dataLeft.authorID);
-					recommandEvent.dispatch();
+					GraphLocator.getInstance().waiting = true;
+					var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(dataLeft.authorID);
+					getCollaborationEvent.dispatch();
+					GraphLocator.getInstance().graph.dataProvider.removeAll();
 				}
 				
 				setTitle(dataLeft);
@@ -435,6 +456,9 @@
 						isCoPath = false;
 						isCitation = false;
 						isRecommend = true;
+						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(aid);
+						getCollaborationEvent.dispatch();
+						gm.visible = false;
 					}
 				}
 			}
@@ -462,7 +486,7 @@
 		<s:List id="lstLeft" x="10" y="60" width="170" height="{height-70}" borderVisible="false"
 				changing="lst_changeHandlerLeft(event)" 
 				dataProvider="{searchAuthors}"
-				itemRenderer="views.CustomItemRen" useHandCursor="true" enabled="{!ModelLocator.getInstance().waitingSearchLeft}">
+				itemRenderer="views.CustomItemRen" useHandCursor="true" enabled="{!GraphLocator.getInstance().waiting}">
 			
 			<s:layout>
 				<s:VerticalLayout gap="0"
