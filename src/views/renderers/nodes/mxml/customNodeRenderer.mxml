@@ -60,6 +60,7 @@
 					GraphLocator.getInstance().waiting = true;
 					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(this.data.data.@id);
 					coauthorEvent.dispatch();
+					GraphLocator.getInstance().graph.dataProvider.removeAll();
 				}
 			}
 			
