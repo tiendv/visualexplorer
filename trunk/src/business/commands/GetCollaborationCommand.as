@@ -43,6 +43,8 @@ package business.commands
 					var nodeRoot:XMLList;
 					var percent:Number;
 					var maxSimValue:Number = 0.0;
+					var minSimValue:Number = int.MAX_VALUE;
+
 					for(var i:int=0;i<rtbvsAuthorCollection.length;i++)
 					{
 						var o:Object = rtbvsAuthorCollection.getItemAt(i); 
@@ -61,6 +63,9 @@ package business.commands
 								if(os.value > maxSimValue){
 									maxSimValue = os.value;
 								}
+								if(os.value < minSimValue){
+									minSimValue = os.value;
+								}
 								var xmlEdgeM:XMLList = GraphUtil.createEdge(o.authorID,os.key,"0xFFA500",os.value);
 								xmldata.prependChild(xmlEdgeM);
 							}
@@ -76,8 +81,20 @@ package business.commands
 								}else{
 									sizeDict[id] = 65;
 								}
-								percent = 100 - percent;
-								radiusDict[id] = percent;
+								//----
+								if(maxSimValue == minSimValue)
+								{
+									radiusDict[id] = 1.1;
+								}
+								else{
+									if(s.value == minSimValue){
+										radiusDict[id] = 1.1;
+									}else if(s.value == maxSimValue){
+										radiusDict[id] = 0.3;
+									}else{//khong phai thi nam trong khoan 0.8 con lai
+										radiusDict[id] = (maxSimValue-s.value)*0.8/(maxSimValue-minSimValue)+0.3;
+									}
+								}
 							}
 						}
 						else
