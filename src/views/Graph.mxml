@@ -32,6 +32,7 @@
 			import mx.events.FlexEvent;
 			import mx.rpc.xml.SimpleXMLDecoder;
 			
+			import org.un.cava.birdeye.ravis.assets.icons.EmbeddedIcons;
 			import org.un.cava.birdeye.ravis.graphLayout.data.IGraph;
 			import org.un.cava.birdeye.ravis.graphLayout.layout.ConcentricRadialLayouter;
 			import org.un.cava.birdeye.ravis.graphLayout.layout.DirectPlacementLayouter;
@@ -391,7 +392,9 @@
 				
 				/* the following kicks it off .... */
 				//visualGraph.currentRootVNode = startRoot;
+				visualGraph.addEventListener(MouseEvent.MOUSE_WHEEL,updateVScale);
 				initDone = true;
+				
 				//visualGraph.draw();
 			}
 			
@@ -459,6 +462,55 @@
 						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(aid);
 						getCollaborationEvent.dispatch();
 						gm.visible = false;
+					}
+				}
+			}
+			
+			//---
+			public function updateVScale(event:MouseEvent):void {
+				
+				if(bzoom == null) {
+					return;
+				}
+				
+				if(visualGraph == null) {
+					return;
+				}
+				
+				// Handle the update for mousewheel events outside the component
+				if(event != null) {
+					if(event.delta != 0) {
+						if(bzoom.value == bzoom.minimum) {
+							if(event.delta > 0) {
+								bzoom.value = bzoom.value+(event.delta*0.01);
+								visualGraph.scale = bzoom.value;
+							}
+						}
+						else if(bzoom.value == bzoom.maximum) {
+							if(event.delta < 0) {
+								bzoom.value = bzoom.value+(event.delta*0.01);
+								visualGraph.scale = bzoom.value;
+							}
+						} else {
+							bzoom.value = bzoom.value+(event.delta*0.01);
+							visualGraph.scale = bzoom.value;
+						}
+					}
+				}
+					// Handle the update for the zoom buttons
+				else {
+					if(bzoom.value <= bzoom.minimum) {
+						bzoom.value = bzoom.minimum;
+						return;
+					} else {
+						visualGraph.scale = bzoom.value;
+					}
+					
+					if(bzoom.value >= bzoom.maximum) {
+						bzoom.value = bzoom.maximum;
+						return;
+					} else {
+						visualGraph.scale = bzoom.value;
 					}
 				}
 			}
@@ -533,7 +585,16 @@
 		
 		<s:SWFLoader id="loadingDrawGraph" x="10" y="10" width="24" height="24" autoLoad="true"
 					 source="@Embed('assets/gui/ajax-loader.swf')" visible="{GraphLocator.getInstance().waiting}"/>
-		
+		<mx:HBox width="200" x="{graphBody.width-200}" y="{graphBody.height-30}">
+			<mx:Button id="minusZoom" width="20" height="20"
+					   click="bzoom.value=bzoom.value-.25;updateVScale(null);" cornerRadius="5"
+					   icon="{EmbeddedIcons.zoomoutIcon}"/>		
+			<mx:HSlider id="bzoom" width="140" change="updateVScale(null)" liveDragging="true"
+						maximum="3" minimum=".25" tickInterval=".25" value="1"/>
+			<mx:Button id="plusZoom" width="20" height="20"
+					   click="bzoom.value=bzoom.value+.25;updateVScale(null);" cornerRadius="5"
+					   icon="{EmbeddedIcons.zoominIcon}"/>	
+		</mx:HBox>
 
 	</mx:Canvas>
 	
