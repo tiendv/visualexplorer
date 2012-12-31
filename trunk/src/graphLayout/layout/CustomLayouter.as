@@ -213,7 +213,6 @@ package graphLayout.layout {
 			return rv;
 		}
         
-        
         protected function doZoomToFit():void 
         {
             _currentDrawing.centeredLayout = false;
