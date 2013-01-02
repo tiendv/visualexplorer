@@ -158,11 +158,16 @@
 					if(dataLeft.authorID == null){
 						gm.visible = true;
 					}
+					GraphLocator.getInstance().graph.dataProvider.removeAll();
 					// TODO Auto-generated method stub
 					if(dataLeft.authorID>0 && dataRight.authorID>0 && isCoPath==false){
 						var dataUrlReplace:Object = new Object();
 						dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&aid1="+dataRight.authorID+"&action=path";
 						setUrlReplace(dataUrlReplace);
+						//--
+						//GraphLocator.getInstance().waiting = true;
+						//thuc hien even copath
+
 					}
 	
 					isCoGraph = false;
@@ -190,16 +195,18 @@
 					if(dataLeft.authorID == null){
 						gm.visible = true;
 					}
+					GraphLocator.getInstance().graph.dataProvider.removeAll();
 					// TODO Auto-generated method stub
 					if(dataLeft.authorID > 0 && isCoGraph==false){
 						var dataUrlReplace:Object = new Object();
 						dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=graph";
 						setUrlReplace(dataUrlReplace);
-						//-- 
+					}
+					//-- 
+					if(GraphLocator.getInstance().idRoot > 0){
 						GraphLocator.getInstance().waiting = true;
 						var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(GraphLocator.getInstance().idRoot);
 						coauthorEvent.dispatch();
-						GraphLocator.getInstance().graph.dataProvider.removeAll();
 					}
 					isCoGraph = true;
 					isCoPath = false;
@@ -222,11 +229,15 @@
 					if(dataLeft.authorID == null){
 						gm.visible = true;
 					}
+					GraphLocator.getInstance().graph.dataProvider.removeAll();
+
 					// TODO Auto-generated method stub
 					if(dataLeft.authorID > 0 && isCitation==false){
 						var dataUrlReplace:Object = new Object();
 						dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=citation";
 						setUrlReplace(dataUrlReplace);
+						//GraphLocator.getInstance().waiting = true;
+						//thuc hien even copath
 					}
 					isCoGraph = false;
 					isCoPath = false;
@@ -249,16 +260,19 @@
 					if(dataLeft.authorID == null){
 						gm.visible = true;
 					}
+					GraphLocator.getInstance().graph.dataProvider.removeAll();
+
 					// TODO Auto-generated method stub
 					if(dataLeft.authorID > 0 && isRecommend==false){
 						var dataUrlReplace:Object = new Object();
 						dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=recommend";
 						setUrlReplace(dataUrlReplace);
-						//-- 
+					}
+					//-- 
+					if(GraphLocator.getInstance().idRoot > 0){
 						GraphLocator.getInstance().waiting = true;
 						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot);
 						getCollaborationEvent.dispatch();
-						GraphLocator.getInstance().graph.dataProvider.removeAll();
 					}
 					isCoGraph = false;
 					isCoPath = false;
@@ -271,12 +285,12 @@
 					btnShowRight.visible = false;
 				}
 			}
-			protected function lst_changeHandlerLeft(e:IndexChangeEvent):void {
+			protected function lst_changeHandlerLeft(e:IndexChangeEvent):void {			
 				gm.visible = false;
 				dataLeft = e.currentTarget.selectedItem;
 				var dataUrlReplace:Object = new Object();
 				dataUrlReplace.urlReplace = "";
-				
+
 				if(isCoGraph){
 					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=graph";
 					GraphLocator.getInstance().waiting = true;
