@@ -30,26 +30,26 @@ package business.commands
 		private function onGetCollaboration(event:ResultEvent):void
 		{//recommend
 			var xmldata:XML = <Graph></Graph>;
-			var sizeDict:Dictionary = new Dictionary();
-			var radiusDict:Dictionary = new Dictionary();
+			var sizeDict:Dictionary = new Dictionary();//id, nodeSize
+			var radiusDict:Dictionary = new Dictionary();//id, nodeRadius
 			
 			if (event.result.rTBVSAuthors != null)
 			{
 				var rtbvsAuthorCollection:ArrayCollection = event.result.rTBVSAuthors.rtbvsAuthor as ArrayCollection;
 				
-				if(rtbvsAuthorCollection != null)
+				if(rtbvsAuthorCollection != null && rtbvsAuthorCollection.length>1)
 				{//neu la mang (>1 node)
-					GraphLocator.getInstance().idRoot = rtbvsAuthorCollection.getItemAt(0).authorID;//luu lai node root
+					GraphLocator.getInstance().idRoot = rtbvsAuthorCollection.getItemAt(0).authorID;
 					var nodeRoot:XMLList;
 					var percent:Number;
 					var maxSimValue:Number = 0.0;
 					var minSimValue:Number = int.MAX_VALUE;
-
+					
 					for(var i:int=0;i<rtbvsAuthorCollection.length;i++)
 					{
 						var o:Object = rtbvsAuthorCollection.getItemAt(i); 
 						
-						if(o.authorID == rtbvsAuthorCollection.getItemAt(0).authorID)
+						if(i==0)
 						{//neu la node chinh
 							nodeRoot = GraphUtil.createNode(o.authorID,o.authorName,o.orgName,80,o.imgUrl,0);
 							var simDataRootCollection:ArrayCollection = o.simData.entry as ArrayCollection;
@@ -126,7 +126,7 @@ package business.commands
 				{//chi co 1 node
 					var obj:Object = event.result.rTBVSAuthors.rtbvsAuthor;
 					nodeRoot = GraphUtil.createNode(obj.authorID,obj.authorName,obj.orgName,80,obj.imgUrl,0);
-					GraphLocator.getInstance().idRoot = obj.authorID;//luu lai node root
+					GraphLocator.getInstance().idRoot = obj.authorID;
 				}
 				
 				xmldata.prependChild(nodeRoot);

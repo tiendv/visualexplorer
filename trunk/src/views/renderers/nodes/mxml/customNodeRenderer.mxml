@@ -26,14 +26,18 @@
 		</mx:VBox>
 	</mx:VBox>
 
-	<mx:Zoom id="zoomIn" zoomHeightTo="1.5" zoomWidthTo="1.5" duration="100"/>
-	<mx:Zoom id="zoomOut" zoomHeightTo="1.0" zoomWidthTo="1.0" duration="100"/>
+	<mx:Zoom id="zoomIn" zoomHeightTo="1.5" zoomWidthTo="1.5" duration="500"/>
+	<mx:Zoom id="zoomOut" zoomHeightTo="1.0" zoomWidthTo="1.0" duration="500"/>
 	
 	<mx:Script>
 		<![CDATA[
+			import business.events.GetAuthorEvent;
 			import business.events.ViewCoAuthorGraphEvent;
 			
+			import com.adobe.cairngorm.model.ModelLocator;
+			
 			import models.GraphLocator;
+			import models.ModelLocator;
 			
 			import mx.controls.Alert;
 			import mx.events.ResizeEvent;
@@ -57,6 +61,10 @@
 				// TODO Auto-generated method stub
 				if(this.data.data.@id != GraphLocator.getInstance().idRoot)
 				{
+					models.ModelLocator.getInstance().waitingSearchLeft = true;
+					var getAuthorEvent:GetAuthorEvent = new GetAuthorEvent(this.data.data.@id);
+					getAuthorEvent.dispatch();
+					models.ModelLocator.getInstance().searchedAuthors.removeAll();
 					GraphLocator.getInstance().waiting = true;
 					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(this.data.data.@id);
 					coauthorEvent.dispatch();
