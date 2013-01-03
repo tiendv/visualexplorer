@@ -13,7 +13,8 @@
 				<mx:Box id="box_img" backgroundColor="#727BFC"
 						horizontalAlign="center" toolTip="{this.data.data.@desc}" verticalAlign="middle" resize="box_img_resize(event);">
 					<mx:Image id="img" horizontalAlign="center" verticalAlign="middle" smoothBitmapContent="true"
-							  source="{this.data.data.@imgUrl}" doubleClick="img_doubleClickHandler(event)" resize="image_resize(event);"/>
+							  source="{this.data.data.@imgUrl}" doubleClick="img_doubleClickHandler(event)" resize="image_resize(event);"
+							  />
 				</mx:Box>
 			</mx:Box>
 			<mx:Box backgroundAlpha="0.001" backgroundColor="#ffffff" cornerRadius="5" paddingTop="10">
@@ -71,11 +72,12 @@
 					GraphLocator.getInstance().graph.dataProvider.removeAll();
 				}
 			}
-			
+
 			private var roundedMask:Sprite;
 			private var roundedMask2:Sprite;
 			
 			private function init():void {
+				
 				roundedMask = new Sprite();
 				roundedMask2 = new Sprite();
 				box.rawChildren.addChild(roundedMask2);
