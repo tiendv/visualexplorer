@@ -10,6 +10,7 @@
 	<fx:Script>
 		<![CDATA[
 			import business.events.GetAuthorEvent;
+			import business.events.GetAuthorRightEvent;
 			import business.events.GetCollaborationEvent;
 			import business.events.SearchAuthorEvent;
 			import business.events.SearchAuthorRightEvent;
@@ -382,6 +383,7 @@
 			private var initDone:Boolean = false;
 			
 			private function initData():void{
+				Security.loadPolicyFile("http://academic.research.microsoft.com/crossdomain.xml");
 				/* init a graph object with the XML data */
  				GraphLocator.getInstance().graph = new GraphDP("XMLAsDocsGraph", false, new XML("<Graph></Graph>")); 			
 				//GraphLocator.getInstance().graph.dataProvider.removeAll();
@@ -451,7 +453,6 @@
 							ModelLocator.getInstance().waitingSearchRight = true;
 							dataRight = new Object();
 							dataRight.authorID = aid1;
-							//get author
 						}
 						else
 						{//search author by default id
@@ -459,6 +460,10 @@
 							dataRight = new Object();
 							dataRight.authorID = 1;
 						}
+						//get author
+						var getAuthorRightEvent:GetAuthorRightEvent = new GetAuthorRightEvent(aid);
+						getAuthorRightEvent.dispatch();
+						gm.visible = false;
 					}
 					else if(action.toLowerCase()=="citation")
 					{//citation
@@ -466,6 +471,9 @@
 						isCoPath = false;
 						isCitation = true;
 						isRecommend = false;
+						//search and draw graph citation
+						//--
+						gm.visible = false;
 					}
 					else if(action.toLowerCase()=="recommend")
 					{//recommend
@@ -473,6 +481,7 @@
 						isCoPath = false;
 						isCitation = false;
 						isRecommend = true;
+						GraphLocator.getInstance().waiting = true;
 						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(aid);
 						getCollaborationEvent.dispatch();
 						gm.visible = false;
