@@ -1,32 +1,32 @@
 <Graph>
  <Node id="1" name="0sdfddddddddddddddddddddddddd" desc="This is a description" nodeSize="80" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0" />
- <Node id="2" name="A" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
- <Node id="3" name="B" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
- <Node id="4" name="Coner" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
- <Node id="5" name="D" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
+ <Node id="2" name="A" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
+ <Node id="3" name="B" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
+ <Node id="4" name="Coner" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
+ <Node id="5" name="D" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
  <Node id="6" name="E" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.8" />
- <Node id="7" name="F" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
- <Node id="8" name="A.1" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
- <Node id="9" name="A.2" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
+ <Node id="7" name="F" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
+ <Node id="8" name="A.1" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
+ <Node id="9" name="A.2" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
  <Node id="10" name="A.3" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.6" />
- <Node id="11" name="A.4" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
+ <Node id="11" name="A.4" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
  <Node id="12" name="A.5" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.2" />
- <Node id="13" name="A.6" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
+ <Node id="13" name="A.6" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
  <Node id="14" name="B.1" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.9" />
- <Node id="15" name="B.2" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
+ <Node id="15" name="B.2" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
  <Node id="16" name="B.3" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.4" />
- <Node id="17" name="B.4" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
+ <Node id="17" name="B.4" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
  <Node id="18" name="B.5" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.5" />
  <Node id="19" name="B.6" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.5" />
- <Node id="20" name="C.1" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
- <Node id="21" name="C.2" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
+ <Node id="20" name="C.1" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
+ <Node id="21" name="C.2" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
  <Node id="22" name="C.3" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.7" />
- <Node id="23" name="C.4" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
- <Node id="24" name="C.5" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.1" />
- <Node id="25" name="C.6" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.3" />
- <Node id="26" name="D.1" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.3" />
+ <Node id="23" name="C.4" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
+ <Node id="24" name="C.5" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
+ <Node id="25" name="C.6" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.2" />
+ <Node id="26" name="D.1" desc="This is a description" nodeSize="40" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.2" />
  <Node id="27" name="D.2" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.4" />
- <Node id="28" name="D.3" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.1" />
+ <Node id="28" name="D.3" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.2" />
  <Node id="29" name="D.4" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.3" />
  <Node id="30" name="D.5" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.5" />
  

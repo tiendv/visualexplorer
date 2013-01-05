@@ -175,6 +175,7 @@
 					isCoPath = true;
 					isCitation = false;
 					isRecommend = false;
+					GraphLocator.getInstance().action = 2;
 	    
 					SearchRight.visible = true;
 					vrRight.visible = true;
@@ -213,6 +214,7 @@
 					isCoPath = false;
 					isCitation = false;
 					isRecommend = false;
+					GraphLocator.getInstance().action = 1;
 	
 					SearchRight.visible = false;
 					vrRight.visible = false;
@@ -244,6 +246,7 @@
 					isCoPath = false;
 					isCitation = true;
 					isRecommend = false;
+					GraphLocator.getInstance().action = 3;
 	
 					SearchRight.visible = false;
 					vrRight.visible = false;
@@ -279,6 +282,7 @@
 					isCoPath = false;
 					isCitation = false;
 					isRecommend = true;
+					GraphLocator.getInstance().action = 4;
 	
 					SearchRight.visible = false;
 					vrRight.visible = false;
@@ -390,11 +394,17 @@
 				visualGraph.graph = GraphLocator.getInstance().graph;
 
 				/* set the default layouter type */
-				layouter = new graphLayout.layout.CustomLayouter(visualGraph);
-				visualGraph.layouter = layouter;
+				//layouter = new graphLayout.layout.CustomLayouter(visualGraph);
+				//GraphLocator.getInstance().layouter = new graphLayout.layout.CustomLayouter(visualGraph);
+				//GraphLocator.getInstance().layouter = new DirectPlacementLayouter(visualGraph);
+				//layouter = GraphLocator.getInstance().layouter;
+				//visualGraph.layouter = layouter;
+				GraphLocator.getInstance().layouter = new graphLayout.layout.CustomLayouter(visualGraph);
+				visualGraph.layouter = GraphLocator.getInstance().layouter;
 				
 				/* set autofit */
-				layouter.autoFitEnabled = true;
+				//layouter.autoFitEnabled = true;
+				GraphLocator.getInstance().layouter.autoFitEnabled = true;
 				
 				/* set the layouter */
 				visualGraph.edgeRendererFactory = new ClassFactory(BaseEdgeRenderer);
@@ -437,6 +447,7 @@
 						isCoPath = false;
 						isCitation = false;
 						isRecommend = false;
+						GraphLocator.getInstance().action = 1;
 						var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(aid);
 						coauthorEvent.dispatch();
 						gm.visible = false;
@@ -461,6 +472,7 @@
 							dataRight.authorID = 1;
 						}
 						//get author
+						GraphLocator.getInstance().action = 2;
 						var getAuthorRightEvent:GetAuthorRightEvent = new GetAuthorRightEvent(aid);
 						getAuthorRightEvent.dispatch();
 						gm.visible = false;
@@ -471,6 +483,7 @@
 						isCoPath = false;
 						isCitation = true;
 						isRecommend = false;
+						GraphLocator.getInstance().action = 3;
 						//search and draw graph citation
 						//--
 						gm.visible = false;
@@ -482,6 +495,7 @@
 						isCitation = false;
 						isRecommend = true;
 						GraphLocator.getInstance().waiting = true;
+						GraphLocator.getInstance().action = 4;
 						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(aid);
 						getCollaborationEvent.dispatch();
 						gm.visible = false;
@@ -538,6 +552,49 @@
 				}
 			}
 			
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				GraphLocator.getInstance().idRoot = 1;
+				visualGraph.layouter = new graphLayout.layout.CustomLayouter(visualGraph);
+				visualGraph.layouter.layoutChanged = true;
+				visualGraph.displayEdgeLabels = true;
+				GraphLocator.getInstance().graph.dataProvider.removeAll();
+				GraphLocator.getInstance().graph.dataProvider.addItem(xmldata);
+			}
+			
+			protected function button2_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				GraphLocator.getInstance().idRoot = 1;
+				visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
+				visualGraph.layouter.layoutChanged = true;
+				visualGraph.displayEdgeLabels = false;
+				GraphLocator.getInstance().graph.dataProvider.removeAll();
+				GraphLocator.getInstance().graph.dataProvider.addItem(graph);
+				//
+			}
+
+			
+			protected function button3_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				GraphLocator.getInstance().idRoot = 1;
+				visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
+				visualGraph.layouter.layoutChanged = true;
+				visualGraph.displayEdgeLabels = false;
+				GraphLocator.getInstance().graph.dataProvider.removeAll();
+				GraphLocator.getInstance().graph.dataProvider.addItem(citation);
+				// phuong phap tinh x, y citation
+				// goc alfa = 90/ (tong so tac gia - tac gia goc - 1) = 90/(tong so tac gia - 2)
+				// toa do node goc : x = 60 , y=60
+				// toa do node con:
+				// x = cos(alfa) * do dai canh + nodeRoot.X; 
+				// y = sin(alfa) * do dai canh + nodeRoot.Y;
+				// do dai canh thay doi dai ngan theo chi so citation
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Style source="assets/style/main.css"/>
@@ -545,7 +602,8 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 		<fx:XML id="xmldata" source="data/levelgraph.xml"/>
-		<fx:XML id="testdata" source="data/test.xml"/>
+		<fx:XML id="citation" source="data/citation.xml"/>
+		<fx:XML id="graph" source="data/graph.xml"/>
 		
 	</fx:Declarations>
 	<s:BorderContainer id="SearchLeft" x="10" y="0" width="184" height="100%" borderVisible="false">
@@ -673,5 +731,8 @@
 			   click="btnCitationGraph_clickHandler(event)" enabled="{!isCitation}"/>
 	<s:Button id="btnRecommend" x="537" y="1" label="Recommend"
 			  click="btnRecommend_clickHandler(event)" enabled="{!isRecommend}"/>
+	<s:Button x="307" y="182" label="co-graph &amp; recommend" click="button1_clickHandler(event)"/>
+	<s:Button x="307" y="214" label="co-path " click="button2_clickHandler(event)"/>
+	<s:Button x="307" y="252" label="citation" click="button3_clickHandler(event)"/>
 	
 </s:Group>

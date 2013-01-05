@@ -10,18 +10,21 @@
 				rollOverEffect="{zoomIn}" verticalGap="-10" verticalAlign="top">
 			
 			<mx:Box id="box" horizontalAlign="center" verticalAlign="middle">
-				<mx:Box id="box_img" backgroundColor="#727BFC"
+				<mx:Box id="box_img" backgroundColor="{GraphLocator.getInstance().idRoot &#61;&#61; this.data.data.@id ? 0xF4B31B : 0x727BFC}"
 						horizontalAlign="center" toolTip="{this.data.data.@desc}" verticalAlign="middle" resize="box_img_resize(event);">
 					<mx:Image id="img" horizontalAlign="center" verticalAlign="middle" smoothBitmapContent="true"
 							  source="{this.data.data.@imgUrl}" doubleClick="img_doubleClickHandler(event)" resize="image_resize(event);"
 							  />
 				</mx:Box>
 			</mx:Box>
-			<mx:Box backgroundAlpha="0.001" backgroundColor="#ffffff" cornerRadius="5" paddingTop="10">
-				<mx:LinkButton id="nodeText" label="{this.data.data.@name}" 
-							   click="navigateToURL(new URLRequest('http://localhost:8080/PubGuru/Author?aid='+this.data.data.@id), 'quote')"
-							   cornerRadius="5" fontSize="12" paddingBottom="0" paddingTop="0"
-							   textAlign="center"/>
+			<mx:Box backgroundAlpha="0" backgroundColor="#ffffff" cornerRadius="5" paddingTop="10">
+				<mx:Box backgroundColor="#ffffff" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0" cornerRadius="6">
+					<mx:LinkButton id="nodeText" label="{this.data.data.@name}" 
+								   click="navigateToURL(new URLRequest('http://localhost:8080/PubGuru/Author?aid='+this.data.data.@id), 'quote')"
+								   cornerRadius="5" fontSize="12" 
+								   textAlign="center"
+								   paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0"/>
+				</mx:Box>
 			</mx:Box>
 			
 		</mx:VBox>
@@ -33,6 +36,7 @@
 	<mx:Script>
 		<![CDATA[
 			import business.events.GetAuthorEvent;
+			import business.events.GetCollaborationEvent;
 			import business.events.ViewCoAuthorGraphEvent;
 			
 			import com.adobe.cairngorm.model.ModelLocator;
@@ -42,6 +46,7 @@
 			
 			import mx.controls.Alert;
 			import mx.events.ResizeEvent;
+			import mx.utils.ColorUtil;
 			private function setNode():void {
 				var nodeSize:int = this.data.data.@nodeSize;
 				img.width = nodeSize;
@@ -66,17 +71,33 @@
 					var getAuthorEvent:GetAuthorEvent = new GetAuthorEvent(this.data.data.@id);
 					getAuthorEvent.dispatch();
 					models.ModelLocator.getInstance().searchedAuthors.removeAll();
-					GraphLocator.getInstance().waiting = true;
-					var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(this.data.data.@id);
-					coauthorEvent.dispatch();
-					GraphLocator.getInstance().graph.dataProvider.removeAll();
+				
+					//GraphLocator.getInstance().action == ? ==> 1,2,3,4 <=> co-graph, co-path, citation, recommend 
+					if(GraphLocator.getInstance().action == 1)
+					{
+						GraphLocator.getInstance().waiting = true;
+						var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(this.data.data.@id);
+						coauthorEvent.dispatch();
+						GraphLocator.getInstance().graph.dataProvider.removeAll();
+					}
+					else if( GraphLocator.getInstance().action == 4)
+					{
+						GraphLocator.getInstance().waiting = true;
+						var getcollaboration:GetCollaborationEvent = new GetCollaborationEvent(this.data.data.@id);
+						getcollaboration.dispatch();
+						GraphLocator.getInstance().graph.dataProvider.removeAll();
+					}
 				}
 			}
 
 			private var roundedMask:Sprite;
 			private var roundedMask2:Sprite;
+			[Bindable]
+			private var color:uint;
 			
 			private function init():void {
+				//color = "#F4B31B";
+				//'#F4B31B':'#727BFC'
 				
 				roundedMask = new Sprite();
 				roundedMask2 = new Sprite();
@@ -112,9 +133,7 @@
 				roundedMask.graphics.endFill();
 				img.mask = roundedMask;
 				img.smoothBitmapContent = true;
-			}
-
-			
+			}			
 		]]>
 	</mx:Script>	
 </mx:Canvas>

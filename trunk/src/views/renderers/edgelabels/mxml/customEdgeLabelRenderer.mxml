@@ -2,6 +2,8 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
 	verticalAlign="middle" horizontalAlign="center"
 	>
-	<mx:Label text="{XML(this.data.data).@Sim}" fontSize="9" fontWeight="bold"/>
-	
+	<mx:Box id="box_img" backgroundColor="#f1f1f1" cornerRadius="20" horizontalAlign="center"
+			verticalAlign="middle" borderStyle="solid" borderColor="#565555">
+		<mx:Label text="{XML(this.data.data).@Sim}" fontSize="9" fontWeight="bold"/>
+	</mx:Box>
 </mx:VBox>
