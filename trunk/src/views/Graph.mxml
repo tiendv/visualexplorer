@@ -582,6 +582,7 @@
 				GraphLocator.getInstance().idRoot = 1;
 				visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
 				visualGraph.layouter.layoutChanged = true;
+				visualGraph.displayEdgeLabels = true;
 				GraphLocator.getInstance().graph.dataProvider.removeAll();
 				GraphLocator.getInstance().graph.dataProvider.addItem(citation);
 				// phuong phap tinh x, y citation
