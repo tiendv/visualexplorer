@@ -582,7 +582,6 @@
 				GraphLocator.getInstance().idRoot = 1;
 				visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
 				visualGraph.layouter.layoutChanged = true;
-				visualGraph.displayEdgeLabels = false;
 				GraphLocator.getInstance().graph.dataProvider.removeAll();
 				GraphLocator.getInstance().graph.dataProvider.addItem(citation);
 				// phuong phap tinh x, y citation
@@ -591,7 +590,8 @@
 				// toa do node con:
 				// x = cos(alfa) * do dai canh + nodeRoot.X; 
 				// y = sin(alfa) * do dai canh + nodeRoot.Y;
-				// do dai canh thay doi dai ngan theo chi so citation
+				// do dai canh thay doi dai ngan theo chi so citation 
+				// file citation.xml mac dinh do dai = nhau = 860
 				
 			}
 			
