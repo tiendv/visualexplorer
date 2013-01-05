@@ -15,20 +15,20 @@
   <Node id="13" name="13" desc="This is a description" nodeColor="0x8F8FFF" nodeSize="45" nodeClass="leaf" nodeIcon="15" x="157" y="854" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
   <Node id="14" name="14" desc="This is a description" nodeColor="0xF00000" nodeSize="60" nodeClass="leaf" nodeIcon="16" x="60" y="860" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" />
 
- <Edge fromID="1" toID="2" color="0x727BFC" />
- <Edge fromID="1" toID="3" color="0x727BFC" />
- <Edge fromID="1" toID="4" color="0x727BFC" />
- <Edge fromID="1" toID="5" color="0x727BFC" />
- <Edge fromID="1" toID="6" color="0x727BFC" />
- <Edge fromID="1" toID="7" color="0x727BFC" />
- <Edge fromID="1" toID="8" color="0x727BFC" />
- <Edge fromID="1" toID="9" color="0x727BFC" />
+ <Edge fromID="1" toID="2" color="0x727BFC" Sim="30"/>
+ <Edge fromID="1" toID="3" color="0x727BFC" Sim="30"/>
+ <Edge fromID="1" toID="4" color="0x727BFC" Sim="30"/>
+ <Edge fromID="1" toID="5" color="0x727BFC" Sim="30"/>
+ <Edge fromID="1" toID="6" color="0x727BFC" Sim="30"/>
+ <Edge fromID="1" toID="7" color="0x727BFC" Sim="30"/>
+ <Edge fromID="1" toID="8" color="0x727BFC" Sim="30"/>
+ <Edge fromID="1" toID="9" color="0x727BFC" Sim="30"/>
  
- <Edge fromID="1" toID="10" color="0x727BFC" />
- <Edge fromID="1" toID="11" color="0x727BFC" />
- <Edge fromID="1" toID="12" color="0x727BFC" />
- <Edge fromID="1" toID="13" color="0x727BFC" />
- <Edge fromID="1" toID="14" color="0x727BFC" />
+ <Edge fromID="1" toID="10" color="0x727BFC" Sim="30"/>
+ <Edge fromID="1" toID="11" color="0x727BFC" Sim="30"/>
+ <Edge fromID="1" toID="12" color="0x727BFC" Sim="30"/>
+ <Edge fromID="1" toID="13" color="0x727BFC" Sim="30"/>
+ <Edge fromID="1" toID="14" color="0x727BFC" Sim="30"/>
  
   
 </Graph>
