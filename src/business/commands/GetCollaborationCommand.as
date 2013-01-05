@@ -84,15 +84,15 @@ package business.commands
 								//----
 								if(maxSimValue == minSimValue)
 								{
-									radiusDict[id] = 1.1;
+									radiusDict[id] = 1.0;
 								}
 								else{
 									if(s.value == minSimValue){
-										radiusDict[id] = 1.1;
+										radiusDict[id] = 1.0;
 									}else if(s.value == maxSimValue){
-										radiusDict[id] = 0.3;
+										radiusDict[id] = 0.2;
 									}else{//khong phai thi nam trong khoan 0.8 con lai
-										radiusDict[id] = (maxSimValue-s.value)*0.8/(maxSimValue-minSimValue)+0.3;
+										radiusDict[id] = (maxSimValue-s.value)*0.8/(maxSimValue-minSimValue)+0.2;
 									}
 								}
 							}

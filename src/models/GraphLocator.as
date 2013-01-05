@@ -22,13 +22,14 @@ package models
 		public var nodes:ArrayCollection;
 		public var edges:ArrayCollection;
 		public var xml:XML;
-		[Bindable]
 		public var layouter:ILayoutAlgorithm;
 		[Bindable]
 		public var graph:GraphDP;
 		public var startRoot : IVisualNode;
+		[Bindable]
 		public var idRoot:int = 0;
 		[Bindable]
 		public var waiting:Boolean = false;
+		public var action:int = 1; // 1,2,3,4 => co-gaph, co-path, citation, recommend
 	}
 }

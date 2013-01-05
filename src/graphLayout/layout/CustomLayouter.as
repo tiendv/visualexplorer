@@ -536,8 +536,13 @@ package graphLayout.layout {
 				cfrac = _currentDrawing.getAngularWidth(cn) / awidth;
 				// calcRadius
 				var p:Number = (Number)(cn.data.@r);
+				//cal r
+				if(cc > 5){
+					r = 250;
+				}else{
+					r = 200;
+				}
 				radius = p*r;
-				
 				/* do we need to recurse, 
 				 * we just recurse if the node has children */
 				if(_stree.getNoChildren(cn) > 0) {
