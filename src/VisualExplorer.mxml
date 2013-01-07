@@ -9,5 +9,5 @@
 		<router:VisualExplorerController xmlns:router="business.*"/>
 	</fx:Declarations>
 	
-	<v:Graph/>
+	<v:Graph id="graphView"/>
 </s:Application>

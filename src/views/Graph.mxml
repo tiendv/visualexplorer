@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 width="100%" height="100%" 
-		 xmlns:visual="org.un.cava.birdeye.ravis.graphLayout.visual.*" 
+		 xmlns:visual="org.un.cava.birdeye.ravis.graphLayout.visual.*"
 		 xmlns:visualDP="graphLayout.visual.*"
-		 initialize="initData();" 
-		 creationComplete="group1_creationCompleteHandler(event)">
+		 xmlns:edgeRenderers="org.un.cava.birdeye.ravis.enhancedGraphLayout.visual.edgeRenderers.*"
+		 width="100%" height="100%" creationComplete="group1_creationCompleteHandler(event)"
+		 initialize="initData();">
 	<fx:Script>
 		<![CDATA[
 			import business.events.GetAuthorEvent;
@@ -15,9 +15,11 @@
 			import business.events.SearchAuthorEvent;
 			import business.events.SearchAuthorRightEvent;
 			import business.events.ViewCoAuthorGraphEvent;
+			import business.events.ViewCoPathGraphEvent;
 			
 			import flash.sampler.NewObjectSample;
 			
+			import flashx.textLayout.events.ModelChange;
 			import flashx.textLayout.factory.TruncationOptions;
 			
 			import graphLayout.data.GraphDP;
@@ -68,14 +70,30 @@
 			public var dataLeft:Object = new Object();
 			public var dataRight:Object = new Object();
 			[Bindable]
-			public var isCoGraph:Boolean = true;
+			public static var isCoGraph:Boolean = true;
 			[Bindable]
-			public var isCoPath:Boolean = false;
+			public static var isCoPath:Boolean = false;
 			[Bindable]
-			public var isCitation:Boolean = false;
+			public static var isCitation:Boolean = false;
 			[Bindable]
-			public var isRecommend:Boolean = false;
-						
+			public static var isRecommend:Boolean = false;
+			[Bindable]
+			public static var searchRightVisible:Boolean = false;
+			[Bindable]
+			public static var vrRightVisible:Boolean = false;
+			[Bindable]
+			public static var btnHideRightVisible:Boolean = false;
+			[Bindable]
+			public static var btnShowRightVisible:Boolean = false;
+			[Bindable]
+			public static var searchRightX:Number = 0;
+			[Bindable]
+			public static var vrRightX:Number = 0;
+			[Bindable]
+			public static var btnHideRightX:Number = 730;
+			[Bindable]
+			public static var btnShowRightX:Number = 920;
+
 			protected function btnHideLeft_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
@@ -95,18 +113,18 @@
 			protected function btnHideRight_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
-				SearchRight.visible = !SearchRight.visible;
-				btnHideRight.visible = false;
-				btnShowRight.visible = true;
-				vrRight.x = vrRight.x + 180;
+				searchRightVisible = !searchRightVisible;
+				btnHideRightVisible = false;
+				btnShowRightVisible = true;
+				vrRightX = vrRightX + 180
 			}
 			protected function btnShowRight_clickHandler(event:MouseEvent):void
 			{
 				// TODO Auto-generated method stub
-				SearchRight.visible = !SearchRight.visible;
-				btnHideRight.visible = true;
-				btnShowRight.visible = false;
-				vrRight.x = vrRight.x - 180;
+				searchRightVisible = !searchRightVisible;
+				btnHideRightVisible = true;
+				btnShowRightVisible = false;
+				vrRightX = vrRightX - 180;
 			}
 	
 			protected function btnSearchLeft_clickHandler(event:MouseEvent):void
@@ -138,6 +156,7 @@
 					str = str.replace(/\s+/g, '');
 					if(str != "")
 					{
+						ModelLocator.getInstance().waitingSearchRight = true;
 						searchAuthorsRight.removeAll();
 						dataRight = new Object();
 						//search
@@ -165,26 +184,29 @@
 						var dataUrlReplace:Object = new Object();
 						dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&aid1="+dataRight.authorID+"&action=path";
 						setUrlReplace(dataUrlReplace);
-						//--
-						//GraphLocator.getInstance().waiting = true;
-						//thuc hien even copath
-
 					}
-	
+					//--
+					if(GraphLocator.getInstance().idRoot > 0){
+						GraphLocator.getInstance().waiting = true;
+						var coPathEvent:ViewCoPathGraphEvent = new ViewCoPathGraphEvent(GraphLocator.getInstance().idRoot,GraphLocator.getInstance().idRootRight);
+						coPathEvent.dispatch();
+					}
+
+					
 					isCoGraph = false;
 					isCoPath = true;
 					isCitation = false;
 					isRecommend = false;
 					GraphLocator.getInstance().action = 2;
 	    
-					SearchRight.visible = true;
-					vrRight.visible = true;
-					btnHideRight.visible = true;
-					btnShowRight.visible = false;
-					SearchRight.x = width - 190;
-					vrRight.x = width - 200;
-					btnHideRight.x = width - 210;
-					btnShowRight.x = width - 30;
+					searchRightVisible = true;
+					vrRightVisible = true;
+					btnHideRightVisible = true;
+					btnShowRightVisible = false;
+					searchRightX = width - 190;
+					vrRightX = width - 200;
+					btnHideRightX = width - 210;
+					btnShowRightX = width - 30;
 				}
 			}
 			
@@ -192,7 +214,7 @@
 			{
 				if(!GraphLocator.getInstance().waiting)
 				{
-					vrRight.x = width-30;
+					vrRightX = width-30;
 					
 					if(dataLeft.authorID == null){
 						gm.visible = true;
@@ -216,10 +238,10 @@
 					isRecommend = false;
 					GraphLocator.getInstance().action = 1;
 	
-					SearchRight.visible = false;
-					vrRight.visible = false;
-					btnHideRight.visible = false;
-					btnShowRight.visible = false;
+					searchRightVisible = false;
+					vrRightVisible = false;
+					btnHideRightVisible = false;
+					btnShowRightVisible = false;
 				}
 			}
 			
@@ -227,7 +249,7 @@
 			{
 				if(!GraphLocator.getInstance().waiting)
 				{
-					vrRight.x = width-30
+					vrRightX = width-30
 						
 					if(dataLeft.authorID == null){
 						gm.visible = true;
@@ -248,10 +270,11 @@
 					isRecommend = false;
 					GraphLocator.getInstance().action = 3;
 	
-					SearchRight.visible = false;
-					vrRight.visible = false;
-					btnHideRight.visible = false;
-					btnShowRight.visible = false;
+					searchRightVisible = false;
+					vrRightVisible = false;
+					btnHideRightVisible = false;
+					btnShowRightVisible = false;
+
 				}
 			}
 			
@@ -259,7 +282,7 @@
 			{
 				if(!GraphLocator.getInstance().waiting)
 				{
-					vrRight.x = width-30
+					vrRightX = width-30
 						
 					if(dataLeft.authorID == null){
 						gm.visible = true;
@@ -284,10 +307,11 @@
 					isRecommend = true;
 					GraphLocator.getInstance().action = 4;
 	
-					SearchRight.visible = false;
-					vrRight.visible = false;
-					btnHideRight.visible = false;
-					btnShowRight.visible = false;
+					searchRightVisible = false;
+					vrRightVisible = false;
+					btnHideRightVisible = false;
+					btnShowRightVisible = false;
+
 				}
 			}
 			protected function lst_changeHandlerLeft(e:IndexChangeEvent):void {			
@@ -295,7 +319,7 @@
 				dataLeft = e.currentTarget.selectedItem;
 				var dataUrlReplace:Object = new Object();
 				dataUrlReplace.urlReplace = "";
-
+				GraphLocator.getInstance().idRoot = dataLeft.authorID;
 				if(isCoGraph){
 					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=graph";
 					GraphLocator.getInstance().waiting = true;
@@ -305,6 +329,10 @@
 				}
 				if(isCoPath){
 					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&aid1="+dataRight.authorID+"&action=path";
+					GraphLocator.getInstance().waiting = true;
+					var coPathEvent:ViewCoPathGraphEvent = new ViewCoPathGraphEvent(GraphLocator.getInstance().idRoot,GraphLocator.getInstance().idRootRight);
+					coPathEvent.dispatch();
+					GraphLocator.getInstance().graph.dataProvider.removeAll();
 				}
 				if(isCitation){
 					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=citation";
@@ -325,8 +353,13 @@
 				dataRight = e.currentTarget.selectedItem;
 				var dataUrlReplace:Object = new Object();
 				dataUrlReplace.urlReplace = "";
+				GraphLocator.getInstance().idRootRight = dataRight.authorID;
 				if(isCoPath){
 					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&aid1="+dataRight.authorID+"&action=path";
+					GraphLocator.getInstance().waiting = true;
+					var coPathEvent:ViewCoPathGraphEvent = new ViewCoPathGraphEvent(GraphLocator.getInstance().idRoot,GraphLocator.getInstance().idRootRight);
+					coPathEvent.dispatch();
+					GraphLocator.getInstance().graph.dataProvider.removeAll();
 				}
 				setUrlReplace(dataUrlReplace);
 			}
@@ -387,6 +420,8 @@
 			private var initDone:Boolean = false;
 			
 			private function initData():void{
+				vrRightX = FlexGlobals.topLevelApplication.width - 30;
+
 				Security.loadPolicyFile("http://academic.research.microsoft.com/crossdomain.xml");
 				/* init a graph object with the XML data */
  				GraphLocator.getInstance().graph = new GraphDP("XMLAsDocsGraph", false, new XML("<Graph></Graph>")); 			
@@ -394,17 +429,11 @@
 				visualGraph.graph = GraphLocator.getInstance().graph;
 
 				/* set the default layouter type */
-				//layouter = new graphLayout.layout.CustomLayouter(visualGraph);
-				//GraphLocator.getInstance().layouter = new graphLayout.layout.CustomLayouter(visualGraph);
-				//GraphLocator.getInstance().layouter = new DirectPlacementLayouter(visualGraph);
-				//layouter = GraphLocator.getInstance().layouter;
-				//visualGraph.layouter = layouter;
-				GraphLocator.getInstance().layouter = new graphLayout.layout.CustomLayouter(visualGraph);
-				visualGraph.layouter = GraphLocator.getInstance().layouter;
+				layouter = new graphLayout.layout.CustomLayouter(visualGraph);
+				visualGraph.layouter = layouter;
 				
 				/* set autofit */
-				//layouter.autoFitEnabled = true;
-				GraphLocator.getInstance().layouter.autoFitEnabled = true;
+				layouter.autoFitEnabled = true;
 				
 				/* set the layouter */
 				visualGraph.edgeRendererFactory = new ClassFactory(BaseEdgeRenderer);
@@ -438,6 +467,7 @@
 					dataLeft.authorID = aid;
 					var getAuthorEvent:GetAuthorEvent = new GetAuthorEvent(aid);
 					getAuthorEvent.dispatch();
+					GraphLocator.getInstance().idRoot = aid;
 					
 					//view graph
 					if(action.toLowerCase()=="graph")
@@ -458,24 +488,37 @@
 						isCoPath = true;
 						isCitation = false;
 						isRecommend = false;
+						//-- hien thi SearchRight
+						Graph.searchRightVisible = true;
+						Graph.vrRightVisible = true;
+						Graph.btnHideRightVisible = true;
+						Graph.btnShowRightVisible = false;
+						Graph.searchRightX = FlexGlobals.topLevelApplication.width - 190; 
+						Graph.vrRightX = FlexGlobals.topLevelApplication.width - 200;
+						Graph.btnHideRightX = FlexGlobals.topLevelApplication.width - 210;
+						Graph.btnShowRightX = FlexGlobals.topLevelApplication.width - 30;
 						
 						if(aid1>0)
 						{//search author by id
 							ModelLocator.getInstance().waitingSearchRight = true;
 							dataRight = new Object();
 							dataRight.authorID = aid1;
+							GraphLocator.getInstance().idRootRight = dataRight.authorID;
 						}
 						else
 						{//search author by default id
 							ModelLocator.getInstance().waitingSearchRight = true;
 							dataRight = new Object();
-							dataRight.authorID = 1;
+							dataRight.authorID = GraphLocator.getInstance().idRootRight;//==1
 						}
 						//get author
 						GraphLocator.getInstance().action = 2;
-						var getAuthorRightEvent:GetAuthorRightEvent = new GetAuthorRightEvent(aid);
+						var getAuthorRightEvent:GetAuthorRightEvent = new GetAuthorRightEvent(GraphLocator.getInstance().idRootRight);
 						getAuthorRightEvent.dispatch();
 						gm.visible = false;
+						//search and draw graph co-path
+						//---
+						
 					}
 					else if(action.toLowerCase()=="citation")
 					{//citation
@@ -484,9 +527,9 @@
 						isCitation = true;
 						isRecommend = false;
 						GraphLocator.getInstance().action = 3;
-						//search and draw graph citation
-						//--
 						gm.visible = false;
+						//search and draw graph citation
+						//---
 					}
 					else if(action.toLowerCase()=="recommend")
 					{//recommend
@@ -569,10 +612,10 @@
 				GraphLocator.getInstance().idRoot = 1;
 				visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
 				visualGraph.layouter.layoutChanged = true;
-				visualGraph.displayEdgeLabels = false;
+				visualGraph.displayEdgeLabels = true;
+				GraphLocator.getInstance().idRootRight = 14;
 				GraphLocator.getInstance().graph.dataProvider.removeAll();
 				GraphLocator.getInstance().graph.dataProvider.addItem(graph);
-				//
 			}
 
 			
@@ -594,7 +637,7 @@
 				// do dai canh thay doi dai ngan theo chi so citation 
 				// file citation.xml mac dinh do dai = nhau = 860
 				
-			}
+			}			
 			
 		]]>
 	</fx:Script>
@@ -653,7 +696,7 @@
 	
 	<mx:Canvas id="graphBody"
 			   x ="{vrLeft.x + 15}" y="31"
-			   height="100%" width="{vrRight.x - vrLeft.x - 25}">
+			   height="100%" width="{vrRightX - vrLeft.x - 25}">
 		<visualDP:VisualGraphDP id="visualGraph" width="100%" height="100%" 
 							left="0" right="0" top="0" bottom="5" backgroundColor="#FFFFFF" alpha="1"
 							resize="visualGraph.draw(VisualGraph.DF_RESET_LL)"
@@ -680,7 +723,7 @@
 
 	</mx:Canvas>
 	
-	<s:BorderContainer id="SearchRight" x="760" y="0" width="184" height="100%" borderVisible="false" visible="false">
+	<s:BorderContainer id="SearchRight" x="{searchRightX}" y="0" width="184" height="100%" borderVisible="false" visible="{searchRightVisible}">
 		<s:BorderContainer x="11" y="1" width="158" height="32" borderColor="#727BFC"
 						   color="#183CF0" symbolColor="#3E5BF0">
 			<s:TextInput id="txtAuthorNameRight" x="3" y="5" width="123" borderVisible="false"
@@ -711,19 +754,19 @@
 	</s:BorderContainer>
 
 	
-	<mx:VRule id="vrRight" x="{width-30}" y="1" width="2" height="100%" chromeColor="#000000" visible="false"/>
-	<mx:Button id="btnHideRight" x="730" y="{(height/2)-20}" width="25" height="25"
+	<mx:VRule id="vrRight" x="{vrRightX}" y="1" width="2" height="100%" chromeColor="#000000" visible="{vrRightVisible}"/>
+	<mx:Button id="btnHideRight" x="{btnHideRightX}" y="{(height/2)-20}" width="25" height="25"
 			   click="btnHideRight_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/btn_show.png')" paddingLeft="0" paddingRight="0"
 			   overIcon="@Embed('assets/gui/btn_show_hover.png')"
 			   buttonMode="true" useHandCursor="true"
-			   visible="false"/>
-	<mx:Button id="btnShowRight" x="920" y="{(height/2)-20}" width="25" height="25"
+			   visible="{btnHideRightVisible}"/>
+	<mx:Button id="btnShowRight" x="{btnShowRightX}" y="{(height/2)-20}" width="25" height="25"
 			   click="btnShowRight_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/button_hide.png')" paddingLeft="0" paddingRight="0"
 			   overIcon="@Embed('assets/gui/btn_hide_hover.png')"
 			   buttonMode="true" useHandCursor="true"
-			   visible="false"/>
+			   visible="{btnShowRightVisible}"/>
 	<mx:Button id="btnCoAuthorGraph" x="217" y="1" label="Co-author Graph"
 			   click="btnCoAuthorGraph_clickHandler(event)" enabled="{!isCoGraph}"/>
 	<mx:Button id="btnCoAuthorPath" x="331" y="1" label="Co-author Path"

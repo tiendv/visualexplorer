@@ -538,7 +538,7 @@ package graphLayout.layout {
 				var p:Number = (Number)(cn.data.@r);
 				//cal r
 				if(cc > 5){
-					r = 250;
+					r = 265;
 				}else{
 					r = 200;
 				}

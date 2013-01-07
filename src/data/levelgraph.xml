@@ -1,5 +1,5 @@
 <Graph>
- <Node id="1" name="0sdfddddddddddddddddddddddddd" desc="This is a description" nodeSize="80" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0" />
+ <Node id="1" name="0sdfddddddddddddddddddddddddd" desc="This is a description &#13; gfgdf"  nodeSize="80" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0" />
  <Node id="2" name="A" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
  <Node id="3" name="B" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
  <Node id="4" name="Coner" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="1.0" />
@@ -30,7 +30,7 @@
  <Node id="29" name="D.4" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.3" />
  <Node id="30" name="D.5" desc="This is a description" nodeSize="60" imgUrl="http://academic.research.microsoft.com/Photo/23422751.jpg" r="0.5" />
  
- <Edge fromID="1" toID="2" color="0xFFA500" Sim="120" />
+ <Edge fromID="1" toID="2" color="0xFFA500" Sim="0.123456" />
  <Edge fromID="1" toID="3" color="0xFFA500" Sim="120" />
  <Edge fromID="1" toID="4" color="0xFFA500" Sim="120" />
  <Edge fromID="1" toID="5" color="0xFFA500" Sim="120" />
@@ -61,18 +61,18 @@
  <Edge fromID="1" toID="30" color="0xFFA500" Sim="3" />
  
  <Edge fromID="2" toID="3" Sim="32"/>
- <Edge fromID="2" toID="5" Sim="3"  />
- <Edge fromID="2" toID="30" Sim="3"  />
- <Edge fromID="2" toID="23" Sim="3"  />
+ <Edge fromID="2" toID="5" Sim="3" />
+ <Edge fromID="2" toID="30" Sim="3" />
+ <Edge fromID="2" toID="23" Sim="3" />
  <Edge fromID="2" toID="16" Sim="3" />
- <Edge fromID="2" toID="10" Sim="3"  />
+ <Edge fromID="2" toID="10" Sim="3" />
  
- <Edge fromID="3" toID="2" Sim="3"  />
- <Edge fromID="3" toID="7" Sim="3"  />
- <Edge fromID="3" toID="8" Sim="3"  />
- <Edge fromID="3" toID="25" Sim="3"  />
- <Edge fromID="3" toID="22" Sim="3"  />
- <Edge fromID="3" toID="17" Sim="3"  />
+ <Edge fromID="3" toID="2" Sim="3" />
+ <Edge fromID="3" toID="7" Sim="3" />
+ <Edge fromID="3" toID="8" Sim="3" />
+ <Edge fromID="3" toID="25" Sim="3" />
+ <Edge fromID="3" toID="22" Sim="3" />
+ <Edge fromID="3" toID="17" Sim="3" />
  
  
 </Graph>
