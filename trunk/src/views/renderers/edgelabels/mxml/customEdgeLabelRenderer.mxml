@@ -2,8 +2,64 @@
 <mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
 	verticalAlign="middle" horizontalAlign="center"
 	>
-	<mx:Box id="box_img" backgroundColor="#f1f1f1" cornerRadius="20" horizontalAlign="center"
-			verticalAlign="middle" borderStyle="solid" borderColor="#565555">
-		<mx:Label text="{XML(this.data.data).@Sim}" fontSize="9" fontWeight="bold"/>
+	
+	<mx:Script>
+		<![CDATA[
+			import business.events.ViewCoPathGraphEvent;
+			
+			import models.GraphLocator;
+			
+			import mx.controls.Alert;
+			import mx.core.FlexGlobals;
+			
+			import spark.components.Application;
+			
+			import views.Graph;
+
+			protected function linkbutton1_clickHandler(event:MouseEvent):void
+			{
+				// chuyen qua co-path button
+				Graph.isCoGraph = false;
+				Graph.isCoPath = true;
+				Graph.isCitation = false;
+				Graph.isRecommend = false;
+				//hien thi searchRight
+				Graph.searchRightVisible = true;
+				Graph.vrRightVisible = true;
+				Graph.btnHideRightVisible = true;
+				Graph.btnShowRightVisible = false;
+				Graph.searchRightX = FlexGlobals.topLevelApplication.width - 190; 
+				Graph.vrRightX = FlexGlobals.topLevelApplication.width - 200;
+				Graph.btnHideRightX = FlexGlobals.topLevelApplication.width - 210;
+				Graph.btnShowRightX = FlexGlobals.topLevelApplication.width - 30;
+				//searchLeft
+				GraphLocator.getInstance().idRoot = this.data.data.@fromID;
+				//searchRight
+				GraphLocator.getInstance().idRootRight = this.data.data.@toID;
+				//search and draw Graph
+				GraphLocator.getInstance().waiting = true;
+				var coPathEvent:ViewCoPathGraphEvent = new ViewCoPathGraphEvent(GraphLocator.getInstance().idRoot,GraphLocator.getInstance().idRootRight);
+				coPathEvent.dispatch();
+			}
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Box id="box_img" backgroundColor="#f1f1f1" cornerRadius="40" horizontalAlign="center"
+			verticalAlign="middle" borderStyle="solid" borderColor="#565555" rollOverEffect="{glow}" rollOutEffect="{unglow}"
+			visible="{XML(this.data.data).@Sim &#61;&#61; 0 ? false : true}">
+		<mx:LinkButton label="{XML(this.data.data).@Sim}" fontSize="9" fontWeight="bold" cornerRadius="40"
+					   paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0" maxHeight="16"
+						click="linkbutton1_clickHandler(event)"/>
 	</mx:Box>
+	<mx:Glow id="glow" duration="1000" 
+			 alphaFrom="1.0" alphaTo="0.3" 
+			 blurXFrom="0.0" blurXTo="20.0" 
+			 blurYFrom="0.0" blurYTo="20.0" 
+			 color="0x0000FF"/>
+	<mx:Glow id="unglow" duration="1000" 
+			 alphaFrom="0.3" alphaTo="1.0" 
+			 blurXFrom="20.0" blurXTo="0.0" 
+			 blurYFrom="20.0" blurYTo="0.0" 
+			 color="0x00FF00"/>
 </mx:VBox>

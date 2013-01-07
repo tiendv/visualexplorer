@@ -29,6 +29,8 @@ package models
 		[Bindable]
 		public var idRoot:int = 0;
 		[Bindable]
+		public var idRootRight:int = 1;
+		[Bindable]
 		public var waiting:Boolean = false;
 		public var action:int = 1; // 1,2,3,4 => co-gaph, co-path, citation, recommend
 	}

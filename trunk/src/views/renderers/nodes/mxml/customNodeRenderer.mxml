@@ -10,7 +10,7 @@
 				rollOverEffect="{zoomIn}" verticalGap="-10" verticalAlign="top">
 			
 			<mx:Box id="box" horizontalAlign="center" verticalAlign="middle">
-				<mx:Box id="box_img" backgroundColor="{GraphLocator.getInstance().idRoot &#61;&#61; this.data.data.@id ? 0xF4B31B : 0x727BFC}"
+				<mx:Box id="box_img" backgroundColor="{color}"
 						horizontalAlign="center" toolTip="{this.data.data.@desc}" verticalAlign="middle" resize="box_img_resize(event);">
 					<mx:Image id="img" horizontalAlign="center" verticalAlign="middle" smoothBitmapContent="true"
 							  source="{this.data.data.@imgUrl}" doubleClick="img_doubleClickHandler(event)" resize="image_resize(event);"
@@ -46,7 +46,7 @@
 			
 			import mx.controls.Alert;
 			import mx.events.ResizeEvent;
-			import mx.utils.ColorUtil;
+
 			private function setNode():void {
 				var nodeSize:int = this.data.data.@nodeSize;
 				img.width = nodeSize;
@@ -73,19 +73,38 @@
 					models.ModelLocator.getInstance().searchedAuthors.removeAll();
 				
 					//GraphLocator.getInstance().action == ? ==> 1,2,3,4 <=> co-graph, co-path, citation, recommend 
-					if(GraphLocator.getInstance().action == 1)
+					switch(GraphLocator.getInstance().action)
 					{
-						GraphLocator.getInstance().waiting = true;
-						var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(this.data.data.@id);
-						coauthorEvent.dispatch();
-						GraphLocator.getInstance().graph.dataProvider.removeAll();
-					}
-					else if( GraphLocator.getInstance().action == 4)
-					{
-						GraphLocator.getInstance().waiting = true;
-						var getcollaboration:GetCollaborationEvent = new GetCollaborationEvent(this.data.data.@id);
-						getcollaboration.dispatch();
-						GraphLocator.getInstance().graph.dataProvider.removeAll();
+						case 1:
+						{
+							GraphLocator.getInstance().waiting = true;
+							var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(this.data.data.@id);
+							coauthorEvent.dispatch();
+							GraphLocator.getInstance().graph.dataProvider.removeAll();
+							break;
+						}
+						case 2:
+						{
+
+							break;
+						}
+						case 3:
+						{
+							
+							break;
+						}
+						case 4:
+						{
+							GraphLocator.getInstance().waiting = true;
+							var getcollaboration:GetCollaborationEvent = new GetCollaborationEvent(this.data.data.@id);
+							getcollaboration.dispatch();
+							GraphLocator.getInstance().graph.dataProvider.removeAll();
+							break;
+						}
+						default:
+						{
+							break;
+						}
 					}
 				}
 			}
@@ -96,9 +115,7 @@
 			private var color:uint;
 			
 			private function init():void {
-				//color = "#F4B31B";
-				//'#F4B31B':'#727BFC'
-				
+				color = (GraphLocator.getInstance().idRoot == this.data.data.@id || (GraphLocator.getInstance().idRootRight == this.data.data.@id && GraphLocator.getInstance().action==2)) ? 0xF4B31B : 0x727BFC;
 				roundedMask = new Sprite();
 				roundedMask2 = new Sprite();
 				box.rawChildren.addChild(roundedMask2);
