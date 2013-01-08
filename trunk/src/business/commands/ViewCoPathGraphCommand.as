@@ -9,6 +9,7 @@ package business.commands
 	import models.GraphLocator;
 	
 	import mx.controls.Alert;
+	import mx.core.FlexGlobals;
 	import mx.rpc.Responder;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
@@ -33,6 +34,8 @@ package business.commands
 		
 		private function onFailed(event:FaultEvent):void
 		{
+			GraphLocator.getInstance().graph.dataProvider.removeAll();
+			GraphLocator.getInstance().graph.dataProvider.addItem(FlexGlobals.topLevelApplication.graphView.graph);
 			GraphLocator.getInstance().waiting = false;
 		}
 	}

@@ -52,7 +52,7 @@
 			
 			import utils.GraphUtil;
 			
-			import valueobjects.AuthorOrgObject;
+			import valueobjects.AuthorObject;
 			import valueobjects.CoAuthorObject;
 			
 			[Bindable]
@@ -185,8 +185,16 @@
 						dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&aid1="+dataRight.authorID+"&action=path";
 						setUrlReplace(dataUrlReplace);
 					}
-					//--
+					//--chuyen layout co-path
+					visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
+					visualGraph.layouter.layoutChanged = true;
+
 					if(GraphLocator.getInstance().idRoot > 0){
+						//--search right
+						ModelLocator.getInstance().waitingSearchRight = true;
+						var getAuthorRight:GetAuthorRightEvent = new GetAuthorRightEvent(GraphLocator.getInstance().idRootRight);
+						getAuthorRight.dispatch();
+						//--search and draw graph
 						GraphLocator.getInstance().waiting = true;
 						var coPathEvent:ViewCoPathGraphEvent = new ViewCoPathGraphEvent(GraphLocator.getInstance().idRoot,GraphLocator.getInstance().idRootRight);
 						coPathEvent.dispatch();
@@ -226,6 +234,9 @@
 						dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=graph";
 						setUrlReplace(dataUrlReplace);
 					}
+					//--chuyen layout co-graph
+					visualGraph.layouter = new graphLayout.layout.CustomLayouter(visualGraph);
+					visualGraph.layouter.layoutChanged = true;
 					//-- 
 					if(GraphLocator.getInstance().idRoot > 0){
 						GraphLocator.getInstance().waiting = true;
@@ -261,9 +272,17 @@
 						var dataUrlReplace:Object = new Object();
 						dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=citation";
 						setUrlReplace(dataUrlReplace);
-						//GraphLocator.getInstance().waiting = true;
-						//thuc hien even copath
 					}
+					//--chuyen layout citation
+					visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
+					visualGraph.layouter.layoutChanged = true;
+					//--
+					if(GraphLocator.getInstance().idRoot > 0){
+						//GraphLocator.getInstance().waiting = true;
+						// search and draw graph
+						
+					}
+
 					isCoGraph = false;
 					isCoPath = false;
 					isCitation = true;
@@ -295,6 +314,9 @@
 						dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&action=recommend";
 						setUrlReplace(dataUrlReplace);
 					}
+					//chuyen layout recommend
+					visualGraph.layouter = new graphLayout.layout.CustomLayouter(visualGraph);
+					visualGraph.layouter.layoutChanged = true;
 					//-- 
 					if(GraphLocator.getInstance().idRoot > 0){
 						GraphLocator.getInstance().waiting = true;
@@ -330,6 +352,11 @@
 				if(isCoPath){
 					dataUrlReplace.urlReplace = "aid="+dataLeft.authorID+"&aid1="+dataRight.authorID+"&action=path";
 					GraphLocator.getInstance().waiting = true;
+					//--search right
+					ModelLocator.getInstance().waitingSearchRight = true;
+					var getAuthorRight:GetAuthorRightEvent = new GetAuthorRightEvent(GraphLocator.getInstance().idRootRight);
+					getAuthorRight.dispatch();
+					//--search and draw graph
 					var coPathEvent:ViewCoPathGraphEvent = new ViewCoPathGraphEvent(GraphLocator.getInstance().idRoot,GraphLocator.getInstance().idRootRight);
 					coPathEvent.dispatch();
 					GraphLocator.getInstance().graph.dataProvider.removeAll();
@@ -516,6 +543,10 @@
 						var getAuthorRightEvent:GetAuthorRightEvent = new GetAuthorRightEvent(GraphLocator.getInstance().idRootRight);
 						getAuthorRightEvent.dispatch();
 						gm.visible = false;
+						//chuyen layout co-path
+						visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
+						visualGraph.layouter.layoutChanged = true;
+
 						//search and draw graph co-path
 						//---
 						
@@ -601,7 +632,6 @@
 				GraphLocator.getInstance().idRoot = 1;
 				visualGraph.layouter = new graphLayout.layout.CustomLayouter(visualGraph);
 				visualGraph.layouter.layoutChanged = true;
-				visualGraph.displayEdgeLabels = true;
 				GraphLocator.getInstance().graph.dataProvider.removeAll();
 				GraphLocator.getInstance().graph.dataProvider.addItem(xmldata);
 			}
@@ -612,7 +642,6 @@
 				GraphLocator.getInstance().idRoot = 1;
 				visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
 				visualGraph.layouter.layoutChanged = true;
-				visualGraph.displayEdgeLabels = true;
 				GraphLocator.getInstance().idRootRight = 14;
 				GraphLocator.getInstance().graph.dataProvider.removeAll();
 				GraphLocator.getInstance().graph.dataProvider.addItem(graph);
@@ -625,7 +654,6 @@
 				GraphLocator.getInstance().idRoot = 1;
 				visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
 				visualGraph.layouter.layoutChanged = true;
-				visualGraph.displayEdgeLabels = true;
 				GraphLocator.getInstance().graph.dataProvider.removeAll();
 				GraphLocator.getInstance().graph.dataProvider.addItem(citation);
 				// phuong phap tinh x, y citation
@@ -775,8 +803,5 @@
 			   click="btnCitationGraph_clickHandler(event)" enabled="{!isCitation}"/>
 	<s:Button id="btnRecommend" x="537" y="1" label="Recommend"
 			  click="btnRecommend_clickHandler(event)" enabled="{!isRecommend}"/>
-	<s:Button x="307" y="182" label="co-graph &amp; recommend" click="button1_clickHandler(event)"/>
-	<s:Button x="307" y="214" label="co-path " click="button2_clickHandler(event)"/>
-	<s:Button x="307" y="252" label="citation" click="button3_clickHandler(event)"/>
 	
 </s:Group>
