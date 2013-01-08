@@ -41,11 +41,16 @@
 			
 			import com.adobe.cairngorm.model.ModelLocator;
 			
+			import graphLayout.layout.CustomLayouter;
+			
 			import models.GraphLocator;
 			import models.ModelLocator;
 			
 			import mx.controls.Alert;
+			import mx.core.FlexGlobals;
 			import mx.events.ResizeEvent;
+			
+			import views.Graph;
 
 			private function setNode():void {
 				var nodeSize:int = this.data.data.@nodeSize;
@@ -85,11 +90,30 @@
 						}
 						case 2:
 						{
-
+							//chuyen ve button co-graph
+							Graph.isCoGraph = true;
+							Graph.isCoPath = false;
+							Graph.isCitation = false;
+							Graph.isRecommend = false;
+							GraphLocator.getInstance().action = 1;
+							
+							Graph.searchRightVisible = false;
+							Graph.vrRightVisible = false;
+							Graph.btnHideRightVisible = false;
+							Graph.btnShowRightVisible = false;
+							//chuyen ve layout co-graph
+							FlexGlobals.topLevelApplication.graphView.visualGraph.layouter = new graphLayout.layout.CustomLayouter(FlexGlobals.topLevelApplication.graphView.visualGraph);
+							FlexGlobals.topLevelApplication.graphView.visualGraph.layouter.layoutChanged = true;
+							//search va draw co-graph
+							GraphLocator.getInstance().waiting = true;
+							var coauthorEvent1:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(this.data.data.@id);
+							coauthorEvent1.dispatch();
+							GraphLocator.getInstance().graph.dataProvider.removeAll();
 							break;
 						}
 						case 3:
 						{
+							
 							
 							break;
 						}

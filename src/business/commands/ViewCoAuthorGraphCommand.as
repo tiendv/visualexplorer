@@ -54,7 +54,19 @@ package business.commands
 						
 						if(i==0)
 						{//neu la node chinh
-							nodeRoot = GraphUtil.createNode(o.authorID,o.authorName,o.orgName,80,o.imgUrl,0);
+							var collection:ArrayCollection = o.listSubdomain as ArrayCollection;
+							if(collection == null){
+								collection = new ArrayCollection();
+							}
+							var desc:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
+								"publication: " + o.publicationCount 	+ 	"&#13;" + 
+								"h_index: "		+ o.h_Index			+	",   "	+
+								"g_index: "		+ o.g_Index			+	"&#13;" +
+								"subdomain: ";
+							for each (var item:Object in collection) {
+								desc += item + ", ";
+							}
+							nodeRoot = GraphUtil.createNode(o.authorID,o.authorName,desc,80,o.imgUrl,0);
 							var simDataRootCollection:ArrayCollection = o.simData.entry as ArrayCollection;
 							if(simDataRootCollection == null){
 								simDataRootCollection = new ArrayCollection();
@@ -104,7 +116,20 @@ package business.commands
 						{//co the co hoac khong co simData
 							var xmlNode:XMLList;
 							var authorID:int = o.authorID;
-							xmlNode = GraphUtil.createNode(o.authorID,o.authorName,o.orgName,sizeDict[authorID],o.imgUrl,radiusDict[authorID]);
+							var collect:ArrayCollection = o.listSubdomain as ArrayCollection;
+							if(collect == null){
+								collect = new ArrayCollection();
+							}
+							var description:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
+								"publication: " + o.publicationCount 	+ 	"&#13;" + 
+								"h_index: "		+ o.h_Index			+	",   "	+
+								"g_index: "		+ o.g_Index			+	"&#13;" +
+								"subdomain: ";
+							for each (var sd:Object in collect) {
+								description += sd + ", ";
+							}
+
+							xmlNode = GraphUtil.createNode(o.authorID,o.authorName,description,sizeDict[authorID],o.imgUrl,radiusDict[authorID]);
 							xmldata.prependChild(xmlNode);
 							//kiem tra simData co hay ko
 							var checkData:Object = o.simData as Object;
@@ -128,7 +153,20 @@ package business.commands
 				else
 				{//chi co 1 node
 					var obj:Object = event.result.rTBVSAuthors.rtbvsAuthor;
-					nodeRoot = GraphUtil.createNode(obj.authorID,obj.authorName,obj.orgName,80,obj.imgUrl,0);
+					var c:ArrayCollection = obj.listSubdomain as ArrayCollection;
+					if(c == null){
+						c = new ArrayCollection();
+					}
+					var d:String = 	"Org: " 		+ obj.orgName 			+ 	"&#13;" +
+										"publication: " + obj.publicationCount 	+ 	"&#13;" + 
+										"h_index: "		+ obj.h_Index			+	",   "	+
+										"g_index: "		+ obj.g_Index			+	"&#13;" +
+										"subdomain: ";
+					for each (var sd1:Object in c) 
+					{
+						d += sd1 + ", ";
+					}
+					nodeRoot = GraphUtil.createNode(obj.authorID,obj.authorName,d,80,obj.imgUrl,0);
 					GraphLocator.getInstance().idRoot = obj.authorID;
 				}
 				

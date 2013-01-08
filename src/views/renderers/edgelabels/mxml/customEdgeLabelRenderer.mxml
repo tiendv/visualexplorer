@@ -5,12 +5,15 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import business.events.GetAuthorRightEvent;
 			import business.events.ViewCoPathGraphEvent;
 			
 			import models.GraphLocator;
 			
 			import mx.controls.Alert;
 			import mx.core.FlexGlobals;
+			
+			import org.un.cava.birdeye.ravis.graphLayout.layout.DirectPlacementLayouter;
 			
 			import spark.components.Application;
 			
@@ -23,6 +26,7 @@
 				Graph.isCoPath = true;
 				Graph.isCitation = false;
 				Graph.isRecommend = false;
+				GraphLocator.getInstance().action = 2;
 				//hien thi searchRight
 				Graph.searchRightVisible = true;
 				Graph.vrRightVisible = true;
@@ -36,6 +40,11 @@
 				GraphLocator.getInstance().idRoot = this.data.data.@fromID;
 				//searchRight
 				GraphLocator.getInstance().idRootRight = this.data.data.@toID;
+				var searchRight:GetAuthorRightEvent = new GetAuthorRightEvent(GraphLocator.getInstance().idRootRight);
+				searchRight.dispatch();
+				//chuyen qua layout co-path
+				FlexGlobals.topLevelApplication.graphView.visualGraph.layouter = new DirectPlacementLayouter(FlexGlobals.topLevelApplication.graphView.visualGraph);
+				FlexGlobals.topLevelApplication.graphView.visualGraph.layouter.layoutChanged = true;
 				//search and draw Graph
 				GraphLocator.getInstance().waiting = true;
 				var coPathEvent:ViewCoPathGraphEvent = new ViewCoPathGraphEvent(GraphLocator.getInstance().idRoot,GraphLocator.getInstance().idRootRight);

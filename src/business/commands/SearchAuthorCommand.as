@@ -15,7 +15,7 @@ package business.commands
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
 	
-	import valueobjects.AuthorOrgObject;
+	import valueobjects.AuthorObject;
 	
 	import views.Graph;
 
@@ -35,18 +35,27 @@ package business.commands
 		{
  			_model.searchedAuthors.removeAll();
 			
-			if (event.result.authorOrgObjects != null)
+			if (event.result.authors != null)
 			{
-				var authorCollection : ArrayCollection = event.result.authorOrgObjects.authorOrgObject;
+				var authorCollection : ArrayCollection = event.result.authors.author;
 				for(var i:int=0;i<authorCollection.length;i++)
 				{
-					var authorOrgObject:AuthorOrgObject = new AuthorOrgObject();
+					var author:AuthorObject = new AuthorObject();
 					var object:Object = authorCollection.getItemAt(i); 
-					authorOrgObject.authorID = object.authorID;
-					authorOrgObject.authorName = object.authorName;
-					authorOrgObject.imgUrl = object.imgUrl;
-					authorOrgObject.orgName = object.orgName;
-					_model.searchedAuthors.addItem(authorOrgObject);
+					author.authorID = object.authorID;
+					author.authorName = object.authorName;
+					author.imgUrl = object.imgUrl;
+					author.orgName = object.orgName;
+					author.g_Index = object.g_Index;
+					author.h_Index = object.h_Index;
+					author.publicationCount = object.publicationCount;
+					var collection:ArrayCollection = object.listSubdomain as ArrayCollection;
+					if(collection == null){
+						collection = new ArrayCollection();
+						collection.addItem(object.listSubdomain);
+					}
+					author.listSubdomain = collection;
+					_model.searchedAuthors.addItem(author);
 				}
 				
 			}
