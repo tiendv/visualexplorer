@@ -16,6 +16,7 @@
 			import business.events.SearchAuthorRightEvent;
 			import business.events.ViewCoAuthorGraphEvent;
 			import business.events.ViewCoPathGraphEvent;
+			import business.events.GetCitationGraphEvent;
 			
 			import flash.sampler.NewObjectSample;
 			
@@ -295,6 +296,17 @@
 					btnShowRightVisible = false;
 
 				}
+				
+				////////////////// TEST /////////////////////////////////
+				/* HuyDang */				
+				new GetCitationGraphEvent(1).dispatch();
+				visualGraph.graph = GraphLocator.getInstance().graph;
+				visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
+				visualGraph.layouter.layoutChanged = true;
+				visualGraph.displayEdgeLabels = true;
+				visualGraph.maxVisibleDistance = 2000;
+				layouter.autoFitEnabled = true;
+				////////////////////////////////////////////////////
 			}
 			
 			protected function btnRecommend_clickHandler(event:MouseEvent):void

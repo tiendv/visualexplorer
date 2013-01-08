@@ -7,5 +7,6 @@
 	<mx:HTTPService id="getCollaboration" url="http://localhost:8080/PubGuru/webresources/recommend/recommendCollaboration" />
 	<mx:HTTPService id="getAuthor" url="http://localhost:8080/PubGuru/webresources/recommend/getAuthor" />
 	<mx:HTTPService id="viewCoPath" url="http://localhost:8080/PubGuru/webresources/recommend/" />
+	<mx:HTTPService id="citationGraph" url="http://localhost:8080/PubGuru/webresources/recommend/getCitationGraph"/>
 
 </rds:ServiceLocator>

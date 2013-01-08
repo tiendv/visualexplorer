@@ -7,6 +7,7 @@ package business
 	import business.commands.SearchAuthorRightCommand;
 	import business.commands.ViewCoAuthorGraphCommand;
 	import business.commands.ViewCoPathGraphCommand;
+	import business.commands.GetCitationGraphCommand;
 	import business.events.GetAuthorEvent;
 	import business.events.GetAuthorRightEvent;
 	import business.events.GetCollaborationEvent;
@@ -14,6 +15,7 @@ package business
 	import business.events.SearchAuthorRightEvent;
 	import business.events.ViewCoAuthorGraphEvent;
 	import business.events.ViewCoPathGraphEvent;
+	import business.events.GetCitationGraphEvent;
 	
 	import com.adobe.cairngorm.control.FrontController;
 
@@ -29,6 +31,7 @@ package business
 			addCommand(GetAuthorEvent.EVENT_ID,GetAuthorCommand);
 			addCommand(GetAuthorRightEvent.EVENT_ID,GetAuthorRightCommand);
 			addCommand(ViewCoPathGraphEvent.EVENT_ID,ViewCoPathGraphCommand);
+			addCommand(GetCitationGraphEvent.EVENT_ID,GetCitationGraphCommand);
 		}
 	}
 }
