@@ -5,6 +5,7 @@
 	
 	<mx:Script>
 		<![CDATA[
+			import business.events.GetAuthorEvent;
 			import business.events.GetAuthorRightEvent;
 			import business.events.ViewCoPathGraphEvent;
 			
@@ -38,19 +39,36 @@
 				Graph.btnShowRightX = FlexGlobals.topLevelApplication.width - 30;
 				//searchLeft
 				GraphLocator.getInstance().idRoot = this.data.data.@fromID;
+				var searchLeft:GetAuthorEvent = new GetAuthorEvent(GraphLocator.getInstance().idRoot);
+				searchLeft.dispatch();
 				//searchRight
 				GraphLocator.getInstance().idRootRight = this.data.data.@toID;
 				var searchRight:GetAuthorRightEvent = new GetAuthorRightEvent(GraphLocator.getInstance().idRootRight);
 				searchRight.dispatch();
 				//chuyen qua layout co-path
+				GraphLocator.getInstance().graph.dataProvider.removeAll();
 				FlexGlobals.topLevelApplication.graphView.visualGraph.layouter = new DirectPlacementLayouter(FlexGlobals.topLevelApplication.graphView.visualGraph);
 				FlexGlobals.topLevelApplication.graphView.visualGraph.layouter.layoutChanged = true;
 				//search and draw Graph
 				GraphLocator.getInstance().waiting = true;
 				var coPathEvent:ViewCoPathGraphEvent = new ViewCoPathGraphEvent(GraphLocator.getInstance().idRoot,GraphLocator.getInstance().idRootRight);
 				coPathEvent.dispatch();
+				//replace url
+				var dataUrlReplace:Object = new Object();
+				dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&aid1="+GraphLocator.getInstance().idRootRight+"&action=path";
+				setUrlReplace(dataUrlReplace);
 			}
 			
+			public function setUrlReplace(data:Object):void{
+				var s:String;
+				if(ExternalInterface.available){
+					var wrapperFunction:String = "receiveUrlReplace";
+					s = ExternalInterface.call(wrapperFunction,data);
+				}else{
+					s = "wrapper not available";
+				}
+				trace(s);
+			}
 		]]>
 	</mx:Script>
 	
