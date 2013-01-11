@@ -30,6 +30,8 @@ package business.commands
 		
 		public function onGetAuthor(event:ResultEvent):void
 		{	
+			_model.searchedAuthors.removeAll();
+			
 			if (event.result.author != null)
 			{
 				var author:AuthorObject = new AuthorObject();

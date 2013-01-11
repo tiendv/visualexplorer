@@ -43,7 +43,7 @@ package business.commands
 				var percent:Number;
 				var maxSimValue:Number = 0.0;
 				var minSimValue:Number = int.MAX_VALUE;				
-				// Get data
+				// Get data				
 				var citationCollection:ArrayCollection = event.result.authorCitationObjects.authorCitationObject as ArrayCollection;				
 				if(citationCollection.length >= 1) {
 					// Note gốc

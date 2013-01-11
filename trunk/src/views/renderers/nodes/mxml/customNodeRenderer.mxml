@@ -72,11 +72,13 @@
 				// TODO Auto-generated method stub
 				if(this.data.data.@id != GraphLocator.getInstance().idRoot)
 				{
+					GraphLocator.getInstance().idRoot = this.data.data.@id;
 					models.ModelLocator.getInstance().waitingSearchLeft = true;
 					var getAuthorEvent:GetAuthorEvent = new GetAuthorEvent(this.data.data.@id);
 					getAuthorEvent.dispatch();
 					models.ModelLocator.getInstance().searchedAuthors.removeAll();
-				
+					var dataUrlReplace:Object = new Object();
+					dataUrlReplace.urlReplace = "";
 					//GraphLocator.getInstance().action == ? ==> 1,2,3,4 <=> co-graph, co-path, citation, recommend 
 					switch(GraphLocator.getInstance().action)
 					{
@@ -86,6 +88,9 @@
 							var coauthorEvent:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(this.data.data.@id);
 							coauthorEvent.dispatch();
 							GraphLocator.getInstance().graph.dataProvider.removeAll();
+							//replace url
+							dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=graph";
+							setUrlReplace(dataUrlReplace);
 							break;
 						}
 						case 2:
@@ -109,6 +114,9 @@
 							var coauthorEvent1:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(this.data.data.@id);
 							coauthorEvent1.dispatch();
 							GraphLocator.getInstance().graph.dataProvider.removeAll();
+							//replace url
+							dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=graph";
+							setUrlReplace(dataUrlReplace);
 							break;
 						}
 						case 3:
@@ -123,6 +131,9 @@
 							var getcollaboration:GetCollaborationEvent = new GetCollaborationEvent(this.data.data.@id);
 							getcollaboration.dispatch();
 							GraphLocator.getInstance().graph.dataProvider.removeAll();
+							//replace url
+							dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=recommend";
+							setUrlReplace(dataUrlReplace);
 							break;
 						}
 						default:
@@ -174,7 +185,18 @@
 				roundedMask.graphics.endFill();
 				img.mask = roundedMask;
 				img.smoothBitmapContent = true;
-			}			
+			}	
+			
+			public function setUrlReplace(data:Object):void{
+				var s:String;
+				if(ExternalInterface.available){
+					var wrapperFunction:String = "receiveUrlReplace";
+					s = ExternalInterface.call(wrapperFunction,data);
+				}else{
+					s = "wrapper not available";
+				}
+				trace(s);
+			}
 		]]>
 	</mx:Script>	
 </mx:Canvas>
