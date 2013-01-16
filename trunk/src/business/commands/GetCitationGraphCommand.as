@@ -45,27 +45,34 @@ package business.commands
 				var minSimValue:Number = int.MAX_VALUE;				
 				// Get data				
 				var citationCollection:ArrayCollection = event.result.authorCitationObjects.authorCitationObject as ArrayCollection;				
-				if(citationCollection.length >= 1) {
+				if(citationCollection.length > 1) {
 					// Note gốc
 					var root:Object = citationCollection.getItemAt(0);
-					nodeRoot = createNode(root, "0x8F8FFF", 60, "earth", "center", 40, 20);
+					nodeRoot = createNode(root, "0x8F8FFF", 60, "earth", "center", 40, 60);
 					xmldata.prependChild(nodeRoot);
+					var corner:Number = Math.PI/(2*(citationCollection.length - 2));
+					var length: int = 300*citationCollection.getItemAt(1).citationCount;
+					//RandomSort element array
+					for(var k:int=1;k<citationCollection.length-1;k++){
+							var random:Number = (Math.floor(Math.random() * (citationCollection.length-1)))+1;
+							var nodeTemp:Object = citationCollection.getItemAt(k);
+							citationCollection.setItemAt(citationCollection.getItemAt(random),k);
+							citationCollection.setItemAt(nodeTemp,random);							
+					}
+					//Draw node in graph
 					for(var i:int=1;i<citationCollection.length;i++){
 						var node:Object = citationCollection.getItemAt(i);
-						var y:int;
-						var x:int;					
-						var cos:Number = Math.random();
+						var y:Number;
+						var x:Number;					
+						var cos:Number = Math.cos(corner*(i-1));
 						var sin:Number = Math.sqrt(1-(cos*cos));
-						var length: int = 90*citationCollection.getItemAt(1).citationCount;					
-						if(i==1) {
-							x=90*sin;
-							y=90*cos;
-						} else {
-							var rightLength:Number = length/citationCollection.getItemAt(i).citationCount;
-							x=rightLength*cos;
-							y=rightLength*sin;
-						}					
-						var xmlNode:XMLList = createNode(node, "0x8F8FFF", 45, "leaf", node.authorID, x+40, y+20);
+						
+						var rightLength:Number = length/citationCollection.getItemAt(i).citationCount;
+						
+						x=rightLength*cos;
+						y=rightLength*sin;
+						
+						var xmlNode:XMLList = createNode(node, "0x8F8FFF", 45, "leaf", node.authorID, x+40, y+60);
 						var xmlEdge:XMLList = createEdge(root, node, "0x727BFC");
 						xmldata.appendChild(xmlNode);
 						xmldata.appendChild(xmlEdge);
@@ -81,7 +88,6 @@ package business.commands
 				Alert.show("Don't have Citation Author with this author!","Alert");
 			}
 		}
-		
 		private function onFailed(event:FaultEvent):void
 		{
 			//Alert.show("FaultEvent Callback","Alert");
