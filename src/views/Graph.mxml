@@ -22,6 +22,7 @@
 			
 			import flashx.textLayout.events.ModelChange;
 			import flashx.textLayout.factory.TruncationOptions;
+			import flashx.textLayout.formats.WhiteSpaceCollapse;
 			
 			import graphLayout.data.GraphDP;
 			import graphLayout.layout.CustomLayouter;
@@ -322,7 +323,7 @@
 					}
 					GraphLocator.getInstance().graph.dataProvider.removeAll();
 
-					// TODO Auto-generated method stub
+					//replace url
 					if(GraphLocator.getInstance().idRoot > 0 && isRecommend==false){
 						var dataUrlReplace:Object = new Object();
 						dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=recommend";
@@ -331,12 +332,13 @@
 					//chuyen layout recommend
 					visualGraph.layouter = new graphLayout.layout.CustomLayouter(visualGraph);
 					visualGraph.layouter.layoutChanged = true;
-					//-- 
+					//-- search and draw graph
 					if(GraphLocator.getInstance().idRoot > 0){
 						GraphLocator.getInstance().waiting = true;
 						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot);
 						getCollaborationEvent.dispatch();
 					}
+					//chuyen sang button recommend
 					isCoGraph = false;
 					isCoPath = false;
 					isCitation = false;
@@ -383,11 +385,44 @@
 					//----
 				}
 				if(isRecommend){
-					dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=recommend";
-					GraphLocator.getInstance().waiting = true;
-					var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(dataLeft.authorID);
-					getCollaborationEvent.dispatch();
 					GraphLocator.getInstance().graph.dataProvider.removeAll();
+					dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=recommend";
+
+					switch(ddlRecommend.selectedIndex)
+					{
+						case 0:
+						{//RTBVS - GetCollaboration
+							GraphLocator.getInstance().waiting = true;
+							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot);
+							getCollaborationEvent.dispatch();
+							break;
+						}
+						case 1:
+						{//Jaccard
+							
+							break;
+						}
+						case 2:
+						{//Cosine
+							
+							break;
+						}
+						case 3:
+						{//Adamic Adar
+							
+							break;
+						}
+						case 4:
+						{//Keyword
+							
+							break;
+						}
+						default:
+						{
+							break;
+						}
+					}
+					
 				}
 				
 				setTitle(dataLeft);
@@ -466,7 +501,7 @@
 			
 			private function initData():void{
 				vrRightX = FlexGlobals.topLevelApplication.width - 30;
-
+				
 				Security.loadPolicyFile("http://academic.research.microsoft.com/crossdomain.xml");
 				/* init a graph object with the XML data */
  				GraphLocator.getInstance().graph = new GraphDP("XMLAsDocsGraph", false, new XML("<Graph></Graph>")); 			
@@ -594,6 +629,7 @@
 						isRecommend = true;
 						GraphLocator.getInstance().waiting = true;
 						GraphLocator.getInstance().action = 4;
+						//find and draw graph , default algorithm = RTBVS
 						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(aid);
 						getCollaborationEvent.dispatch();
 						gm.visible = false;
@@ -691,6 +727,61 @@
 				
 			}			
 			
+			protected function ddlRecommend_changeHandler(event:IndexChangeEvent):void
+			{
+				// TODO Auto-generated method stub
+				var index:int = ddlRecommend.selectedIndex;
+				var value:String = ddlRecommend.selectedItem;
+				if(GraphLocator.getInstance().idRoot > 0)
+				{
+					gm.visible = false;
+					GraphLocator.getInstance().graph.dataProvider.removeAll();
+					
+					switch(ddlRecommend.selectedIndex)
+					{
+						case 0:
+						{//RTBVS - GetCollaboration
+							GraphLocator.getInstance().waiting = true;
+							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot);
+							getCollaborationEvent.dispatch();
+							break;
+						}
+						case 1:
+						{//Jaccard
+							
+							break;
+						}
+						case 2:
+						{//Cosine
+							
+							break;
+						}
+						case 3:
+						{//Adamic Adar
+							
+							break;
+						}
+						case 4:
+						{//Keyword
+							
+							break;
+						}
+						default:
+						{
+							break;
+						}
+					}
+				}else{
+					gm.visible = true;
+				}
+			}
+			
+			protected function btnKewordRecommend_clickHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Style source="assets/style/main.css"/>
@@ -700,7 +791,6 @@
 		<fx:XML id="xmldata" source="data/levelgraph.xml"/>
 		<fx:XML id="citation" source="data/citation.xml"/>
 		<fx:XML id="graph" source="data/graph.xml"/>
-		
 	</fx:Declarations>
 	<s:BorderContainer id="SearchLeft" x="10" y="0" width="184" height="100%" borderVisible="false">
 		<s:BorderContainer x="11" y="1" width="158" height="32" borderColor="#727BFC"
@@ -760,7 +850,7 @@
 		
 		<s:Label id="gm" x="100" y="250" text="Sory, the author does not exist." fontWeight="bold" fontSize="12" visible="true"/>
 		
-		<s:SWFLoader id="loadingDrawGraph" x="10" y="10" width="24" height="24" autoLoad="true"
+		<s:SWFLoader id="loadingDrawGraph" x="20" y="90" width="24" height="24" autoLoad="true"
 					 source="@Embed('assets/gui/ajax-loader.swf')" visible="{GraphLocator.getInstance().waiting}"/>
 		<mx:HBox width="200" x="{graphBody.width-200}" y="{graphBody.height-30}">
 			<mx:Button id="minusZoom" width="20" height="20"
@@ -807,6 +897,28 @@
 
 	
 	<mx:VRule id="vrRight" x="{vrRightX}" y="1" width="2" height="100%" chromeColor="#000000" visible="{vrRightVisible}"/>
+	<mx:VBox id="boxRecommend" visible="{isRecommend}" x="217" y="70"
+					   borderVisible="false" toolTip="select algorithm">
+		<s:DropDownList id="ddlRecommend" prompt="Please select an algorithm..."  y="1"
+						change="ddlRecommend_changeHandler(event)" selectedIndex="0">
+			<s:dataProvider>
+				<s:ArrayList source="[RTBVS,Jaccard,Cosine,Adamic Adar,Keyword]"/>
+			</s:dataProvider>
+		</s:DropDownList>
+		<s:Label id="lblAlgorithm" text="Select an algorithm" color="#333333" fontStyle="italic" fontSize="10"/>
+	</mx:VBox>
+	<mx:VBox id="boxKeywordRecommend" visible="{isRecommend}" x="217" y="25"
+					   borderVisible="false" verticalGap="2" enabled="{ddlRecommend.selectedIndex==4}">
+		<s:BorderContainer x="0" y="0" width="413" height="28" borderColor="#727BFC" borderWeight="0"
+						   color="#183CF0" symbolColor="#3E5BF0">
+			<s:TextInput id="txtKeyword" x="4" y="4" width="379" borderVisible="false"
+						 color="#000000" text=""/>
+			<s:Button id="btnKewordRecommend" x="386" y="1" width="25" height="25" icon="@Embed('assets/gui/button_Search.png')"
+					  buttonMode="true" useHandCursor="true"
+					  click="btnKewordRecommend_clickHandler(event)"/>
+		</s:BorderContainer>
+		<s:Label x="0" text="insert keyword of publication" color="#333333" fontStyle="italic" fontSize="10"/>
+	</mx:VBox>
 	<mx:Button id="btnHideRight" x="{btnHideRightX}" y="{(height/2)-20}" width="25" height="25"
 			   click="btnHideRight_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/btn_show.png')" paddingLeft="0" paddingRight="0"

@@ -84,7 +84,7 @@ package business.commands
 		
 		private function onFailed(event:FaultEvent):void
 		{
-			Alert.show("FaultEvent Callback","Alert");
+			//Alert.show("FaultEvent Callback","Alert");
 			GraphLocator.getInstance().waiting = false;
 		}
 

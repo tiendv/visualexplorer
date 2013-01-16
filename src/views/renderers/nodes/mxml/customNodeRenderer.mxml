@@ -126,20 +126,78 @@
 							break;
 						}
 						case 4:
-						{
-							GraphLocator.getInstance().waiting = true;
-							var getcollaboration:GetCollaborationEvent = new GetCollaborationEvent(this.data.data.@id);
-							getcollaboration.dispatch();
-							GraphLocator.getInstance().graph.dataProvider.removeAll();
+						{//recommend
 							//replace url
 							dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=recommend";
 							setUrlReplace(dataUrlReplace);
+							GraphLocator.getInstance().waiting = true;
+							GraphLocator.getInstance().graph.dataProvider.removeAll();
+							switch(FlexGlobals.topLevelApplication.graphView.ddlRecommend.selectedIndex)
+							{
+								case 0:
+								{//RTBVS - GetCollaboration
+									var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot);
+									getCollaborationEvent.dispatch();
+									break;
+								}
+								case 1:
+								{//Jaccard
+									
+									break;
+								}
+								case 2:
+								{//Cosine
+									
+									break;
+								}
+								case 3:
+								{//Adamic Adar
+									
+									break;
+								}
+								case 4:
+								{//Keyword
+									
+									break;
+								}
+								default:
+								{
+									break;
+								}
+							}
+							
 							break;
 						}
 						default:
 						{
 							break;
 						}
+					}
+				}else{
+					// neu double click vao node root , kiem tra phai co-path ko ,neu phai chuyen qua co-graph
+					if(GraphLocator.getInstance().action == 2){
+						//chuyen ve button co-graph
+						Graph.isCoGraph = true;
+						Graph.isCoPath = false;
+						Graph.isCitation = false;
+						Graph.isRecommend = false;
+						GraphLocator.getInstance().action = 1;
+						
+						Graph.searchRightVisible = false;
+						Graph.vrRightVisible = false;
+						Graph.btnHideRightVisible = false;
+						Graph.btnShowRightVisible = false;
+						//chuyen ve layout co-graph
+						FlexGlobals.topLevelApplication.graphView.visualGraph.layouter = new graphLayout.layout.CustomLayouter(FlexGlobals.topLevelApplication.graphView.visualGraph);
+						FlexGlobals.topLevelApplication.graphView.visualGraph.layouter.layoutChanged = true;
+						//search va draw co-graph
+						GraphLocator.getInstance().waiting = true;
+						var coauthorEvent2:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(this.data.data.@id);
+						coauthorEvent2.dispatch();
+						GraphLocator.getInstance().graph.dataProvider.removeAll();
+						//replace url
+						dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=graph";
+						setUrlReplace(dataUrlReplace);
 					}
 				}
 			}
