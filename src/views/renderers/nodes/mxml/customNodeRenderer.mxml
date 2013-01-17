@@ -36,6 +36,7 @@
 	<mx:Script>
 		<![CDATA[
 			import business.events.GetAuthorEvent;
+			import business.events.GetCitationGraphEvent;
 			import business.events.GetCollaborationEvent;
 			import business.events.ViewCoAuthorGraphEvent;
 			
@@ -121,8 +122,11 @@
 						}
 						case 3:
 						{
-							
-							
+							GraphLocator.getInstance().waiting = true;
+							GraphLocator.getInstance().graph.dataProvider.removeAll();
+							//replace url
+							dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=citation";
+							new GetCitationGraphEvent(GraphLocator.getInstance().idRoot).dispatch();
 							break;
 						}
 						case 4:
