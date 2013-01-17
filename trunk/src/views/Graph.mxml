@@ -278,12 +278,13 @@
 					//--chuyen layout citation
 					visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
 					visualGraph.layouter.layoutChanged = true;
+					layouter.autoFitEnabled = true;
 					//--
 					if(GraphLocator.getInstance().idRoot > 0){
-						//GraphLocator.getInstance().waiting = true;
+						GraphLocator.getInstance().waiting = true;
 						// search and draw graph 
 						//----
-						
+						new GetCitationGraphEvent(GraphLocator.getInstance().idRoot).dispatch();
 						//----
 					}
 
@@ -302,13 +303,10 @@
 				
 				////////////////// TEST /////////////////////////////////
 				/* HuyDang */				
-				new GetCitationGraphEvent(1).dispatch();
-				visualGraph.graph = GraphLocator.getInstance().graph;
-				visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
-				visualGraph.layouter.layoutChanged = true;
-				visualGraph.displayEdgeLabels = true;
-				visualGraph.maxVisibleDistance = 2000;
-				layouter.autoFitEnabled = true;
+				//new GetCitationGraphEvent(1).dispatch();
+				//visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
+				//visualGraph.layouter.layoutChanged = true;
+				//layouter.autoFitEnabled = true;
 				////////////////////////////////////////////////////
 			}
 			
@@ -379,9 +377,11 @@
 				}
 				if(isCitation){
 					dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=citation";
+					GraphLocator.getInstance().waiting = true;
 					//search and draw graph 
 					//----
-					
+					new GetCitationGraphEvent(GraphLocator.getInstance().idRoot).dispatch();
+					GraphLocator.getInstance().graph.dataProvider.removeAll();
 					//----
 				}
 				if(isRecommend){
@@ -618,7 +618,7 @@
 						visualGraph.layouter.layoutChanged = true;
 						//search and draw graph citation
 						//---
-						
+						new GetCitationGraphEvent(GraphLocator.getInstance().idRoot).dispatch();
 						//---
 					}
 					else if(action.toLowerCase()=="recommend")
