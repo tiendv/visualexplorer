@@ -537,10 +537,10 @@ package graphLayout.layout {
 				// calcRadius
 				var p:Number = (Number)(cn.data.@r);
 				//cal r
-				if(cc > 5){
+				if(cc >= 5){
 					r = 265;
 				}else{
-					r = 200;
+					r = 220;
 				}
 				radius = p*r;
 				/* do we need to recurse, 

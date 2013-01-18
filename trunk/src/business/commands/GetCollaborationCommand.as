@@ -105,9 +105,9 @@ package business.commands
 									if(s.value == minSimValue){
 										radiusDict[id] = 1.0;
 									}else if(s.value == maxSimValue){
-										radiusDict[id] = 0.2;
+										radiusDict[id] = 0.3;
 									}else{//khong phai thi nam trong khoan 0.8 con lai
-										radiusDict[id] = (maxSimValue-s.value)*0.8/(maxSimValue-minSimValue)+0.2;
+										radiusDict[id] = (maxSimValue-s.value)*0.7/(maxSimValue-minSimValue)+0.3;
 									}
 								}
 							}
