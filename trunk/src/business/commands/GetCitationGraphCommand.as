@@ -51,7 +51,10 @@ package business.commands
 					nodeRoot = createNode(root, "0x8F8FFF", 60, "earth", "center", 40, 60);
 					xmldata.prependChild(nodeRoot);
 					var corner:Number = Math.PI/(2*(citationCollection.length - 2));
-					var length: int = 300*citationCollection.getItemAt(1).citationCount;
+					var max:int = citationCollection.getItemAt(1).citationCount;
+					var min:int = citationCollection.getItemAt(citationCollection.length-1).citationCount;
+					var base:int = (min*700)/max;
+					var length:int = base*citationCollection.getItemAt(1).citationCount;
 					//RandomSort element array
 					for(var k:int=1;k<citationCollection.length-1;k++){
 							var random:Number = (Math.floor(Math.random() * (citationCollection.length-1)))+1;
