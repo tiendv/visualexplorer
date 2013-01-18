@@ -57,6 +57,7 @@
 				var dataUrlReplace:Object = new Object();
 				dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&aid1="+GraphLocator.getInstance().idRootRight+"&action=path";
 				setUrlReplace(dataUrlReplace);
+
 			}
 			
 			public function setUrlReplace(data:Object):void{
@@ -69,6 +70,7 @@
 				}
 				trace(s);
 			}
+			
 		]]>
 	</mx:Script>
 	

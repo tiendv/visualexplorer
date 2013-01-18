@@ -6,6 +6,8 @@ package business.commands
 	import com.adobe.cairngorm.commands.ICommand;
 	import com.adobe.cairngorm.control.CairngormEvent;
 	
+	import flash.external.ExternalInterface;
+	
 	import models.ModelLocator;
 	
 	import mx.collections.ArrayCollection;
@@ -51,6 +53,12 @@ package business.commands
 				}
 				
 				_model.searchedAuthors.addItem(author);
+				
+				//set title
+				var title:Object = new Object();
+				title.authorID = author.authorID;
+				title.authorName = author.authorName;
+				setTitle(title);
 			}
 			ModelLocator.getInstance().waitingSearchLeft = false;
 		}
@@ -58,6 +66,17 @@ package business.commands
 		public function onFailed(event:FaultEvent):void
 		{
 			ModelLocator.getInstance().waitingSearchLeft = false;
+		}
+		
+		public function setTitle(data:Object):void{				
+			var s:String;
+			if(ExternalInterface.available){
+				var wrapperFunction:String = "receiveComplexDataTypes";
+				s = ExternalInterface.call(wrapperFunction,data);
+			}else{
+				s = "wrapper not available";
+			}
+			trace(s);
 		}
 	}
 }
