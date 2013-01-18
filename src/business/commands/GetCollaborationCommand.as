@@ -11,6 +11,7 @@ package business.commands
 	import models.GraphLocator;
 	
 	import mx.collections.ArrayCollection;
+	import mx.controls.Alert;
 	import mx.rpc.Responder;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
@@ -22,9 +23,10 @@ package business.commands
 		public function execute(event:CairngormEvent):void
 		{
 			var authorID:int = (event as GetCollaborationEvent).authorID;
+			var algorithmType:int = (event as GetCollaborationEvent).algorithmType;
 			var responder:Responder = new mx.rpc.Responder(onGetCollaboration,onFailed);
 			var delegate:GetCollaborationDelegate = new GetCollaborationDelegate(responder);
-			delegate.getCollaboration(authorID);
+			delegate.getCollaboration(authorID,algorithmType);
 		}
 		
 		private function onGetCollaboration(event:ResultEvent):void

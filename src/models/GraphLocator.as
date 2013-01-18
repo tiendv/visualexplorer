@@ -33,5 +33,10 @@ package models
 		[Bindable]
 		public var waiting:Boolean = false;
 		public var action:int = 1; // 1,2,3,4 => co-gaph, co-path, citation, recommend
+		public static const ALGORITHM_ADAMICADAR:int = 1;
+		public static const ALGORITHM_COSINE:int = 2;
+		public static const ALGORITHM_JACCARD:int = 3;
+		public static const ALGORITHM_RTBVS:int = 4;
+		public static const ALGORITHM_KEYWORD:int = 5;
 	}
 }

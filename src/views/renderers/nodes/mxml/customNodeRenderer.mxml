@@ -70,6 +70,9 @@
 			
 			protected function img_doubleClickHandler(event:MouseEvent):void
 			{
+				var dataUrlReplace:Object = new Object();
+				dataUrlReplace.urlReplace = "";
+
 				// TODO Auto-generated method stub
 				if(this.data.data.@id != GraphLocator.getInstance().idRoot)
 				{
@@ -78,8 +81,6 @@
 					var getAuthorEvent:GetAuthorEvent = new GetAuthorEvent(this.data.data.@id);
 					getAuthorEvent.dispatch();
 					models.ModelLocator.getInstance().searchedAuthors.removeAll();
-					var dataUrlReplace:Object = new Object();
-					dataUrlReplace.urlReplace = "";
 					//GraphLocator.getInstance().action == ? ==> 1,2,3,4 <=> co-graph, co-path, citation, recommend 
 					switch(GraphLocator.getInstance().action)
 					{
@@ -134,29 +135,35 @@
 							//replace url
 							dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=recommend";
 							setUrlReplace(dataUrlReplace);
-							GraphLocator.getInstance().waiting = true;
 							GraphLocator.getInstance().graph.dataProvider.removeAll();
 							switch(FlexGlobals.topLevelApplication.graphView.ddlRecommend.selectedIndex)
 							{
 								case 0:
 								{//RTBVS - GetCollaboration
-									var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot);
+									GraphLocator.getInstance().waiting = true;
+									var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_RTBVS);
 									getCollaborationEvent.dispatch();
 									break;
 								}
 								case 1:
 								{//Jaccard
-									
+									GraphLocator.getInstance().waiting = true;
+									var getCollaborationEvent1:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_JACCARD);
+									getCollaborationEvent1.dispatch();
 									break;
 								}
 								case 2:
 								{//Cosine
-									
+									GraphLocator.getInstance().waiting = true;
+									var getCollaborationEvent2:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_COSINE);
+									getCollaborationEvent2.dispatch();
 									break;
 								}
 								case 3:
 								{//Adamic Adar
-									
+									GraphLocator.getInstance().waiting = true;
+									var getCollaborationEvent3:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_ADAMICADAR);
+									getCollaborationEvent3.dispatch();
 									break;
 								}
 								case 4:
@@ -196,8 +203,7 @@
 						FlexGlobals.topLevelApplication.graphView.visualGraph.layouter.layoutChanged = true;
 						//search va draw co-graph
 						GraphLocator.getInstance().waiting = true;
-						var coauthorEvent2:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(this.data.data.@id);
-						coauthorEvent2.dispatch();
+						new ViewCoAuthorGraphEvent(GraphLocator.getInstance().idRoot).dispatch();
 						GraphLocator.getInstance().graph.dataProvider.removeAll();
 						//replace url
 						dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=graph";

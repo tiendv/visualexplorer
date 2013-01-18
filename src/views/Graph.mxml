@@ -301,13 +301,6 @@
 
 				}
 				
-				////////////////// TEST /////////////////////////////////
-				/* HuyDang */				
-				//new GetCitationGraphEvent(1).dispatch();
-				//visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
-				//visualGraph.layouter.layoutChanged = true;
-				//layouter.autoFitEnabled = true;
-				////////////////////////////////////////////////////
 			}
 			
 			protected function btnRecommend_clickHandler(event:MouseEvent):void
@@ -333,7 +326,7 @@
 					//-- search and draw graph
 					if(GraphLocator.getInstance().idRoot > 0){
 						GraphLocator.getInstance().waiting = true;
-						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot);
+						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_RTBVS);
 						getCollaborationEvent.dispatch();
 					}
 					//chuyen sang button recommend
@@ -393,23 +386,29 @@
 						case 0:
 						{//RTBVS - GetCollaboration
 							GraphLocator.getInstance().waiting = true;
-							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot);
+							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_RTBVS);
 							getCollaborationEvent.dispatch();
 							break;
 						}
 						case 1:
 						{//Jaccard
-							
+							GraphLocator.getInstance().waiting = true;
+							var getCollaborationEvent1:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_JACCARD);
+							getCollaborationEvent1.dispatch();
 							break;
 						}
 						case 2:
 						{//Cosine
-							
+							GraphLocator.getInstance().waiting = true;
+							var getCollaborationEvent2:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_COSINE);
+							getCollaborationEvent2.dispatch();
 							break;
 						}
 						case 3:
 						{//Adamic Adar
-							
+							GraphLocator.getInstance().waiting = true;
+							var getCollaborationEvent3:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_ADAMICADAR);
+							getCollaborationEvent3.dispatch();
 							break;
 						}
 						case 4:
@@ -442,26 +441,6 @@
 					GraphLocator.getInstance().graph.dataProvider.removeAll();
 				}
 				setUrlReplace(dataUrlReplace);
-			}
-			
-			protected function onViewCoAuthorGraph(event:MouseEvent):void
-			{
-				if (dataLeft != null)
-				{
-					var authorID : int = dataLeft.authorID;
-					var evt:ViewCoAuthorGraphEvent = new ViewCoAuthorGraphEvent(authorID);
-					evt.dispatch();
-				}
-			}
-			
-			protected function onGetCollaboration(event:MouseEvent):void
-			{
-				if (dataLeft != null)
-				{
-					var authorID:int =dataLeft.authorID;
-					var evt:GetCollaborationEvent = new GetCollaborationEvent(authorID);
-					evt.dispatch();
-				}
 			}
 			
 			public function setTitle(data:Object):void{				
@@ -630,7 +609,7 @@
 						GraphLocator.getInstance().waiting = true;
 						GraphLocator.getInstance().action = 4;
 						//find and draw graph , default algorithm = RTBVS
-						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(aid);
+						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(aid,GraphLocator.ALGORITHM_RTBVS);
 						getCollaborationEvent.dispatch();
 						gm.visible = false;
 					}
@@ -685,47 +664,7 @@
 					}
 				}
 			}
-			
-			protected function button1_clickHandler(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-				GraphLocator.getInstance().idRoot = 1;
-				visualGraph.layouter = new graphLayout.layout.CustomLayouter(visualGraph);
-				visualGraph.layouter.layoutChanged = true;
-				GraphLocator.getInstance().graph.dataProvider.removeAll();
-				GraphLocator.getInstance().graph.dataProvider.addItem(xmldata);
-			}
-			
-			protected function button2_clickHandler(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-				GraphLocator.getInstance().idRoot = 1;
-				visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
-				visualGraph.layouter.layoutChanged = true;
-				GraphLocator.getInstance().idRootRight = 14;
-				GraphLocator.getInstance().graph.dataProvider.removeAll();
-				GraphLocator.getInstance().graph.dataProvider.addItem(graph);
-			}
-
-			
-			protected function button3_clickHandler(event:MouseEvent):void
-			{
-				// TODO Auto-generated method stub
-				GraphLocator.getInstance().idRoot = 1;
-				visualGraph.layouter = new DirectPlacementLayouter(visualGraph);
-				visualGraph.layouter.layoutChanged = true;
-				GraphLocator.getInstance().graph.dataProvider.removeAll();
-				GraphLocator.getInstance().graph.dataProvider.addItem(citation);
-				// phuong phap tinh x, y citation
-				// goc alfa = 90/ (tong so tac gia - tac gia goc - 1) = 90/(tong so tac gia - 2)
-				// toa do node goc : x = 60 , y=60
-				// toa do node con:
-				// x = cos(alfa) * do dai canh + nodeRoot.X; 
-				// y = sin(alfa) * do dai canh + nodeRoot.Y;
-				// do dai canh thay doi dai ngan theo chi so citation 
-				// file citation.xml mac dinh do dai = nhau = 860
-				
-			}			
+					
 			
 			protected function ddlRecommend_changeHandler(event:IndexChangeEvent):void
 			{
@@ -742,23 +681,29 @@
 						case 0:
 						{//RTBVS - GetCollaboration
 							GraphLocator.getInstance().waiting = true;
-							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot);
+							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_RTBVS);
 							getCollaborationEvent.dispatch();
 							break;
 						}
 						case 1:
 						{//Jaccard
-							
+							GraphLocator.getInstance().waiting = true;
+							var getCollaborationEvent1:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_JACCARD);
+							getCollaborationEvent1.dispatch();
 							break;
 						}
 						case 2:
 						{//Cosine
-							
+							GraphLocator.getInstance().waiting = true;
+							var getCollaborationEvent2:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_COSINE);
+							getCollaborationEvent2.dispatch();
 							break;
 						}
 						case 3:
 						{//Adamic Adar
-							
+							GraphLocator.getInstance().waiting = true;
+							var getCollaborationEvent3:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_ADAMICADAR);
+							getCollaborationEvent3.dispatch();
 							break;
 						}
 						case 4:
@@ -898,7 +843,7 @@
 	
 	<mx:VRule id="vrRight" x="{vrRightX}" y="1" width="2" height="100%" chromeColor="#000000" visible="{vrRightVisible}"/>
 	<mx:VBox id="boxRecommend" visible="{isRecommend}" x="217" y="70"
-					   borderVisible="false" toolTip="select algorithm">
+					   borderVisible="false" toolTip="select algorithm" >
 		<s:DropDownList id="ddlRecommend" prompt="Please select an algorithm..."  y="1"
 						change="ddlRecommend_changeHandler(event)" selectedIndex="0">
 			<s:dataProvider>
@@ -915,7 +860,7 @@
 						 color="#000000" text=""/>
 			<s:Button id="btnKewordRecommend" x="386" y="1" width="25" height="25" icon="@Embed('assets/gui/button_Search.png')"
 					  buttonMode="true" useHandCursor="true"
-					  click="btnKewordRecommend_clickHandler(event)"/>
+					  click="btnKewordRecommend_clickHandler(event)" />
 		</s:BorderContainer>
 		<s:Label x="0" text="insert keyword of publication" color="#333333" fontStyle="italic" fontSize="10"/>
 	</mx:VBox>

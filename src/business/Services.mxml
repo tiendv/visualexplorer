@@ -5,9 +5,6 @@
 	<mx:HTTPService id="searchAuthor" url="http://localhost:8080/PubGuru/webresources/recommend/searchAuthor"/>
 	<mx:HTTPService id="viewCoAuthor" url="http://localhost:8080/PubGuru/webresources/recommend/getRTBVSAuthors" />
 	<mx:HTTPService id="getCollaboration" url="http://localhost:8080/PubGuru/webresources/recommend/recommendCollaboration" />
-	<mx:HTTPService id="getCollaborationJaccard" url="http://localhost:8080/PubGuru/webresources/recommend/" />
-	<mx:HTTPService id="getCollaborationCosine" url="http://localhost:8080/PubGuru/webresources/recommend/" />
-	<mx:HTTPService id="getCollaborationAdamicAdar" url="http://localhost:8080/PubGuru/webresources/recommend/" />
 	<mx:HTTPService id="getAuthor" url="http://localhost:8080/PubGuru/webresources/recommend/getAuthor" />
 	<mx:HTTPService id="viewCoPath" url="http://localhost:8080/PubGuru/webresources/recommend/" />
 	<mx:HTTPService id="citationGraph" url="http://localhost:8080/PubGuru/webresources/recommend/getCitationGraph"/>
