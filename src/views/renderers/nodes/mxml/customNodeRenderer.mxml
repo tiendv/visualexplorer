@@ -77,6 +77,7 @@
 				if(this.data.data.@id != GraphLocator.getInstance().idRoot)
 				{
 					GraphLocator.getInstance().idRoot = this.data.data.@id;
+					//search left
 					models.ModelLocator.getInstance().waitingSearchLeft = true;
 					var getAuthorEvent:GetAuthorEvent = new GetAuthorEvent(this.data.data.@id);
 					getAuthorEvent.dispatch();
@@ -208,6 +209,7 @@
 						//replace url
 						dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=graph";
 						setUrlReplace(dataUrlReplace);
+
 					}
 				}
 			}
@@ -259,6 +261,17 @@
 				var s:String;
 				if(ExternalInterface.available){
 					var wrapperFunction:String = "receiveUrlReplace";
+					s = ExternalInterface.call(wrapperFunction,data);
+				}else{
+					s = "wrapper not available";
+				}
+				trace(s);
+			}
+			
+			public function setTitle(data:Object):void{				
+				var s:String;
+				if(ExternalInterface.available){
+					var wrapperFunction:String = "receiveComplexDataTypes";
 					s = ExternalInterface.call(wrapperFunction,data);
 				}else{
 					s = "wrapper not available";
