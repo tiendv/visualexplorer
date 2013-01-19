@@ -24,9 +24,10 @@ package business.commands
 		{
 			var authorID:int = (event as GetCollaborationEvent).authorID;
 			var algorithmType:int = (event as GetCollaborationEvent).algorithmType;
+			var keyword:String = (event as GetCollaborationEvent).keyword;
 			var responder:Responder = new mx.rpc.Responder(onGetCollaboration,onFailed);
 			var delegate:GetCollaborationDelegate = new GetCollaborationDelegate(responder);
-			delegate.getCollaboration(authorID,algorithmType);
+			delegate.getCollaboration(authorID,algorithmType,keyword);
 		}
 		
 		private function onGetCollaboration(event:ResultEvent):void
