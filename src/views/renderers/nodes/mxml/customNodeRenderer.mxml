@@ -129,6 +129,7 @@
 							//replace url
 							dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=citation";
 							new GetCitationGraphEvent(GraphLocator.getInstance().idRoot).dispatch();
+							setUrlReplace(dataUrlReplace);
 							break;
 						}
 						case 4:

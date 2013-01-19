@@ -39,11 +39,11 @@ package business.commands
 			if (event.result.rTBVSAuthors != null)
 			{
 				var rtbvsAuthorCollection:ArrayCollection = event.result.rTBVSAuthors.rtbvsAuthor as ArrayCollection;
-				
+				var nodeRoot:XMLList;
+
 				if(rtbvsAuthorCollection != null && rtbvsAuthorCollection.length>1)
 				{//neu la mang (>1 node)
 					GraphLocator.getInstance().idRoot = rtbvsAuthorCollection.getItemAt(0).authorID;
-					var nodeRoot:XMLList;
 					var percent:Number;
 					var maxSimValue:Number = 0.0;
 					var minSimValue:Number = int.MAX_VALUE;
@@ -157,7 +157,7 @@ package business.commands
 					if(c == null){
 						c = new ArrayCollection();
 					}
-					var d:String = 	"Org: " 		+ obj.orgName 			+ 	"&#13;" +
+					var d:String = 		"Org: " 		+ obj.orgName 			+ 	"&#13;" +
 										"publication: " + obj.publicationCount 	+ 	"&#13;" + 
 										"h_index: "		+ obj.h_Index			+	",   "	+
 										"g_index: "		+ obj.g_Index			+	"&#13;" +

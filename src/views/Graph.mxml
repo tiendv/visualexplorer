@@ -52,6 +52,7 @@
 			
 			import spark.events.IndexChangeEvent;
 			
+			import utils.Domain;
 			import utils.GraphUtil;
 			
 			import valueobjects.AuthorObject;
@@ -518,6 +519,9 @@
 				aid = FlexGlobals.topLevelApplication.parameters.aid;
 				aid1 = FlexGlobals.topLevelApplication.parameters.aid1;
 				action = FlexGlobals.topLevelApplication.parameters.action;
+
+				(FlexGlobals.topLevelApplication.parameters.baseUrl != null && FlexGlobals.topLevelApplication.parameters.baseUrl != "") ? Domain.host = FlexGlobals.topLevelApplication.parameters.baseUrl : "";
+				
 				if(aid>0)
 				{
 					//search author by id
@@ -581,7 +585,9 @@
 
 						//search and draw graph co-path
 						//---
-						
+						GraphLocator.getInstance().waiting = true;
+						var coPathEvent:ViewCoPathGraphEvent = new ViewCoPathGraphEvent(GraphLocator.getInstance().idRoot,GraphLocator.getInstance().idRootRight);
+						coPathEvent.dispatch();
 						//---
 					}
 					else if(action.toLowerCase()=="citation")

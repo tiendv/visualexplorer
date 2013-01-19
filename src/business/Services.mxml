@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rds:ServiceLocator xmlns:rds="com.adobe.cairngorm.business.*"
 					xmlns:mx="http://www.adobe.com/2006/mxml">
-	
-	<mx:HTTPService id="searchAuthor" url="http://localhost:8080/PubGuru/webresources/recommend/searchAuthor"/>
-	<mx:HTTPService id="viewCoAuthor" url="http://localhost:8080/PubGuru/webresources/recommend/getRTBVSAuthors" />
-	<mx:HTTPService id="getCollaboration" url="http://localhost:8080/PubGuru/webresources/recommend/recommendCollaboration" />
-	<mx:HTTPService id="getAuthor" url="http://localhost:8080/PubGuru/webresources/recommend/getAuthor" />
-	<mx:HTTPService id="viewCoPath" url="http://localhost:8080/PubGuru/webresources/recommend/getCoAuthorPaths" />
-	<mx:HTTPService id="citationGraph" url="http://localhost:8080/PubGuru/webresources/recommend/getCitationGraph"/>
+	<mx:Script>
+		<![CDATA[
+			import utils.Domain;
+			[Bindable]
+			private var httpServiceSearchAuthor:String = "/webresources/recommend/searchAuthor";
+			[Bindable]
+			private var httpServiceViewCoAuthor:String = "/webresources/recommend/getRTBVSAuthors";
+			[Bindable]
+			private var httpServiceGetCollaboration:String = "/webresources/recommend/recommendCollaboration";
+			[Bindable]
+			private var httpServiceGetAuthor:String = "/webresources/recommend/getAuthor";
+			[Bindable]
+			private var httpServiceViewCoPath:String = "/webresources/recommend/getCoAuthorPaths";
+			[Bindable]
+			private var httpServiceCitationGraph:String = "/webresources/recommend/getCitationGraph";
+			//http://localhost:8080/PubGuru/webresources/recommend/searchAuthor
+			//http://localhost:8080/PubGuru/webresources/recommend/getRTBVSAuthors
+			//http://localhost:8080/PubGuru/webresources/recommend/recommendCollaboration
+			//http://localhost:8080/PubGuru/webresources/recommend/getAuthor
+			//http://localhost:8080/PubGuru/webresources/recommend/getCoAuthorPaths
+			//http://localhost:8080/PubGuru/webresources/recommend/getCitationGraph
+		]]>
+	</mx:Script>
+	<mx:HTTPService id="searchAuthor" url="{Domain.host + httpServiceSearchAuthor}"/>
+	<mx:HTTPService id="viewCoAuthor" url="{Domain.host + httpServiceViewCoAuthor}" />
+	<mx:HTTPService id="getCollaboration" url="{Domain.host + httpServiceGetCollaboration}" />
+	<mx:HTTPService id="getAuthor" url="{Domain.host + httpServiceGetAuthor}" />
+	<mx:HTTPService id="viewCoPath" url="{Domain.host + httpServiceViewCoPath}" />
+	<mx:HTTPService id="citationGraph" url="{Domain.host + httpServiceCitationGraph}"/>
 
 </rds:ServiceLocator>

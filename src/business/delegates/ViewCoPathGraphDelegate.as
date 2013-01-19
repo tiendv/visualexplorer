@@ -22,8 +22,8 @@ package business.delegates
 		public function viewCoPath(authorID:int, authorID1:int):void
 		{
 			var params : Object = new Object();
-			params["authorid"] = authorID;
-			params["authorid1"] = authorID1;
+			params["authorid1"] = authorID;
+			params["authorid2"] = authorID1;
 			var token:AsyncToken = _service.send(params);
 			token.addResponder(_responder);
 		}
