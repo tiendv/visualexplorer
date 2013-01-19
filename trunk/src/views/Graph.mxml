@@ -178,7 +178,7 @@
 			{
 				if(!GraphLocator.getInstance().waiting)
 				{
-					if(dataLeft.authorID == null){
+					if(dataLeft.authorID == null && GraphLocator.getInstance().idRoot <=0){
 						gm.visible = true;
 					}
 					GraphLocator.getInstance().graph.dataProvider.removeAll();
@@ -733,6 +733,52 @@
 				
 			}
 			
+			protected function txtAuthorNameLeft_enterHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(!GraphLocator.getInstance().waiting && !ModelLocator.getInstance().waitingSearchLeft)
+				{
+					var str:String = txtAuthorNameLeft.text;
+					str = str.replace(/\s+/g, '');
+					if(str != "")
+					{
+						ModelLocator.getInstance().waitingSearchLeft = true;
+						searchAuthors.removeAll();
+						dataLeft = new Object();
+						var searchAuthorEvent:SearchAuthorEvent = new SearchAuthorEvent(txtAuthorNameLeft.text);
+						searchAuthorEvent.dispatch();	
+						GraphLocator.getInstance().graph.dataProvider.removeAll();
+					}
+					else
+					{
+						txtAuthorNameLeft.text = "";
+					}
+				}
+			}
+			
+			protected function txtAuthorNameRight_enterHandler(event:FlexEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(!GraphLocator.getInstance().waiting && !ModelLocator.getInstance().waitingSearchRight){
+					var str:String = txtAuthorNameRight.text;
+					str = str.replace(/\s+/g, '');
+					if(str != "")
+					{
+						ModelLocator.getInstance().waitingSearchRight = true;
+						searchAuthorsRight.removeAll();
+						dataRight = new Object();
+						//search
+						var searchAuthorRightEvent:SearchAuthorRightEvent = new SearchAuthorRightEvent(txtAuthorNameRight.text);
+						searchAuthorRightEvent.dispatch();
+						//end search
+					}
+					else
+					{
+						txtAuthorNameRight.text = "";
+					}
+				}
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Style source="assets/style/main.css"/>
@@ -747,7 +793,7 @@
 		<s:BorderContainer x="11" y="1" width="158" height="32" borderColor="#727BFC"
 						   color="#183CF0" symbolColor="#3E5BF0">
 			<s:TextInput id="txtAuthorNameLeft" x="3" y="5" width="123" borderVisible="false"
-						 color="#000000"/>
+						 color="#000000" enter="txtAuthorNameLeft_enterHandler(event)"/>
 			<s:Button id="btnSearchLeft" x="128" y="2" width="25" height="25" buttonMode="true"
 					  enabled="true" icon="@Embed('assets/gui/button_Search.png')" useHandCursor="true"
 					  click="btnSearchLeft_clickHandler(event)" />
@@ -820,7 +866,7 @@
 		<s:BorderContainer x="11" y="1" width="158" height="32" borderColor="#727BFC"
 						   color="#183CF0" symbolColor="#3E5BF0">
 			<s:TextInput id="txtAuthorNameRight" x="3" y="5" width="123" borderVisible="false"
-						 color="#000000"/>
+						 color="#000000" enter="txtAuthorNameRight_enterHandler(event)"/>
 			<s:Button id="btnSearchRight" x="128" y="2" width="25" height="25" icon="@Embed('assets/gui/button_Search.png')"
 					  buttonMode="true" useHandCursor="true"
 					  click="btnSearchRight_clickHandler(event)"/>
