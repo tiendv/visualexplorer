@@ -10,8 +10,8 @@
 				rollOverEffect="{zoomIn}" verticalGap="-10" verticalAlign="top">
 			
 			<mx:Box id="box" horizontalAlign="center" verticalAlign="middle">
-				<mx:Box id="box_img" backgroundColor="{color}"
-						horizontalAlign="center" toolTip="{this.data.data.@desc}" verticalAlign="middle" resize="box_img_resize(event);">
+				<mx:Box id="box_img" backgroundColor="{color}" toolTip="{this.data.data.@desc}"
+						horizontalAlign="center" verticalAlign="middle" resize="box_img_resize(event);">
 					<mx:Image id="img" horizontalAlign="center" verticalAlign="middle" smoothBitmapContent="true"
 							  source="{this.data.data.@imgUrl}" doubleClick="img_doubleClickHandler(event)" resize="image_resize(event);"
 							  />
@@ -50,8 +50,10 @@
 			import mx.controls.Alert;
 			import mx.core.FlexGlobals;
 			import mx.events.ResizeEvent;
+			import mx.managers.ToolTipManager;
 			
 			import views.Graph;
+			import views.renderers.HTMLToolTip;
 
 			private function setNode():void {
 				var nodeSize:int = this.data.data.@nodeSize;
@@ -221,6 +223,8 @@
 			private var color:uint;
 			
 			private function init():void {
+				ToolTipManager.toolTipClass = HTMLToolTip;
+				
 				color = (GraphLocator.getInstance().idRoot == this.data.data.@id || (GraphLocator.getInstance().idRootRight == this.data.data.@id && GraphLocator.getInstance().action==2)) ? 0xF4B31B : 0x727BFC;
 				roundedMask = new Sprite();
 				roundedMask2 = new Sprite();

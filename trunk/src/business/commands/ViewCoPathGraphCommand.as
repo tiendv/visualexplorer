@@ -58,15 +58,17 @@ package business.commands
 							if(collection == null){
 								collection = new ArrayCollection();
 							}
-							var desc:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
-								"publication: " + o.publicationCount 	+ 	"&#13;" + 
-								"h_index: "		+ o.h_Index			+	",   "	+
-								"g_index: "		+ o.g_Index			+	"&#13;" +
-								"subdomain: ";
+							//var desc:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
+							//	"publication: " + o.publicationCount 	+ 	"&#13;" + 
+							//	"h_index: "		+ o.h_Index			+	",   "	+
+							//	"g_index: "		+ o.g_Index			+	"&#13;" +
+							//	"subdomain: ";
+							var desc:String = "";
 							for each (var item:Object in collection) {
 								desc += item + ", ";
 							}
-							
+							desc = GraphUtil.createTooltipDesc(o.authorName,o.imgUrl,o.orgName,o.publicationCount,o.h_Index,o.g_Index,desc);
+
 							nodeRoot = GraphUtil.createNodePath(o.authorID,o.authorName,desc,60,o.imgUrl,150,250);
 							
 							var simDataRootCollection:ArrayCollection = o.simData.entry as ArrayCollection;
@@ -95,15 +97,17 @@ package business.commands
 							if(collection1 == null){
 								collection1 = new ArrayCollection();
 							}
-							var desc1:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
-								"publication: " + o.publicationCount 	+ 	"&#13;" + 
-								"h_index: "		+ o.h_Index			+	",   "	+
-								"g_index: "		+ o.g_Index			+	"&#13;" +
-								"subdomain: ";
+							//var desc1:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
+							//	"publication: " + o.publicationCount 	+ 	"&#13;" + 
+							//	"h_index: "		+ o.h_Index			+	",   "	+
+							//	"g_index: "		+ o.g_Index			+	"&#13;" +
+							//	"subdomain: ";
+							var desc1:String = "";
 							for each (var item1:Object in collection1) {
 								desc1 += item1 + ", ";
 							}
-							
+							desc1 = GraphUtil.createTooltipDesc(o.authorName,o.imgUrl,o.orgName,o.publicationCount,o.h_Index,o.g_Index,desc1);
+
 							nodeRootRight = GraphUtil.createNodePath(o.authorID,o.authorName,desc1,60,o.imgUrl,750,250);
 							//khong co simdata
 						}
@@ -115,14 +119,17 @@ package business.commands
 							if(collection2 == null){
 								collection2 = new ArrayCollection();
 							}
-							var desc2:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
-								"publication: " + o.publicationCount 	+ 	"&#13;" + 
-								"h_index: "		+ o.h_Index			+	",   "	+
-								"g_index: "		+ o.g_Index			+	"&#13;" +
-								"subdomain: ";
+							//var desc2:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
+							//	"publication: " + o.publicationCount 	+ 	"&#13;" + 
+							//	"h_index: "		+ o.h_Index			+	",   "	+
+							//	"g_index: "		+ o.g_Index			+	"&#13;" +
+							//	"subdomain: ";
+							var desc2:String = "";
 							for each (var item2:Object in collection2) {
 								desc2 += item2 + ", ";
 							}
+							desc2 = GraphUtil.createTooltipDesc(o.authorName,o.imgUrl,o.orgName,o.publicationCount,o.h_Index,o.g_Index,desc2);
+
 							//--
 							var y:int = yBegin + (amduong * 75 * heso);
 							amduong = (-1)*amduong;
@@ -147,16 +154,18 @@ package business.commands
 					if(c == null){
 						c = new ArrayCollection();
 					}
-					var d:String = 	"Org: " 		+ obj.orgName 			+ 	"&#13;" +
-						"publication: " + obj.publicationCount 	+ 	"&#13;" + 
-						"h_index: "		+ obj.h_Index			+	",   "	+
-						"g_index: "		+ obj.g_Index			+	"&#13;" +
-						"subdomain: ";
+					//var d:String = 	"Org: " 		+ obj.orgName 			+ 	"&#13;" +
+					//	"publication: " + obj.publicationCount 	+ 	"&#13;" + 
+					//	"h_index: "		+ obj.h_Index			+	",   "	+
+					//	"g_index: "		+ obj.g_Index			+	"&#13;" +
+					//	"subdomain: ";
+					var d:String = "";
 					for each (var sd1:Object in c) 
 					{
 						d += sd1 + ", ";
 					}
-					
+					d = GraphUtil.createTooltipDesc(obj.authorName,obj.imgUrl,obj.orgName,obj.publicationCount,obj.h_Index,obj.g_Index,d);
+
 					nodeRoot = GraphUtil.createNodePath(obj.authorID,obj.authorName,d,60,obj.imgUrl,150,250);
 				}
 				
