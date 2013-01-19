@@ -540,7 +540,7 @@ package graphLayout.layout {
 				if(cc >= 5){
 					r = 265;
 				}else{
-					r = 220;
+					r = 250;
 				}
 				radius = p*r;
 				/* do we need to recurse, 

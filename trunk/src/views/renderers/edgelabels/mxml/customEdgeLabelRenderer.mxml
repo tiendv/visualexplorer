@@ -22,42 +22,51 @@
 
 			protected function linkbutton1_clickHandler(event:MouseEvent):void
 			{
-				// chuyen qua co-path button
-				Graph.isCoGraph = false;
-				Graph.isCoPath = true;
-				Graph.isCitation = false;
-				Graph.isRecommend = false;
-				GraphLocator.getInstance().action = 2;
-				//hien thi searchRight
-				Graph.searchRightVisible = true;
-				Graph.vrRightVisible = true;
-				Graph.btnHideRightVisible = true;
-				Graph.btnShowRightVisible = false;
-				Graph.searchRightX = FlexGlobals.topLevelApplication.width - 190; 
-				Graph.vrRightX = FlexGlobals.topLevelApplication.width - 200;
-				Graph.btnHideRightX = FlexGlobals.topLevelApplication.width - 210;
-				Graph.btnShowRightX = FlexGlobals.topLevelApplication.width - 30;
-				//searchLeft
-				GraphLocator.getInstance().idRoot = this.data.data.@fromID;
-				var searchLeft:GetAuthorEvent = new GetAuthorEvent(GraphLocator.getInstance().idRoot);
-				searchLeft.dispatch();
-				//searchRight
-				GraphLocator.getInstance().idRootRight = this.data.data.@toID;
-				var searchRight:GetAuthorRightEvent = new GetAuthorRightEvent(GraphLocator.getInstance().idRootRight);
-				searchRight.dispatch();
-				//chuyen qua layout co-path
-				GraphLocator.getInstance().graph.dataProvider.removeAll();
-				FlexGlobals.topLevelApplication.graphView.visualGraph.layouter = new DirectPlacementLayouter(FlexGlobals.topLevelApplication.graphView.visualGraph);
-				FlexGlobals.topLevelApplication.graphView.visualGraph.layouter.layoutChanged = true;
-				//search and draw Graph
-				GraphLocator.getInstance().waiting = true;
-				var coPathEvent:ViewCoPathGraphEvent = new ViewCoPathGraphEvent(GraphLocator.getInstance().idRoot,GraphLocator.getInstance().idRootRight);
-				coPathEvent.dispatch();
-				//replace url
-				var dataUrlReplace:Object = new Object();
-				dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&aid1="+GraphLocator.getInstance().idRootRight+"&action=path";
-				setUrlReplace(dataUrlReplace);
-
+				if(GraphLocator.getInstance().action == 3)
+				{
+					//citation chay vao trang html citaion
+					//lay gia tri node goc
+					this.data.data.@fromID; // ben trai
+					this.data.data.@toID; // ben phai
+				}
+				else
+				{
+					// chuyen qua co-path button
+					Graph.isCoGraph = false;
+					Graph.isCoPath = true;
+					Graph.isCitation = false;
+					Graph.isRecommend = false;
+					GraphLocator.getInstance().action = 2;
+					//hien thi searchRight
+					Graph.searchRightVisible = true;
+					Graph.vrRightVisible = true;
+					Graph.btnHideRightVisible = true;
+					Graph.btnShowRightVisible = false;
+					Graph.searchRightX = FlexGlobals.topLevelApplication.width - 190; 
+					Graph.vrRightX = FlexGlobals.topLevelApplication.width - 200;
+					Graph.btnHideRightX = FlexGlobals.topLevelApplication.width - 210;
+					Graph.btnShowRightX = FlexGlobals.topLevelApplication.width - 30;
+					//searchLeft
+					GraphLocator.getInstance().idRoot = this.data.data.@fromID;
+					var searchLeft:GetAuthorEvent = new GetAuthorEvent(GraphLocator.getInstance().idRoot);
+					searchLeft.dispatch();
+					//searchRight
+					GraphLocator.getInstance().idRootRight = this.data.data.@toID;
+					var searchRight:GetAuthorRightEvent = new GetAuthorRightEvent(GraphLocator.getInstance().idRootRight);
+					searchRight.dispatch();
+					//chuyen qua layout co-path
+					GraphLocator.getInstance().graph.dataProvider.removeAll();
+					FlexGlobals.topLevelApplication.graphView.visualGraph.layouter = new DirectPlacementLayouter(FlexGlobals.topLevelApplication.graphView.visualGraph);
+					FlexGlobals.topLevelApplication.graphView.visualGraph.layouter.layoutChanged = true;
+					//search and draw Graph
+					GraphLocator.getInstance().waiting = true;
+					var coPathEvent:ViewCoPathGraphEvent = new ViewCoPathGraphEvent(GraphLocator.getInstance().idRoot,GraphLocator.getInstance().idRootRight);
+					coPathEvent.dispatch();
+					//replace url
+					var dataUrlReplace:Object = new Object();
+					dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&aid1="+GraphLocator.getInstance().idRootRight+"&action=path";
+					setUrlReplace(dataUrlReplace);
+				}
 			}
 			
 			public function setUrlReplace(data:Object):void{
