@@ -18,11 +18,15 @@ package business.delegates
 			_responder = responder;
 		}
 		
-		public function getCollaboration(authorID:int,algorithmType:int):void
+		public function getCollaboration(authorID:int,algorithmType:int, keyword:String):void
 		{
 			var params : Object = new Object();
 			params["authorid"] = authorID;
 			params["algorithmtype"] = algorithmType;
+			if(keyword != null && keyword != "")
+			{
+				params["keyword"] = keyword;
+			}
 			var token:AsyncToken = _service.send(params);
 			token.addResponder(_responder);
 		}

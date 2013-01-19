@@ -16,8 +16,6 @@
 			private var httpServiceViewCoPath:String = "/webresources/recommend/getCoAuthorPaths";
 			[Bindable]
 			private var httpServiceCitationGraph:String = "/webresources/recommend/getCitationGraph";
-			[Bindable]
-			private var httpServieceKeyword:String = "/webresources/recommend/";
 			
 			//http://localhost:8080/PubGuru/webresources/recommend/searchAuthor
 			//http://localhost:8080/PubGuru/webresources/recommend/getRTBVSAuthors
@@ -33,6 +31,5 @@
 	<mx:HTTPService id="getAuthor" url="{Domain.host + httpServiceGetAuthor}" />
 	<mx:HTTPService id="viewCoPath" url="{Domain.host + httpServiceViewCoPath}" />
 	<mx:HTTPService id="citationGraph" url="{Domain.host + httpServiceCitationGraph}"/>
-	<mx:HTTPService id="getCollaborationKeyword" url="{Domain.host + httpServieceKeyword}" />
 
 </rds:ServiceLocator>
