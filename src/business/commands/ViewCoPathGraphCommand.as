@@ -90,6 +90,11 @@ package business.commands
 								var xmlEdge:XMLList = GraphUtil.createEdgePath(o.authorID,o1.key,o1.value,false);
 								xmldata.prependChild(xmlEdge);
 							}
+							if(direct == false)
+							{
+								var xmlEdge1:XMLList = GraphUtil.createEdgePath(o.authorID,GraphLocator.getInstance().idRootRight,0,true);
+								xmldata.prependChild(xmlEdge1);
+							}
 						}
 						else if(o.authorID == GraphLocator.getInstance().idRootRight)
 						{// neu la node chinh phai
@@ -142,8 +147,8 @@ package business.commands
 
 							//tao edge tu node trung gian toi node rootRight
 							var o3:Object = o.simData.entry; // chi co 1 entry voi key la rootRight
-							var xmlEdge1:XMLList = GraphUtil.createEdgePath(o.authorID,o3.key,o3.value,false);
-							xmldata.prependChild(xmlEdge1);
+							var xmlEdge2:XMLList = GraphUtil.createEdgePath(o.authorID,o3.key,o3.value,false);
+							xmldata.prependChild(xmlEdge2);
 						}
 					}
 				}
@@ -174,6 +179,7 @@ package business.commands
 				GraphLocator.getInstance().graph.dataProvider.removeAll();
 				GraphLocator.getInstance().graph.dataProvider.addItem(xmldata);
 			}	
+			//Alert.show(xmldata.toString());
 			GraphLocator.getInstance().waiting = false;
 			GraphLocator.getInstance().graph.dataProvider.refresh();
 		}
