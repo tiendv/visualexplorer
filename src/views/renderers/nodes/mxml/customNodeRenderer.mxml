@@ -10,7 +10,7 @@
 				rollOverEffect="{zoomIn}" verticalGap="-10" verticalAlign="top">
 			
 			<mx:Box id="box" horizontalAlign="center" verticalAlign="middle">
-				<mx:Box id="box_img" backgroundColor="{color}" toolTip="{this.data.data.@desc}"
+				<mx:Box id="box_img" backgroundColor="{color}" toolTip="{this.data.data.@desc}" 
 						horizontalAlign="center" verticalAlign="middle" resize="box_img_resize(event);">
 					<mx:Image id="img" horizontalAlign="center" verticalAlign="middle" smoothBitmapContent="true"
 							  source="{this.data.data.@imgUrl}" doubleClick="img_doubleClickHandler(event)" resize="image_resize(event);"
@@ -32,7 +32,7 @@
 
 	<mx:Zoom id="zoomIn" zoomHeightTo="1.5" zoomWidthTo="1.5" duration="500"/>
 	<mx:Zoom id="zoomOut" zoomHeightTo="1.0" zoomWidthTo="1.0" duration="500"/>
-	
+
 	<mx:Script>
 		<![CDATA[
 			import business.events.GetAuthorEvent;
@@ -48,6 +48,7 @@
 			import models.ModelLocator;
 			
 			import mx.controls.Alert;
+			import mx.controls.ToolTip;
 			import mx.core.FlexGlobals;
 			import mx.events.ResizeEvent;
 			import mx.managers.ToolTipManager;
@@ -61,6 +62,7 @@
 				img.height = nodeSize;
 				box_img.width = nodeSize+6;
 				box_img.height = nodeSize+6;
+				ToolTip.maxWidth = 400;
 			}
 			
 			public function bringToTop(event:MouseEvent):void

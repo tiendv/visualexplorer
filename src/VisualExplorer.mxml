@@ -8,6 +8,31 @@
 		<rds:Services xmlns:rds="business.*"/>
 		<router:VisualExplorerController xmlns:router="business.*"/>
 	</fx:Declarations>
-	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace v "views.*";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		@namespace rds "business.*";
+		@namespace router "business.*";
+		
+		mx|ToolTip {
+			/* Tooltip Style */
+			color:#fff;
+			border:2px solid rgba(34,34,34,0.9);
+			background-color:#1C1F26;
+			border-radius:3px;
+			/* Tooltip Style */
+			-webkit-transition:all 0.2s ease-in-out;
+			-moz-transition:all 0.2s ease-in-out;
+			-ms-transition:all 0.2s ease-in-out;
+			transition:all 0.2s ease-in-out;
+			transform:1;
+			/* reset tooltip, to not use container styling */
+			font-weight:normal;
+			font-style:normal;
+			opacity:0.9;
+		} 
+
+	</fx:Style>
 	<v:Graph id="graphView"/>
 </s:Application>

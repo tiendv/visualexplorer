@@ -133,20 +133,11 @@ package utils
 		public static function createTooltipDesc(authorName:String, imgUrl:String, orgName:String,publicationCount:Object,h_Index:Object,g_Index:Object, desc:String):String
 		{
 			var tooltipDesc:String = "";
-			if(authorName.length > 28)
-			{
-				tooltipDesc += "&#60;img src='"+ imgUrl +"' width='60' height='60' hspace='3' vspace='3'&#47;&#62;";            
-				tooltipDesc += "&#60;font color='#076baa' size='+4'&#62;&#60;b&#62;"+ authorName +"&#60;&#47;b&#62;&#60;&#47;font&#62;&#13;";
-				tooltipDesc += "Org: "+ orgName + "&#13;" + "Publication: " +publicationCount + " | h-index: " + h_Index + " | g-index: " + g_Index + "&#13;&#13;";
-				tooltipDesc += "Interested: " + desc;
-			}
-			else
-			{
-				tooltipDesc += "&#60;img src='"+ imgUrl +"' width='60' height='60' hspace='3' vspace='3'&#47;&#62;";            
-				tooltipDesc += "&#13;&#60;font color='#076baa' size='+4'&#62;&#60;b&#62;"+ authorName +"&#60;&#47;b&#62;&#60;&#47;font&#62;&#13;";
-				tooltipDesc += "Org: "+ orgName + "&#13;" + "Publication: " +publicationCount + " | h-index: " + h_Index + " | g-index: " + g_Index + "&#13;&#13;";
-				tooltipDesc += "Interested: " + desc;
-			}
+
+			tooltipDesc += "&#60;img src='"+ imgUrl +"' width='55' height='55' hspace='3' vspace='3'&#47;&#62;";            
+			tooltipDesc += "&#60;font color='#D74D4B' size='+4'&#62;&#60;b&#62;"+ authorName +"&#60;&#47;b&#62;&#60;&#47;font&#62;&#13;";
+			tooltipDesc += "Org: "+ orgName + "&#13;" + "Publication: " +publicationCount + " | h-index: " + h_Index + " | g-index: " + g_Index + "&#13;&#13;";
+			tooltipDesc += "Interested: " + desc;
 			
 			return tooltipDesc;
 		}
