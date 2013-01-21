@@ -19,15 +19,22 @@
 			import spark.components.Application;
 			
 			import views.Graph;
+			
+			import utils.Domain;
 
 			protected function linkbutton1_clickHandler(event:MouseEvent):void
 			{
 				if(GraphLocator.getInstance().action == 3)
 				{
 					//citation chay vao trang html citaion
-					//lay gia tri node goc
-					this.data.data.@fromID; // ben trai
-					this.data.data.@toID; // ben phai
+					//replace url
+					var url:String = Domain.host + "/Detail?entityType=2&searchType=5&id="+this.data.data.@fromID+"&cid="+this.data.data.@toID;
+					var request:URLRequest = new URLRequest(url);
+					try {
+						navigateToURL(request, '_self');
+					} catch (e:Error) {
+						trace("Error occurred!");
+					}
 				}
 				else
 				{
