@@ -259,11 +259,22 @@
 					isRecommend = false;
 					GraphLocator.getInstance().action = 1;
 	
-					searchRightVisible = false;
-					vrRightVisible = false;
-					btnHideRightVisible = false;
+					//searchRightVisible = false;
+					//vrRightVisible = false;
+					//btnHideRightVisible = false;
+					//btnShowRightVisible = false;
+					//----
+					searchRightVisible = true;
+					vrRightVisible = true;
+					btnHideRightVisible = true;
 					btnShowRightVisible = false;
-
+					
+					searchRightX = width - 190;
+					vrRightX = width - 200;
+					btnHideRightX = width - 210;
+					btnShowRightX = width - 30;
+					
+					lstRight.dataProvider.removeAll();
 				}
 			}
 			
@@ -661,6 +672,18 @@
 						gm.visible = false;
 					}
 				}
+				searchRightVisible = true;
+				vrRightVisible = true;
+				btnHideRightVisible = true;
+				btnShowRightVisible = false;
+				
+				searchRightX = width - 190;
+				vrRightX = width - 200;
+				btnHideRightX = width - 210;
+				btnShowRightX = width - 30;
+				
+				lstRight.dataProvider.removeAll();
+
 			}
 			
 			//---
@@ -972,15 +995,15 @@
 	
 	<s:BorderContainer id="SearchRight" x="{searchRightX}" y="0" width="184" height="100%" borderVisible="false" visible="{searchRightVisible}">
 		<s:BorderContainer id="boxsearch" x="11" y="1" width="158" height="32" borderColor="#727BFC"
-						   color="#183CF0" symbolColor="#3E5BF0" visible="{!isRecommend}">
+						   color="#183CF0" symbolColor="#3E5BF0" visible="{!(isRecommend || isCoGraph)}">
 			<s:TextInput id="txtAuthorNameRight" x="3" y="5" width="123" borderVisible="false"
 						 color="#000000" enter="txtAuthorNameRight_enterHandler(event)"/>
 			<s:Button id="btnSearchRight" x="128" y="2" width="25" height="25" icon="@Embed('assets/gui/button_Search.png')"
 					  buttonMode="true" useHandCursor="true"
 					  click="btnSearchRight_clickHandler(event)"/>
 		</s:BorderContainer>
-		<s:Label x="10" y="40" text="Result" visible="{!isRecommend}"/>
-		<s:Label x="5" y="15" text="Authors are sorted from hight to low" visible="{isRecommend}" maxWidth="170"/>
+		<s:Label x="10" y="40" text="Result" visible="{!(isRecommend || isCoGraph)}"/>
+		<s:Label x="5" y="15" text="Authors are sorted from hight to low" visible="{isRecommend || isCoGraph}" maxWidth="170"/>
 		<s:List id="lstRight" x="10" y="60" width="170" height="{height-70}" borderVisible="false"
 				changing="lst_changeHandlerRight(event)"
 				itemRenderer="views.CustomItemRen" useHandCursor="true"

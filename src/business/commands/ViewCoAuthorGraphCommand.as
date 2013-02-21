@@ -11,6 +11,7 @@ package business.commands
 	import flashx.textLayout.formats.Float;
 	
 	import models.GraphLocator;
+	import models.ModelLocator;
 	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
@@ -22,6 +23,8 @@ package business.commands
 
 	public class ViewCoAuthorGraphCommand implements ICommand
 	{
+		private var _model :ModelLocator = ModelLocator.getInstance();
+
 		public function execute(event:CairngormEvent):void
 		{		
 			var authorID:int = (event as ViewCoAuthorGraphEvent).authorID;
@@ -32,9 +35,12 @@ package business.commands
 		
 		private function onViewCoAuthor(event:ResultEvent):void
 		{
+			_model.searchedAuthorsRight.removeAll();
+
 			var xmldata:XML = <Graph></Graph>;
 			var sizeDict:Dictionary = new Dictionary();//id, nodeSize
 			var radiusDict:Dictionary = new Dictionary();//id, nodeRadius
+			var valueDict:Dictionary = new Dictionary();//id, value Sim
 			
 			if (event.result.rTBVSAuthors != null)
 			{
@@ -100,6 +106,8 @@ package business.commands
 									sizeDict[id] = 65;
 								}
 								//----
+								valueDict[id] = s.value;
+								//----
 								if(maxSimValue == minSimValue)
 								{
 									radiusDict[id] = 1.0;
@@ -152,6 +160,19 @@ package business.commands
 									xmldata.prependChild(xmlEdge);
 								}
 							}
+							//----tao list danh sach tac gia tra ve (author - do tuong tu)
+							var author:Object = new Object();
+							author.authorID = o.authorID;
+							author.authorName = o.authorName;
+							author.imgUrl = o.imgUrl;
+							author.orgName = valueDict[authorID];//hien thi do tuong tu Sim thay vi Org
+							author.g_Index = o.g_Index;
+							author.h_Index = o.h_Index;
+							author.publicationCount = o.publicationCount;
+							_model.searchedAuthorsRight.addItem(author);
+							//----Sort list author
+							GraphUtil.arrayCollectionSort(_model.searchedAuthorsRight,'orgName',true);
+
 						}
 					}
 				}
