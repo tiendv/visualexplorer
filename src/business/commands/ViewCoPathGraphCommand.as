@@ -48,6 +48,10 @@ package business.commands
 				
 				if(rtbvsAuthorCollection != null && rtbvsAuthorCollection.length>1)
 				{//neu la mang (>1 node)
+					//--
+					//huy hien thong bao path exist
+					GraphLocator.getInstance().pathExistMsg = false;
+
 					for(var i:int=0;i<rtbvsAuthorCollection.length;i++)
 					{
 						var o:Object = rtbvsAuthorCollection.getItemAt(i); 
@@ -154,6 +158,10 @@ package business.commands
 				}
 				else
 				{//chi co 1 node
+					//---
+					//thong bao neu khong co link lien ket
+					GraphLocator.getInstance().pathExistMsg = true;
+					//---
 					var obj:Object = event.result.rTBVSAuthors.rtbvsAuthor;
 					var c:ArrayCollection = obj.listSubdomain as ArrayCollection;
 					if(c == null){
@@ -173,7 +181,7 @@ package business.commands
 
 					nodeRoot = GraphUtil.createNodePath(obj.authorID,obj.authorName,d,60,obj.imgUrl,150,250);
 				}
-				
+
 				xmldata.prependChild(nodeRootRight);
 				xmldata.prependChild(nodeRoot);
 				GraphLocator.getInstance().graph.dataProvider.removeAll();

@@ -32,6 +32,8 @@ package models
 		public var idRootRight:int = 1;
 		[Bindable]
 		public var waiting:Boolean = false;
+		[Bindable]
+		public var pathExistMsg:Boolean = false;
 		public var action:int = 1; // 1,2,3,4 => co-gaph, co-path, citation, recommend
 		public static const ALGORITHM_ADAMICADAR:int = 1;
 		public static const ALGORITHM_COSINE:int = 2;

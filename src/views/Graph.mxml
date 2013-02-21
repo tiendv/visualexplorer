@@ -99,6 +99,8 @@
 			[Bindable]
 			public var keywordIndex:int = 0;
 			private var count:int = 0;
+			[Bindable]
+			public var numberIndex:int = 4;
 
 			protected function btnHideLeft_clickHandler(event:MouseEvent):void
 			{
@@ -217,10 +219,12 @@
 					vrRightVisible = true;
 					btnHideRightVisible = true;
 					btnShowRightVisible = false;
+
 					searchRightX = width - 190;
 					vrRightX = width - 200;
 					btnHideRightX = width - 210;
 					btnShowRightX = width - 30;
+					lstRight.dataProvider.removeAll();
 				}
 			}
 			
@@ -259,6 +263,7 @@
 					vrRightVisible = false;
 					btnHideRightVisible = false;
 					btnShowRightVisible = false;
+
 				}
 			}
 			
@@ -343,11 +348,22 @@
 					ddlRecommend.selectedIndex = 0;
 				
 	
-					searchRightVisible = false;
-					vrRightVisible = false;
-					btnHideRightVisible = false;
+					//searchRightVisible = false;
+					//vrRightVisible = false;
+					//btnHideRightVisible = false;
+					//btnShowRightVisible = false;
+					
+					searchRightVisible = true;
+					vrRightVisible = true;
+					btnHideRightVisible = true;
 					btnShowRightVisible = false;
-
+					
+					searchRightX = width - 190;
+					vrRightX = width - 200;
+					btnHideRightX = width - 210;
+					btnShowRightX = width - 30;
+					
+					lstRight.dataProvider.removeAll();
 				}
 			}
 			protected function lst_changeHandlerLeft(e:IndexChangeEvent):void {			
@@ -452,18 +468,21 @@
 				
 			}
 			protected function lst_changeHandlerRight(e:IndexChangeEvent):void {
-				dataRight = e.currentTarget.selectedItem;
-				var dataUrlReplace:Object = new Object();
-				dataUrlReplace.urlReplace = "";
-				GraphLocator.getInstance().idRootRight = dataRight.authorID;
+
 				if(isCoPath){
+					dataRight = e.currentTarget.selectedItem;
+					var dataUrlReplace:Object = new Object();
+					dataUrlReplace.urlReplace = "";
+					GraphLocator.getInstance().idRootRight = dataRight.authorID;
+					
 					dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&aid1="+GraphLocator.getInstance().idRootRight+"&action=path";
 					GraphLocator.getInstance().waiting = true;
 					var coPathEvent:ViewCoPathGraphEvent = new ViewCoPathGraphEvent(GraphLocator.getInstance().idRoot,GraphLocator.getInstance().idRootRight);
 					coPathEvent.dispatch();
 					GraphLocator.getInstance().graph.dataProvider.removeAll();
+					setUrlReplace(dataUrlReplace);
 				}
-				setUrlReplace(dataUrlReplace);
+				
 			}
 			
 			public function setTitle(data:Object):void{				
@@ -862,6 +881,12 @@
 				}
 			}
 			
+			protected function ddlNumber_changeHandler(event:IndexChangeEvent):void
+			{
+				// TODO Auto-generated method stub
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Style source="assets/style/main.css"/>
@@ -946,15 +971,16 @@
 	</mx:Canvas>
 	
 	<s:BorderContainer id="SearchRight" x="{searchRightX}" y="0" width="184" height="100%" borderVisible="false" visible="{searchRightVisible}">
-		<s:BorderContainer x="11" y="1" width="158" height="32" borderColor="#727BFC"
-						   color="#183CF0" symbolColor="#3E5BF0">
+		<s:BorderContainer id="boxsearch" x="11" y="1" width="158" height="32" borderColor="#727BFC"
+						   color="#183CF0" symbolColor="#3E5BF0" visible="{!isRecommend}">
 			<s:TextInput id="txtAuthorNameRight" x="3" y="5" width="123" borderVisible="false"
 						 color="#000000" enter="txtAuthorNameRight_enterHandler(event)"/>
 			<s:Button id="btnSearchRight" x="128" y="2" width="25" height="25" icon="@Embed('assets/gui/button_Search.png')"
 					  buttonMode="true" useHandCursor="true"
 					  click="btnSearchRight_clickHandler(event)"/>
 		</s:BorderContainer>
-		<s:Label x="10" y="40" text="Result"/>
+		<s:Label x="10" y="40" text="Result" visible="{!isRecommend}"/>
+		<s:Label x="5" y="15" text="Authors are sorted from hight to low" visible="{isRecommend}" maxWidth="170"/>
 		<s:List id="lstRight" x="10" y="60" width="170" height="{height-70}" borderVisible="false"
 				changing="lst_changeHandlerRight(event)"
 				itemRenderer="views.CustomItemRen" useHandCursor="true"
@@ -986,6 +1012,16 @@
 			</s:dataProvider>
 		</s:DropDownList>
 		<s:Label id="lblAlgorithm" text="Select an algorithm" color="#333333" fontStyle="italic" fontSize="10"/>
+	</mx:VBox>
+	<mx:VBox id="boxNumber" visible="{isRecommend}" x="350" y="70"
+			 borderVisible="false" toolTip="select algorithm" >
+		<s:DropDownList id="ddlNumber" prompt="Please select an number..."  y="1" width="70" 
+						change="ddlNumber_changeHandler(event)" selectedIndex="{numberIndex}">
+			<s:dataProvider>
+				<s:ArrayList source="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]"/>
+			</s:dataProvider>
+		</s:DropDownList>
+		<s:Label id="lblNumber" text="amount author" color="#333333" fontStyle="italic" fontSize="10"/>
 	</mx:VBox>
 	<mx:VBox id="boxKeywordRecommend" visible="{isRecommend}" x="217" y="25"
 					   borderVisible="false" verticalGap="2" enabled="{ddlRecommend.selectedIndex==4}">

@@ -1,5 +1,9 @@
 package utils
 {
+	import mx.collections.ArrayCollection;
+	import mx.collections.Sort;
+	
+	import spark.collections.SortField;
 	
 	public class GraphUtil
 	{
@@ -140,6 +144,18 @@ package utils
 			tooltipDesc += "Interested: " + desc;
 			
 			return tooltipDesc;
+		}
+		
+		public static function arrayCollectionSort(ar:ArrayCollection, fieldName:String, isNumeric:Boolean):void 
+		{
+			var dataSortField:SortField = new SortField();
+			dataSortField.name = fieldName;
+			dataSortField.numeric = isNumeric;
+			dataSortField.descending = true;
+			var numericDataSort:Sort = new Sort();
+			numericDataSort.fields = [dataSortField];
+			ar.sort = numericDataSort;
+			ar.refresh();
 		}
 	}
 }
