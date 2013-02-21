@@ -111,10 +111,21 @@
 							Graph.isRecommend = false;
 							GraphLocator.getInstance().action = 1;
 							
-							Graph.searchRightVisible = false;
-							Graph.vrRightVisible = false;
-							Graph.btnHideRightVisible = false;
+							//Graph.searchRightVisible = false;
+							//Graph.vrRightVisible = false;
+							//Graph.btnHideRightVisible = false;
+							//Graph.btnShowRightVisible = false;
+							
+							Graph.searchRightVisible = true;
+							Graph.vrRightVisible = true;
+							Graph.btnHideRightVisible = true;
 							Graph.btnShowRightVisible = false;
+							
+							Graph.searchRightX = FlexGlobals.topLevelApplication.width - 190; 
+							Graph.vrRightX = FlexGlobals.topLevelApplication.width - 200;
+							Graph.btnHideRightX = FlexGlobals.topLevelApplication.width - 210;
+							Graph.btnShowRightX = FlexGlobals.topLevelApplication.width - 30;
+							
 							//chuyen ve layout co-graph
 							FlexGlobals.topLevelApplication.graphView.visualGraph.layouter = new graphLayout.layout.CustomLayouter(FlexGlobals.topLevelApplication.graphView.visualGraph);
 							FlexGlobals.topLevelApplication.graphView.visualGraph.layouter.layoutChanged = true;
