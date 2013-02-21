@@ -20,7 +20,7 @@
 			<mx:Box backgroundAlpha="0" backgroundColor="#ffffff" cornerRadius="5" paddingTop="10">
 				<mx:Box backgroundColor="#ffffff" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0" cornerRadius="6">
 					<mx:LinkButton id="nodeText" label="{this.data.data.@name}" 
-								   click="navigateToURL(new URLRequest('http://localhost:8080/PubGuru/Author?aid='+this.data.data.@id), 'quote')"
+								   click="navigateToURL(new URLRequest(utils.Domain.host+'/Author?aid='+this.data.data.@id), 'quote')"
 								   cornerRadius="5" fontSize="12" 
 								   textAlign="center"
 								   paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0"/>
@@ -52,6 +52,8 @@
 			import mx.core.FlexGlobals;
 			import mx.events.ResizeEvent;
 			import mx.managers.ToolTipManager;
+			
+			import utils.Domain;
 			
 			import views.Graph;
 			import views.renderers.HTMLToolTip;
