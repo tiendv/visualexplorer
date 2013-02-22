@@ -101,6 +101,8 @@
 			private var count:int = 0;
 			[Bindable]
 			public var numberIndex:int = 4;
+			
+			public static var amountAuthor:int = 5;
 
 			protected function btnHideLeft_clickHandler(event:MouseEvent):void
 			{
@@ -346,7 +348,7 @@
 					//-- search and draw graph
 					if(GraphLocator.getInstance().idRoot > 0){
 						GraphLocator.getInstance().waiting = true;
-						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_RTBVS,"");
+						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_RTBVS,"");
 						getCollaborationEvent.dispatch();
 					}
 					//chuyen sang button recommend
@@ -420,28 +422,28 @@
 						case 0:
 						{//RTBVS - GetCollaboration
 							GraphLocator.getInstance().waiting = true;
-							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_RTBVS,"");
+							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_RTBVS,"");
 							getCollaborationEvent.dispatch();
 							break;
 						}
 						case 1:
 						{//Jaccard
 							GraphLocator.getInstance().waiting = true;
-							var getCollaborationEvent1:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_JACCARD,"");
+							var getCollaborationEvent1:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_JACCARD,"");
 							getCollaborationEvent1.dispatch();
 							break;
 						}
 						case 2:
 						{//Cosine
 							GraphLocator.getInstance().waiting = true;
-							var getCollaborationEvent2:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_COSINE,"");
+							var getCollaborationEvent2:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_COSINE,"");
 							getCollaborationEvent2.dispatch();
 							break;
 						}
 						case 3:
 						{//Adamic Adar
 							GraphLocator.getInstance().waiting = true;
-							var getCollaborationEvent3:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_ADAMICADAR,"");
+							var getCollaborationEvent3:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_ADAMICADAR,"");
 							getCollaborationEvent3.dispatch();
 							break;
 						}
@@ -455,7 +457,7 @@
 								if(GraphLocator.getInstance().idRoot > 0){
 									GraphLocator.getInstance().graph.dataProvider.removeAll();
 									GraphLocator.getInstance().waiting = true;
-									var getCollaborationEvent4:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
+									var getCollaborationEvent4:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
 									getCollaborationEvent4.dispatch();
 								}					
 							}
@@ -667,7 +669,7 @@
 						GraphLocator.getInstance().waiting = true;
 						GraphLocator.getInstance().action = 4;
 						//find and draw graph , default algorithm = RTBVS
-						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(aid,GraphLocator.ALGORITHM_RTBVS,"");
+						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(aid,amountAuthor,GraphLocator.ALGORITHM_RTBVS,"");
 						getCollaborationEvent.dispatch();
 						gm.visible = false;
 					}
@@ -751,7 +753,7 @@
 						case 0:
 						{//RTBVS - GetCollaboration
 							GraphLocator.getInstance().waiting = true;
-							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_RTBVS,"");
+							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_RTBVS,"");
 							getCollaborationEvent.dispatch();
 							count = 0;
 							break;
@@ -759,7 +761,7 @@
 						case 1:
 						{//Jaccard
 							GraphLocator.getInstance().waiting = true;
-							var getCollaborationEvent1:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_JACCARD,"");
+							var getCollaborationEvent1:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_JACCARD,"");
 							getCollaborationEvent1.dispatch();
 							count = 0;
 							break;
@@ -767,7 +769,7 @@
 						case 2:
 						{//Cosine
 							GraphLocator.getInstance().waiting = true;
-							var getCollaborationEvent2:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_COSINE,"");
+							var getCollaborationEvent2:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_COSINE,"");
 							getCollaborationEvent2.dispatch();
 							count = 0;
 							break;
@@ -775,7 +777,7 @@
 						case 3:
 						{//Adamic Adar
 							GraphLocator.getInstance().waiting = true;
-							var getCollaborationEvent3:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_ADAMICADAR,"");
+							var getCollaborationEvent3:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_ADAMICADAR,"");
 							getCollaborationEvent3.dispatch();
 							count = 0;
 							break;
@@ -790,7 +792,7 @@
 								if(GraphLocator.getInstance().idRoot > 0){
 									GraphLocator.getInstance().graph.dataProvider.removeAll();
 									GraphLocator.getInstance().waiting = true;
-									var getCollaborationEvent4:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
+									var getCollaborationEvent4:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
 									getCollaborationEvent4.dispatch();
 								}					
 							}
@@ -823,7 +825,7 @@
 						if(GraphLocator.getInstance().idRoot > 0){
 							GraphLocator.getInstance().graph.dataProvider.removeAll();
 							GraphLocator.getInstance().waiting = true;
-							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
+							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
 							getCollaborationEvent.dispatch();
 						}					
 					}
@@ -893,7 +895,7 @@
 						if(GraphLocator.getInstance().idRoot > 0){
 							GraphLocator.getInstance().graph.dataProvider.removeAll();
 							GraphLocator.getInstance().waiting = true;
-							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
+							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
 							getCollaborationEvent.dispatch();
 						}					
 					}
@@ -907,7 +909,8 @@
 			protected function ddlNumber_changeHandler(event:IndexChangeEvent):void
 			{
 				// TODO Auto-generated method stub
-				
+				amountAuthor = ddlNumber.selectedItem;
+				ddlRecommend_changeHandler(event);
 			}
 			
 		]]>
