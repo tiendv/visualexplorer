@@ -8,14 +8,16 @@ package business.events
 	{
 		static public var EVENT_ID:String = "getCollaboration";
 		public var authorID:int;
+		public var amountAuthor:int;
 		public var algorithmType:int;
 		public var keyword:String;
-		public function GetCollaborationEvent(authorID:int, algorithmType:int, keyword:String)
+		public function GetCollaborationEvent(authorID:int, amountAuthor:int, algorithmType:int, keyword:String)
 		{
 			super(EVENT_ID);
 			this.authorID = authorID;
 			this.algorithmType = algorithmType;
 			this.keyword = keyword; 
+			this.amountAuthor = amountAuthor;
 		}
 	}
 }

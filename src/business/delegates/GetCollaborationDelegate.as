@@ -18,11 +18,12 @@ package business.delegates
 			_responder = responder;
 		}
 		
-		public function getCollaboration(authorID:int,algorithmType:int, keyword:String):void
+		public function getCollaboration(authorID:int, amountAuthor:int, algorithmType:int, keyword:String):void
 		{
 			var params : Object = new Object();
 			params["authorid"] = authorID;
 			params["algorithmtype"] = algorithmType;
+			params["amount"] = amountAuthor;
 			if(keyword != null && keyword != "")
 			{
 				params["keyword"] = keyword;

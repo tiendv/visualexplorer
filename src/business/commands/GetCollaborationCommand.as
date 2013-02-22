@@ -28,11 +28,12 @@ package business.commands
 		public function execute(event:CairngormEvent):void
 		{
 			var authorID:int = (event as GetCollaborationEvent).authorID;
+			var amountAuthor:int = (event as GetCollaborationEvent).amountAuthor;
 			var algorithmType:int = (event as GetCollaborationEvent).algorithmType;
 			var keyword:String = (event as GetCollaborationEvent).keyword;
 			var responder:Responder = new mx.rpc.Responder(onGetCollaboration,onFailed);
 			var delegate:GetCollaborationDelegate = new GetCollaborationDelegate(responder);
-			delegate.getCollaboration(authorID,algorithmType,keyword);
+			delegate.getCollaboration(authorID,amountAuthor,algorithmType,keyword);
 		}
 		
 		private function onGetCollaboration(event:ResultEvent):void
@@ -207,6 +208,7 @@ package business.commands
 		
 		private function onFailed(event:FaultEvent):void
 		{
+			_model.searchedAuthorsRight.removeAll();
 			GraphLocator.getInstance().waiting = false;
 		}
 		

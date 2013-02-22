@@ -207,6 +207,7 @@ package business.commands
 		
 		private function onFailed(event:FaultEvent):void
 		{
+			_model.searchedAuthorsRight.removeAll();
 			GraphLocator.getInstance().waiting = false;
 		}
 	}

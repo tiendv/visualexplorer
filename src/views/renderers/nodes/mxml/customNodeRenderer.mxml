@@ -155,33 +155,34 @@
 							dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=recommend";
 							setUrlReplace(dataUrlReplace);
 							GraphLocator.getInstance().graph.dataProvider.removeAll();
+
 							switch(FlexGlobals.topLevelApplication.graphView.ddlRecommend.selectedIndex)
 							{
 								case 0:
 								{//RTBVS - GetCollaboration
 									GraphLocator.getInstance().waiting = true;
-									var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_RTBVS,"");
+									var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,Graph.amountAuthor ,GraphLocator.ALGORITHM_RTBVS,"");
 									getCollaborationEvent.dispatch();
 									break;
 								}
 								case 1:
 								{//Jaccard
 									GraphLocator.getInstance().waiting = true;
-									var getCollaborationEvent1:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_JACCARD,"");
+									var getCollaborationEvent1:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,Graph.amountAuthor,GraphLocator.ALGORITHM_JACCARD,"");
 									getCollaborationEvent1.dispatch();
 									break;
 								}
 								case 2:
 								{//Cosine
 									GraphLocator.getInstance().waiting = true;
-									var getCollaborationEvent2:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_COSINE,"");
+									var getCollaborationEvent2:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,Graph.amountAuthor,GraphLocator.ALGORITHM_COSINE,"");
 									getCollaborationEvent2.dispatch();
 									break;
 								}
 								case 3:
 								{//Adamic Adar
 									GraphLocator.getInstance().waiting = true;
-									var getCollaborationEvent3:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_ADAMICADAR,"");
+									var getCollaborationEvent3:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,Graph.amountAuthor,GraphLocator.ALGORITHM_ADAMICADAR,"");
 									getCollaborationEvent3.dispatch();
 									break;
 								}
@@ -195,7 +196,7 @@
 										if(GraphLocator.getInstance().idRoot > 0){
 											GraphLocator.getInstance().graph.dataProvider.removeAll();
 											GraphLocator.getInstance().waiting = true;
-											var getCollaborationEvent4:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,GraphLocator.ALGORITHM_KEYWORD,FlexGlobals.topLevelApplication.graphView.txtKeyword.text);
+											var getCollaborationEvent4:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,Graph.amountAuthor,GraphLocator.ALGORITHM_KEYWORD,FlexGlobals.topLevelApplication.graphView.txtKeyword.text);
 											getCollaborationEvent4.dispatch();
 										}					
 									}
