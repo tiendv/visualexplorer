@@ -11,6 +11,7 @@ package business.commands
 	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
+	import mx.core.FlexGlobals;
 	import mx.rpc.Responder;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
@@ -37,7 +38,12 @@ package business.commands
 			
 			if (event.result.authors != null)
 			{
-				var authorCollection : ArrayCollection = event.result.authors.author;
+				var authorCollection : ArrayCollection = event.result.authors.author as ArrayCollection;
+				if(authorCollection == null){
+					authorCollection = new ArrayCollection();
+					authorCollection.addItem(event.result.authors.author);
+				}
+				
 				for(var i:int=0;i<authorCollection.length;i++)
 				{
 					var author:AuthorObject = new AuthorObject();
@@ -57,7 +63,12 @@ package business.commands
 					author.listSubdomain = collection;
 					_model.searchedAuthors.addItem(author);
 				}
-				
+				FlexGlobals.topLevelApplication.graphView.recommend_search_non.visible = false;
+			}
+			else{
+				if(Graph.isRecommend){
+					FlexGlobals.topLevelApplication.graphView.recommend_search_non.visible = true;
+				}
 			}
 			ModelLocator.getInstance().waitingSearchLeft = false;
 		}
