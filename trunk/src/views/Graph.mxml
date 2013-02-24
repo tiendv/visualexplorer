@@ -151,6 +151,7 @@
 						var searchAuthorEvent:SearchAuthorEvent = new SearchAuthorEvent(txtAuthorNameLeft.text);
 						searchAuthorEvent.dispatch();	
 						GraphLocator.getInstance().graph.dataProvider.removeAll();
+						GraphLocator.getInstance().idRoot = -1;
 					}
 					else
 					{
@@ -173,6 +174,7 @@
 						var searchAuthorRightEvent:SearchAuthorRightEvent = new SearchAuthorRightEvent(txtAuthorNameRight.text);
 						searchAuthorRightEvent.dispatch();
 						//end search
+						GraphLocator.getInstance().idRootRight = -1;
 					}
 					else
 					{
@@ -822,12 +824,14 @@
 					if(str != "")
 					{						
 						//-- search and draw graph
-						if(GraphLocator.getInstance().idRoot > 0){
+						//if(GraphLocator.getInstance().idRoot > 0){
 							GraphLocator.getInstance().graph.dataProvider.removeAll();
 							GraphLocator.getInstance().waiting = true;
 							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
 							getCollaborationEvent.dispatch();
-						}					
+						//}
+							//Alert.show(GraphLocator.getInstance().idRoot.toString());
+										
 					}
 					else
 					{
@@ -852,6 +856,7 @@
 						var searchAuthorEvent:SearchAuthorEvent = new SearchAuthorEvent(txtAuthorNameLeft.text);
 						searchAuthorEvent.dispatch();	
 						GraphLocator.getInstance().graph.dataProvider.removeAll();
+						GraphLocator.getInstance().idRoot = -1;
 					}
 					else
 					{
@@ -875,6 +880,7 @@
 						var searchAuthorRightEvent:SearchAuthorRightEvent = new SearchAuthorRightEvent(txtAuthorNameRight.text);
 						searchAuthorRightEvent.dispatch();
 						//end search
+						GraphLocator.getInstance().idRootRight = -1;
 					}
 					else
 					{
@@ -981,6 +987,8 @@
 		
 		<s:Label id="gm" x="100" y="250" text="Sory, the author does not exist." fontWeight="bold" fontSize="12" visible="true"/>
 		
+		<s:Label id="recommend_search_non" x="450" y="0" text="the author does not exist. Only keyword algorithm can work" fontWeight="bold" fontSize="12" visible="false"/>
+
 		<s:SWFLoader id="loadingDrawGraph" x="20" y="90" width="24" height="24" autoLoad="true"
 					 source="@Embed('assets/gui/ajax-loader.swf')" visible="{GraphLocator.getInstance().waiting}"/>
 		<mx:HBox width="200" x="{graphBody.width-200}" y="{graphBody.height-30}">
