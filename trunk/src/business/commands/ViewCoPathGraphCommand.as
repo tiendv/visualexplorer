@@ -190,12 +190,13 @@ package business.commands
 			//Alert.show(xmldata.toString());
 			GraphLocator.getInstance().waiting = false;
 			GraphLocator.getInstance().graph.dataProvider.refresh();
+			GraphLocator.getInstance().graph.dataProvider.refresh();
 		}
 		
 		private function onFailed(event:FaultEvent):void
 		{
 			GraphLocator.getInstance().graph.dataProvider.removeAll();
-			GraphLocator.getInstance().graph.dataProvider.addItem(FlexGlobals.topLevelApplication.graphView.graph);
+			//GraphLocator.getInstance().graph.dataProvider.addItem(FlexGlobals.topLevelApplication.graphView.graph);
 			GraphLocator.getInstance().waiting = false;
 		}
 	}

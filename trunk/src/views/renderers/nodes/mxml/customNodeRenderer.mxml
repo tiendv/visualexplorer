@@ -207,6 +207,27 @@
 
 									break;
 								}
+								case 5:
+								{//Rss
+									GraphLocator.getInstance().waiting = true;
+									var getCollaborationEvent5:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,Graph.amountAuthor,GraphLocator.ALGORITHM_RSS,"");
+									getCollaborationEvent5.dispatch();
+									break;
+								}
+								case 6:
+								{//MPBVS
+									GraphLocator.getInstance().waiting = true;
+									var getCollaborationEvent6:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,Graph.amountAuthor,GraphLocator.ALGORITHM_MPBVS,"");
+									getCollaborationEvent6.dispatch();
+									break;
+								}
+								case 7:
+								{//MPBVSPlUS
+									GraphLocator.getInstance().waiting = true;
+									var getCollaborationEvent7:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,Graph.amountAuthor,GraphLocator.ALGORITHM_MPBVSPLUS,"");
+									getCollaborationEvent7.dispatch();
+									break;
+								}
 								default:
 								{
 									break;
