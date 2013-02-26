@@ -456,18 +456,36 @@
 							if(str != "")
 							{						
 								//-- search and draw graph
-								if(GraphLocator.getInstance().idRoot > 0){
-									GraphLocator.getInstance().graph.dataProvider.removeAll();
-									GraphLocator.getInstance().waiting = true;
-									var getCollaborationEvent4:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
-									getCollaborationEvent4.dispatch();
-								}					
+								GraphLocator.getInstance().waiting = true;
+								var getCollaborationEvent4:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
+								getCollaborationEvent4.dispatch();
 							}
 							else
 							{
 								txtKeyword.text = "";
 							}
 							
+							break;
+						}
+						case 5:
+						{//Rss
+							GraphLocator.getInstance().waiting = true;
+							var getCollaborationEvent5:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_RSS,"");
+							getCollaborationEvent5.dispatch();
+							break;
+						}
+						case 6:
+						{//MPBVS
+							GraphLocator.getInstance().waiting = true;
+							var getCollaborationEvent6:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_MPBVS,"");
+							getCollaborationEvent6.dispatch();
+							break;
+						}
+						case 7:
+						{//MPBVSPlUS
+							GraphLocator.getInstance().waiting = true;
+							var getCollaborationEvent7:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_MPBVSPLUS,"");
+							getCollaborationEvent7.dispatch();
 							break;
 						}
 						default:
@@ -749,6 +767,7 @@
 				{
 					gm.visible = false;
 					GraphLocator.getInstance().graph.dataProvider.removeAll();
+					lstRight.dataProvider.removeAll();
 					
 					switch(ddlRecommend.selectedIndex)
 					{
@@ -791,18 +810,36 @@
 							if(str != "" && count>0)
 							{						
 								//-- search and draw graph
-								if(GraphLocator.getInstance().idRoot > 0){
-									GraphLocator.getInstance().graph.dataProvider.removeAll();
-									GraphLocator.getInstance().waiting = true;
-									var getCollaborationEvent4:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
-									getCollaborationEvent4.dispatch();
-								}					
+								GraphLocator.getInstance().waiting = true;
+								var getCollaborationEvent4:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
+								getCollaborationEvent4.dispatch();
 							}
 							else if(count>0)
 							{
 								txtKeyword.text = "";
 							}
 							count++;
+							break;
+						}
+						case 5:
+						{//Rss
+							GraphLocator.getInstance().waiting = true;
+							var getCollaborationEvent5:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_RSS,"");
+							getCollaborationEvent5.dispatch();
+							break;
+						}
+						case 6:
+						{//MPBVS
+							GraphLocator.getInstance().waiting = true;
+							var getCollaborationEvent6:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_MPBVS,"");
+							getCollaborationEvent6.dispatch();
+							break;
+						}
+						case 7:
+						{//MPBVSPlUS
+							GraphLocator.getInstance().waiting = true;
+							var getCollaborationEvent7:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_MPBVSPLUS,"");
+							getCollaborationEvent7.dispatch();
 							break;
 						}
 						default:
@@ -822,7 +859,8 @@
 					var str:String = txtKeyword.text;
 					str = str.replace(/\s+/g, '');
 					if(str != "")
-					{						
+					{			
+						lstRight.dataProvider.removeAll();
 						//-- search and draw graph
 						//if(GraphLocator.getInstance().idRoot > 0){
 							GraphLocator.getInstance().graph.dataProvider.removeAll();
@@ -896,14 +934,15 @@
 					var str:String = txtKeyword.text;
 					str = str.replace(/\s+/g, '');
 					if(str != "")
-					{						
+					{				
+						lstRight.dataProvider.removeAll();
 						//-- search and draw graph
-						if(GraphLocator.getInstance().idRoot > 0){
-							GraphLocator.getInstance().graph.dataProvider.removeAll();
-							GraphLocator.getInstance().waiting = true;
-							var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
-							getCollaborationEvent.dispatch();
-						}					
+						//if(GraphLocator.getInstance().idRoot > 0){
+						GraphLocator.getInstance().graph.dataProvider.removeAll();
+						GraphLocator.getInstance().waiting = true;
+						var getCollaborationEvent:GetCollaborationEvent = new GetCollaborationEvent(GraphLocator.getInstance().idRoot,amountAuthor,GraphLocator.ALGORITHM_KEYWORD,txtKeyword.text);
+						getCollaborationEvent.dispatch();
+						//}					
 					}
 					else
 					{
@@ -1042,7 +1081,7 @@
 		<s:DropDownList id="ddlRecommend" prompt="Please select an algorithm..."  y="1"
 						change="ddlRecommend_changeHandler(event)" selectedIndex="{keywordIndex}" enabled="{!GraphLocator.getInstance().waiting}">
 			<s:dataProvider>
-				<s:ArrayList source="[RTBVS,Jaccard,Cosine,Adamic Adar,Keyword]"/>
+				<s:ArrayList source="[RTBVS,Jaccard,Cosine,Adamic Adar,Keyword,RSS,MPBVS,MPBVS Plus]"/>
 			</s:dataProvider>
 		</s:DropDownList>
 		<s:Label id="lblAlgorithm" text="Select an algorithm" color="#333333" fontStyle="italic" fontSize="10"/>

@@ -40,5 +40,9 @@ package models
 		public static const ALGORITHM_JACCARD:int = 3;
 		public static const ALGORITHM_RTBVS:int = 4;
 		public static const ALGORITHM_KEYWORD:int = 5;
+		public static const ALGORITHM_RSS:int = 6;
+		public static const ALGORITHM_MPBVS:int = 7;
+		public static const ALGORITHM_MPBVSPLUS:int = 8;
+
 	}
 }

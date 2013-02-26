@@ -13,6 +13,7 @@ package business.commands
 	
 	import mx.collections.ArrayCollection;
 	import mx.controls.Alert;
+	import mx.core.FlexGlobals;
 	import mx.rpc.Responder;
 	import mx.rpc.events.FaultEvent;
 	import mx.rpc.events.ResultEvent;
@@ -38,6 +39,8 @@ package business.commands
 		
 		private function onGetCollaboration(event:ResultEvent):void
 		{//recommend
+			FlexGlobals.topLevelApplication.graphView.recommend_search_non.visible = false;
+			
 			_model.searchedAuthorsRight.removeAll();
 
 			var xmldata:XML = <Graph></Graph>;
@@ -197,7 +200,9 @@ package business.commands
 					nodeRoot = GraphUtil.createNode(obj.authorID,obj.authorName,d,80,obj.imgUrl,0);
 					GraphLocator.getInstance().idRoot = obj.authorID;
 				}
-				
+				if(GraphLocator.getInstance().idRoot == -1){
+					nodeRoot = GraphUtil.createNode(o.authorID," "," ",80,o.imgUrl,0);
+				}
 				xmldata.prependChild(nodeRoot);
 				GraphLocator.getInstance().graph.dataProvider.removeAll();
 				GraphLocator.getInstance().graph.dataProvider.addItem(xmldata);
