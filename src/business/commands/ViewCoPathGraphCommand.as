@@ -62,11 +62,7 @@ package business.commands
 							if(collection == null){
 								collection = new ArrayCollection();
 							}
-							//var desc:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
-							//	"publication: " + o.publicationCount 	+ 	"&#13;" + 
-							//	"h_index: "		+ o.h_Index			+	",   "	+
-							//	"g_index: "		+ o.g_Index			+	"&#13;" +
-							//	"subdomain: ";
+
 							var desc:String = "";
 							for each (var item:Object in collection) {
 								desc += item + ", ";
@@ -106,11 +102,7 @@ package business.commands
 							if(collection1 == null){
 								collection1 = new ArrayCollection();
 							}
-							//var desc1:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
-							//	"publication: " + o.publicationCount 	+ 	"&#13;" + 
-							//	"h_index: "		+ o.h_Index			+	",   "	+
-							//	"g_index: "		+ o.g_Index			+	"&#13;" +
-							//	"subdomain: ";
+							
 							var desc1:String = "";
 							for each (var item1:Object in collection1) {
 								desc1 += item1 + ", ";
@@ -128,11 +120,7 @@ package business.commands
 							if(collection2 == null){
 								collection2 = new ArrayCollection();
 							}
-							//var desc2:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
-							//	"publication: " + o.publicationCount 	+ 	"&#13;" + 
-							//	"h_index: "		+ o.h_Index			+	",   "	+
-							//	"g_index: "		+ o.g_Index			+	"&#13;" +
-							//	"subdomain: ";
+
 							var desc2:String = "";
 							for each (var item2:Object in collection2) {
 								desc2 += item2 + ", ";
@@ -167,11 +155,7 @@ package business.commands
 					if(c == null){
 						c = new ArrayCollection();
 					}
-					//var d:String = 	"Org: " 		+ obj.orgName 			+ 	"&#13;" +
-					//	"publication: " + obj.publicationCount 	+ 	"&#13;" + 
-					//	"h_index: "		+ obj.h_Index			+	",   "	+
-					//	"g_index: "		+ obj.g_Index			+	"&#13;" +
-					//	"subdomain: ";
+
 					var d:String = "";
 					for each (var sd1:Object in c) 
 					{
@@ -190,7 +174,9 @@ package business.commands
 			//Alert.show(xmldata.toString());
 			GraphLocator.getInstance().waiting = false;
 			GraphLocator.getInstance().graph.dataProvider.refresh();
-			GraphLocator.getInstance().graph.dataProvider.refresh();
+			FlexGlobals.topLevelApplication.graphView.visualGraph.redrawNodes();
+			FlexGlobals.topLevelApplication.graphView.visualGraph.redrawEdges();
+			FlexGlobals.topLevelApplication.graphView.visualGraph.refresh();
 		}
 		
 		private function onFailed(event:FaultEvent):void

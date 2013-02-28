@@ -64,11 +64,7 @@ package business.commands
 							if(collection == null){
 								collection = new ArrayCollection();
 							}
-							//var desc:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
-							//	"publication: " + o.publicationCount 	+ 	"&#13;" + 
-							//	"h_index: "		+ o.h_Index			+	",   "	+
-							//	"g_index: "		+ o.g_Index			+	"&#13;" +
-							//	"subdomain: ";
+
 							var desc:String = "";
 							for each (var item:Object in collection) {
 								desc += item + ", ";
@@ -131,11 +127,7 @@ package business.commands
 							if(collect == null){
 								collect = new ArrayCollection();
 							}
-							//var description:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
-							//	"publication: " + o.publicationCount 	+ 	"&#13;" + 
-							//	"h_index: "		+ o.h_Index			+	",   "	+
-							//	"g_index: "		+ o.g_Index			+	"&#13;" +
-							//	"subdomain: ";
+
 							var description:String = "";
 							for each (var sd:Object in collect) {
 								description += sd + ", ";
@@ -183,11 +175,7 @@ package business.commands
 					if(c == null){
 						c = new ArrayCollection();
 					}
-					//var d:String = 		"Org: " 		+ obj.orgName 			+ 	"&#13;" +
-					//					"publication: " + obj.publicationCount 	+ 	"&#13;" + 
-					//					"h_index: "		+ obj.h_Index			+	",   "	+
-					//					"g_index: "		+ obj.g_Index			+	"&#13;" +
-					//					"subdomain: ";
+
 					var d:String = "";
 					for each (var sd1:Object in c) 
 					{

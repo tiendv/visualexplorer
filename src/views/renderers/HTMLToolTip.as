@@ -17,5 +17,7 @@ package views.renderers
 			super.commitProperties();
 			textField.htmlText = text;
 		}
+		
+		
 	}
 }

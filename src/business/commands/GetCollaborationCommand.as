@@ -70,15 +70,17 @@ package business.commands
 							if(collection == null){
 								collection = new ArrayCollection();
 							}
-							//var desc:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
-							//	"publication: " + o.publicationCount 	+ 	"&#13;" + 
-							//	"h_index: "		+ o.h_Index			+	",   "	+
-							//	"g_index: "		+ o.g_Index			+	"&#13;" +
-							//	"subdomain: ";
+
 							var desc:String = "";
 							for each (var item:Object in collection) {
 								desc += item + ", ";
 							}
+							if(o.authorID == -1){
+								o.authorName = "";
+								o.imgUrl = "";
+								o.orgName = "";
+							}
+							
 							desc = GraphUtil.createTooltipDesc(o.authorName,o.imgUrl,o.orgName,o.publicationCount,o.h_Index,o.g_Index,desc);
 							nodeRoot = GraphUtil.createNode(o.authorID,o.authorName,desc,80,o.imgUrl,0);
 							var simDataRootCollection:ArrayCollection = o.simData.entry as ArrayCollection;
@@ -136,11 +138,7 @@ package business.commands
 							if(collect == null){
 								collect = new ArrayCollection();
 							}
-							//var description:String = 	"Org: " + o.orgName 	+ 	"&#13;" +
-							//	"publication: " + o.publicationCount 	+ 	"&#13;" + 
-							//	"h_index: "		+ o.h_Index			+	",   "	+
-							//	"g_index: "		+ o.g_Index			+	"&#13;" +
-							//	"subdomain: ";
+
 							var description:String = "";
 							for each (var sd:Object in collect) {
 								description += sd + ", ";
@@ -186,23 +184,23 @@ package business.commands
 					if(c == null){
 						c = new ArrayCollection();
 					}
-					//var d:String = 	"Org: " 		+ obj.orgName 			+ 	"&#13;" +
-					//	"publication: " + obj.publicationCount 	+ 	"&#13;" + 
-					//	"h_index: "		+ obj.h_Index			+	",   "	+
-					//	"g_index: "		+ obj.g_Index			+	"&#13;" +
-					//	"subdomain: ";
+
 					var d:String = "";
 					for each (var sd1:Object in c) 
 					{
 						d += sd1 + ", ";
 					}
+					
+					if(o.authorID == -1){
+						o.authorName = "";
+						o.imgUrl = "";
+						o.orgName = "";
+					}
 					d = GraphUtil.createTooltipDesc(obj.authorName,obj.imgUrl,obj.orgName,obj.publicationCount,obj.h_Index,obj.g_Index,d);
 					nodeRoot = GraphUtil.createNode(obj.authorID,obj.authorName,d,80,obj.imgUrl,0);
 					GraphLocator.getInstance().idRoot = obj.authorID;
 				}
-				if(GraphLocator.getInstance().idRoot == -1){
-					nodeRoot = GraphUtil.createNode(o.authorID," "," ",80,o.imgUrl,0);
-				}
+				
 				xmldata.prependChild(nodeRoot);
 				GraphLocator.getInstance().graph.dataProvider.removeAll();
 				GraphLocator.getInstance().graph.dataProvider.addItem(xmldata);
