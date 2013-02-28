@@ -13,8 +13,8 @@
 				<mx:Box id="box_img" backgroundColor="{color}" toolTip="{this.data.data.@desc}" 
 						horizontalAlign="center" verticalAlign="middle" resize="box_img_resize(event);">
 					<mx:Image id="img" horizontalAlign="center" verticalAlign="middle" smoothBitmapContent="true"
-							  source="{this.data.data.@imgUrl}" doubleClick="img_doubleClickHandler(event)" resize="image_resize(event);"
-							  />
+							  doubleClick="img_doubleClickHandler(event)" resize="image_resize(event);" autoLoad="true"
+							  source="{this.data.data.@imgUrl}"/>
 				</mx:Box>
 			</mx:Box>
 			<mx:Box backgroundAlpha="0" backgroundColor="#ffffff" cornerRadius="5" paddingTop="10">
@@ -50,6 +50,7 @@
 			import mx.controls.Alert;
 			import mx.controls.ToolTip;
 			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
 			import mx.events.ResizeEvent;
 			import mx.managers.ToolTipManager;
 			
@@ -59,6 +60,7 @@
 			import views.renderers.HTMLToolTip;
 
 			private function setNode():void {
+				
 				var nodeSize:int = this.data.data.@nodeSize;
 				img.width = nodeSize;
 				img.height = nodeSize;
@@ -155,6 +157,7 @@
 							dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=recommend";
 							setUrlReplace(dataUrlReplace);
 							GraphLocator.getInstance().graph.dataProvider.removeAll();
+							FlexGlobals.topLevelApplication.graphView.lstRight.dataProvider.removeAll();
 
 							switch(FlexGlobals.topLevelApplication.graphView.ddlRecommend.selectedIndex)
 							{
@@ -336,6 +339,8 @@
 				}
 				trace(s);
 			}
+			
+			
 		]]>
 	</mx:Script>	
 </mx:Canvas>
