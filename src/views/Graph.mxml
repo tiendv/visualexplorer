@@ -963,7 +963,7 @@
 			<s:TextInput id="txtAuthorNameLeft" x="3" y="5" width="123" borderVisible="false"
 						 color="#000000" enter="txtAuthorNameLeft_enterHandler(event)"/>
 			<s:Button id="btnSearchLeft" x="128" y="2" width="25" height="25" buttonMode="true"
-					  enabled="true" icon="@Embed('assets/gui/button_Search.png')" useHandCursor="true"
+					  enabled="true" icon="@Embed('assets/gui/btn_search.png')" useHandCursor="true"
 					  click="btnSearchLeft_clickHandler(event)" />
 		</s:BorderContainer>
 		<s:Label x="10" y="40" text="Result"/>
@@ -991,13 +991,13 @@
 	<mx:Button id="btnHideLeft" x="196" y="{(height/2)-20}" width="25" height="25"
 			   click="btnHideLeft_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/button_hide.png')" paddingLeft="0" paddingRight="0"
-			   overIcon="@Embed('assets/gui/btn_hide_hover.png')"
+			   overIcon="@Embed('assets/gui/btn_hide_hover2.png')"
 			   buttonMode="true" useHandCursor="true"
 			   visible="true"/>
 	<mx:Button id="btnShowLeft" x="6" y="{(height/2)-20}" width="25" height="25"
 			   click="btnShowLeft_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/btn_show.png')" paddingLeft="0" paddingRight="0"
-			   overIcon="@Embed('assets/gui/btn_show_hover.png')"
+			   overIcon="@Embed('assets/gui/btn_show_hover2.png')"
 			   buttonMode="true" useHandCursor="true"
 			   visible="false"/>
 	
@@ -1037,7 +1037,7 @@
 						   color="#183CF0" symbolColor="#3E5BF0" visible="{!(isRecommend || isCoGraph)}">
 			<s:TextInput id="txtAuthorNameRight" x="3" y="5" width="123" borderVisible="false"
 						 color="#000000" enter="txtAuthorNameRight_enterHandler(event)"/>
-			<s:Button id="btnSearchRight" x="128" y="2" width="25" height="25" icon="@Embed('assets/gui/button_Search.png')"
+			<s:Button id="btnSearchRight" x="128" y="2" width="25" height="25" icon="@Embed('assets/gui/btn_search.png')"
 					  buttonMode="true" useHandCursor="true"
 					  click="btnSearchRight_clickHandler(event)"/>
 		</s:BorderContainer>
@@ -1087,28 +1087,28 @@
 	</mx:VBox>
 	<mx:VBox id="boxKeywordRecommend" visible="{isRecommend}" x="217" y="25"
 					   borderVisible="false" verticalGap="2" enabled="{ddlRecommend.selectedIndex==4}">
-		<s:BorderContainer x="0" y="0" width="380" height="28" borderColor="#727BFC" borderWeight="0"
+		<s:BorderContainer x="0" y="0" width="413" height="28" borderColor="#727BFC" borderWeight="0"
 						   color="#183CF0" symbolColor="#3E5BF0">
-			<s:TextInput id="txtKeyword" x="4" y="4" width="370" borderVisible="false"
+			<s:TextInput id="txtKeyword" x="4" y="4" width="403" borderVisible="false"
 						 color="#000000" text="Data Mining" enter="txtKeyword_enterHandler(event)"/>
 		</s:BorderContainer>
 		
 		<s:Label x="0" text="insert keyword of publication, each keyword separated by a semicolon" color="#333333" fontStyle="italic" fontSize="10"/>
 	</mx:VBox>
-	<s:Button id="btnSearchRecommend" x="604" y="25" width="25" height="25" icon="@Embed('assets/gui/button_Search.png')"
+	<s:Button id="btnSearchRecommend" x="440" y="70" width="25" height="25" icon="@Embed('assets/gui/btn_search.png')"
 			  buttonMode="true" useHandCursor="true"
 			  click="btnSearchRecommend_clickHandler(event)" visible="{isRecommend}"/>
 	
 	<mx:Button id="btnHideRight" x="{btnHideRightX}" y="{(height/2)-20}" width="25" height="25"
 			   click="btnHideRight_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/btn_show.png')" paddingLeft="0" paddingRight="0"
-			   overIcon="@Embed('assets/gui/btn_show_hover.png')"
+			   overIcon="@Embed('assets/gui/btn_show_hover2.png')"
 			   buttonMode="true" useHandCursor="true"
 			   visible="{btnHideRightVisible}"/>
 	<mx:Button id="btnShowRight" x="{btnShowRightX}" y="{(height/2)-20}" width="25" height="25"
 			   click="btnShowRight_clickHandler(event)" cornerRadius="12"
 			   icon="@Embed('assets/gui/button_hide.png')" paddingLeft="0" paddingRight="0"
-			   overIcon="@Embed('assets/gui/btn_hide_hover.png')"
+			   overIcon="@Embed('assets/gui/btn_hide_hover2.png')"
 			   buttonMode="true" useHandCursor="true"
 			   visible="{btnShowRightVisible}"/>
 	<mx:Button id="btnCoAuthorGraph" x="217" y="1" label="Co-author Graph"
