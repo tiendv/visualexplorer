@@ -263,10 +263,6 @@
 					isRecommend = false;
 					GraphLocator.getInstance().action = 1;
 	
-					//searchRightVisible = false;
-					//vrRightVisible = false;
-					//btnHideRightVisible = false;
-					//btnShowRightVisible = false;
 					//----
 					searchRightVisible = true;
 					vrRightVisible = true;
@@ -361,12 +357,6 @@
 					GraphLocator.getInstance().action = 4;
 					keywordIndex = 0;
 					ddlRecommend.selectedIndex = 0;
-				
-	
-					//searchRightVisible = false;
-					//vrRightVisible = false;
-					//btnHideRightVisible = false;
-					//btnShowRightVisible = false;
 					
 					searchRightVisible = true;
 					vrRightVisible = true;
@@ -387,6 +377,7 @@
 				var dataUrlReplace:Object = new Object();
 				dataUrlReplace.urlReplace = "";
 				GraphLocator.getInstance().idRoot = dataLeft.authorID;
+				lstRight.dataProvider.removeAll();
 				if(isCoGraph){
 					dataUrlReplace.urlReplace = "aid="+GraphLocator.getInstance().idRoot+"&action=graph";
 					GraphLocator.getInstance().waiting = true;
@@ -926,6 +917,7 @@
 					str = str.replace(/\s+/g, '');
 					if(str != "")
 					{				
+						recommend_search_non.visible = false;
 						lstRight.dataProvider.removeAll();
 						//-- search and draw graph
 						GraphLocator.getInstance().graph.dataProvider.removeAll();

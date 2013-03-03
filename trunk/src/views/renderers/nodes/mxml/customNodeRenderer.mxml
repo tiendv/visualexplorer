@@ -14,7 +14,7 @@
 						horizontalAlign="center" verticalAlign="middle" resize="box_img_resize(event);">
 					<mx:Image id="img" horizontalAlign="center" verticalAlign="middle" smoothBitmapContent="true"
 							  doubleClick="img_doubleClickHandler(event)" resize="image_resize(event);" autoLoad="true"
-							  source="{this.data.data.@imgUrl}"/>
+							  />
 				</mx:Box>
 			</mx:Box>
 			<mx:Box backgroundAlpha="0" backgroundColor="#ffffff" cornerRadius="5" paddingTop="10">
@@ -60,6 +60,9 @@
 			import views.renderers.HTMLToolTip;
 
 			private function setNode():void {
+				if(this.data.data.@imgUrl != null && this.data.data.@imgUrl != ""){
+					loadPicture();
+				}
 				
 				var nodeSize:int = this.data.data.@nodeSize;
 				img.width = nodeSize;
@@ -112,11 +115,6 @@
 							Graph.isCitation = false;
 							Graph.isRecommend = false;
 							GraphLocator.getInstance().action = 1;
-							
-							//Graph.searchRightVisible = false;
-							//Graph.vrRightVisible = false;
-							//Graph.btnHideRightVisible = false;
-							//Graph.btnShowRightVisible = false;
 							
 							Graph.searchRightVisible = true;
 							Graph.vrRightVisible = true;
@@ -340,6 +338,40 @@
 				trace(s);
 			}
 			
+			
+			public function loadPicture():void
+			{
+				var req:URLRequest = new URLRequest(this.data.data.@imgUrl);
+				var _picLoader:Loader = new Loader();
+				_picLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loader2ByteArray);
+				_picLoader.load(req);
+			}
+			 
+			public function loader2ByteArray(evt:Event):void
+			{
+				var lInfo:LoaderInfo = LoaderInfo(evt.target);
+				var ba:ByteArray = lInfo.bytes;
+				reloadByteArray(ba);
+			}
+			 
+			public function reloadByteArray(ba:ByteArray):void
+			{
+				var reloader:Loader = new Loader();
+				reloader.loadBytes(ba);
+				reloader.contentLoaderInfo.addEventListener(Event.COMPLETE, reloaderComplete);
+			}
+			 
+			public function reloaderComplete(evt:Event):void
+			{
+				var imageInfo:LoaderInfo = LoaderInfo(evt.target);
+				//var bmd:BitmapData = new BitmapData(imageInfo.width,imageInfo.height);
+				//bmd.draw(imageInfo.loader);
+				//var resultBitmap:Bitmap = new Bitmap(bmd);
+				//addChild(resultBitmap);
+				img.source = imageInfo.content;
+			}
+			
+
 			
 		]]>
 	</mx:Script>	
