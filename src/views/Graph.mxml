@@ -670,6 +670,7 @@
 						visualGraph.layouter.layoutChanged = true;
 						//search and draw graph citation
 						//---
+						GraphLocator.getInstance().waiting = true;
 						new GetCitationGraphEvent(GraphLocator.getInstance().idRoot).dispatch();
 						//---
 					}
