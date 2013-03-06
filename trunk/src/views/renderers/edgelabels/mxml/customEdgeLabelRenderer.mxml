@@ -31,7 +31,7 @@
 					var url:String = Domain.host + "/Detail?entityType=2&searchType=5&id="+this.data.data.@fromID+"&cid="+this.data.data.@toID;
 					var request:URLRequest = new URLRequest(url);
 					try {
-						navigateToURL(request, '_self');
+						navigateToURL(request, 'blank');
 					} catch (e:Error) {
 						trace("Error occurred!");
 					}
