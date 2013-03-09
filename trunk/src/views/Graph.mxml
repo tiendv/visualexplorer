@@ -152,6 +152,9 @@
 						searchAuthorEvent.dispatch();	
 						GraphLocator.getInstance().graph.dataProvider.removeAll();
 						GraphLocator.getInstance().idRoot = -1;
+						if(isRecommend){
+							lstRight.dataProvider.removeAll();
+						}
 					}
 					else
 					{
@@ -878,6 +881,9 @@
 						searchAuthorEvent.dispatch();	
 						GraphLocator.getInstance().graph.dataProvider.removeAll();
 						GraphLocator.getInstance().idRoot = -1;
+						if(isRecommend){
+							lstRight.dataProvider.removeAll();
+						}
 					}
 					else
 					{
